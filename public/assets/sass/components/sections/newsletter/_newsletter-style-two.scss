@@ -1,0 +1,43 @@
+/*==== Newsletter Section One =====================*/
+.newsletter-section.style-2 {
+  margin-top: -220px !important;
+  margin-bottom: -220px !important;
+
+  .newsletter {
+    display: inherit;
+
+    .arrow-shape {
+      position: absolute;
+      right: 100px;
+      top: 60px;
+
+      &.two {
+        left: 220px;
+        top: 260px;
+      }
+    }
+
+    .newsletter-form {
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 530px;
+
+      .form-group {
+        input {
+          background: $bg-color5;
+          border: 1px solid $border-color3;
+          height: 64px;
+          border-radius: 33px;
+        }
+
+        button {
+          height: 50px;
+          width: 50px;
+          border: 1px solid $border-color3;
+          background: $bg-color22;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}

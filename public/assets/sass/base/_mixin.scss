@@ -1,0 +1,583 @@
+@use "sass:math";
+
+@mixin background-content($repeat: no-repeat, $size: cover, $position: center center) {
+	background-repeat: $repeat;
+	background-size: $size;
+	background-position: $position;
+}
+
+@mixin overlay($opacity: $opacity, $z-index: 0) {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	opacity: $opacity;
+	z-index: $z-index;
+}
+
+@mixin equal-size($width, $height: $width) {
+	width: $width;
+	height: $height;
+}
+
+@mixin height-lh($height, $lineheight: $height) {
+	height: $height;
+	line-height: $lineheight;
+}
+
+@mixin equal-size-lineHeight($width, $height: $width, $Lheight: $width) {
+	width: $width;
+	height: $height;
+	line-height: $Lheight;
+}
+
+@mixin flex-position($display, $contet, $items) {
+	display: $display;
+	justify-content: $contet;
+	align-items: $items;
+}
+
+@mixin center-position($top: $top, $left: $top) {
+	position: absolute;
+	top: $top;
+	left: $top;
+	transform: translate(-#{$top}, -#{$top});
+}
+
+@mixin inputPlaceholder() {
+	$selector: '';
+	$prefixes: (moz: "::-moz",
+			webkit: "::-webkit",
+			ie: ":-ms"
+		);
+
+	@each $prop,
+	$value in $prefixes {
+		@if $prop !="moz" {
+			$selector: #{$value}-input-placeholder;
+		}
+
+		@else {
+			$selector: #{$value}-placeholder;
+		}
+
+		@if & {
+			&#{$selector} {
+				@content;
+			}
+		}
+
+		@else {
+			#{$selector} {
+				@content;
+			}
+		}
+	}
+
+	&::placeholder {
+		@content;
+	}
+}
+
+
+
+// Mixin to place items on a circle
+@mixin on-circle($item-count, $circle-size, $item-size, $rotCount: 0, $angleCount: 360) {
+
+
+	>* {
+		display: block;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: $item-size;
+		height: $item-size;
+		line-height: $item-size;
+		margin: -($item-size * 0.5);
+
+		$angle: #{$angleCount / $item-count};
+		$rot: $rotCount;
+
+		@for $i from 1 through $item-count {
+			&:nth-of-type(#{$i}) {
+				transform:
+					rotate($rot * 1deg) translate($circle-size * 0.5) rotate($rot * -1deg);
+			}
+
+			$rot: $rot+$angle;
+		}
+	}
+}
+
+// SCSS Mixin for Transition
+@mixin transition($duration: 0.4s, $timing-function: ease, $delay: 0s) {
+	transition: all $duration $timing-function $delay;
+}
+
+@mixin transition-properties($props...) {
+	-webkit-transition: $props;
+	-o-transition: $props;
+	transition: $props;
+}
+
+@mixin transition-delay($itemcount: 1, $transitionCount: 0.0s) {
+	$transition: $transitionCount;
+
+	@for $i from 1 through $itemcount {
+		&:nth-of-type(#{$i}) {
+			transition-delay: ($transition + $transitionCount);
+		}
+
+		$transition: $transition+0.1s;
+	}
+}
+
+// Responsive Query
+@mixin hd {
+
+	/* Hight Resoulation devices */
+	@media (min-width: #{$hd + 1}) {
+		@content;
+	}
+}
+
+@mixin xxl {
+
+	/* Extra large devices */
+	@media (max-width: #{$xxl}) {
+		@content;
+	}
+}
+
+@mixin ml {
+
+	/* Medium Large devices */
+	@media (max-width: #{$ml}) {
+		@content;
+	}
+}
+
+@mixin xl {
+
+	/* Medium Large devices */
+	@media (max-width: #{$xl}) {
+		@content;
+	}
+}
+
+@mixin lg {
+
+	/* Large devices */
+	@media (max-width: #{$lg}) {
+		@content;
+	}
+}
+
+@mixin md {
+
+	/* Medium devices */
+	@media (max-width: #{$md}) {
+		@content;
+	}
+}
+
+@mixin sm {
+
+	/* Small devices */
+	@media (max-width: #{$sm}) {
+		@content;
+	}
+}
+
+@mixin xs {
+
+	/* Extra small devices */
+	@media (max-width: #{$xs}) {
+		@content;
+	}
+}
+
+@mixin vxs {
+
+	/* Extra small devices */
+	@media (max-width: #{$vxs}) {
+		@content;
+	}
+}
+
+@mixin rtl {
+
+	/* rtl Support */
+	[dir="rtl"] {
+		@content;
+	}
+}
+
+// Mixin for responsive breakpoints
+@mixin mobile-s {
+	@media (max-width: $mobile-s) {
+		@content;
+	}
+}
+
+@mixin mobile-m {
+	@media (max-width: $mobile-m) {
+		@content;
+	}
+}
+
+@mixin respond-mobile-m {
+	@media (min-width: $mobile-m) and (max-width: #{($mobile-l - 1)}) {
+		@content;
+	}
+}
+
+@mixin mobile-l {
+	@media (max-width: $mobile-l) {
+		@content;
+	}
+}
+
+@mixin respond-mobile-l {
+	@media (min-width: $mobile-l) and (max-width: #{($mobile-xl - 1)}) {
+		@content;
+	}
+}
+
+@mixin mobile-xl {
+	@media (max-width: $mobile-xl) {
+		@content;
+	}
+}
+
+@mixin respond-mobile-xl {
+	@media (min-width: $mobile-xl) and (max-width: #{($tablet-s - 1)}) {
+		@content;
+	}
+}
+
+@mixin tablet-s {
+	@media (max-width: $tablet-s) {
+		@content;
+	}
+}
+
+@mixin respond-tablet-s {
+	@media (min-width: $tablet-s) and (max-width: #{($xs - 1)}) {
+		@content;
+	}
+}
+
+@mixin tablet-m {
+	@media (max-width: $tablet-m) {
+		@content;
+	}
+}
+
+@mixin respond-tablet-m {
+	@media (min-width: $tablet-m) and (max-width: #{($tablet-l - 1)}) {
+		@content;
+	}
+}
+
+@mixin tablet-l {
+	@media (max-width: $tablet-l) {
+		@content;
+	}
+}
+
+@mixin respond-tablet-l {
+	@media (min-width: $tablet-l) and (max-width: #{($laptop-s - 1)}) {
+		@content;
+	}
+}
+
+@mixin laptop-s {
+	@media (max-width: $laptop-s) {
+		@content;
+	}
+}
+
+@mixin respond-laptop-s {
+	@media (min-width: $laptop-s) and (max-width: #{($md - 1)}) {
+		@content;
+	}
+}
+
+@mixin laptop-m {
+	@media (max-width: $laptop-m) {
+		@content;
+	}
+}
+
+@mixin laptop-l {
+	@media (max-width: $laptop-l) {
+		@content;
+	}
+}
+
+@mixin respond-NestHubMax {
+	@media (min-width: $laptop-l) and (max-width: #{($xl - 1)}) {
+		@content;
+	}
+}
+
+@mixin nestHub {
+	@media (min-width: #{ $md + 1}) and (max-width: #{ $laptop-m }) {
+		@content;
+	}
+}
+
+@mixin nestHubMax {
+	@media (min-width: #{ $lg + 1}) and (max-width: #{ $laptop-l }) {
+		@content;
+	}
+}
+
+
+@mixin respond-between($min, $max) {
+	@media (min-width: $min) and (max-width: $max) {
+		@content;
+	}
+}
+
+
+
+/*================Responsive Cool System================*/
+// Breakpoints Map
+$breakpoints: (hd: 1921px,
+	xxl: 1500px,
+	ml: 1399px,
+	xl: 1299px,
+	lg: 1199px,
+	md: 991px,
+	sm: 767px,
+	xs: 575px,
+	vxs: 375px,
+	mobile-s: 360px,
+	mobile-m: 390px,
+	mobile-l: 414px,
+	mobile-xl: 430px,
+	tablet-s: 540px,
+	tablet-m: 820px,
+	tablet-l: 853px,
+	laptop-s: 912px,
+	laptop-m: 1024px,
+	laptop-l: 1280px);
+
+//  Example:
+// @include r(lg) { ... }             // max-width: 1199px
+// @include r(lg, min) { ... }        // min-width: 1199px
+// @include r((sm, md)) { ... }       // range
+// @include r(lg, md) { ... }         // multiple max queries
+// =========================================
+
+@mixin r($args...) {
+	$type: auto;
+	$points: ();
+
+	//  Separate points & detect type
+	@each $arg in $args {
+		@if type-of($arg)==string or type-of($arg)==list {
+			@if $arg==min or $arg==max {
+				$type: $arg;
+			}
+
+			@else {
+				$points: append($points, $arg);
+			}
+		}
+	}
+
+	@each $point in $points {
+
+		//  Range support (e.g., (sm, md))
+		@if type-of($point)==list {
+			$min: map-get($breakpoints, nth($point, 1));
+			$max: map-get($breakpoints, nth($point, 2));
+
+			@if $min !=null and $max !=null {
+				@media (min-width: $min) and (max-width: $max) {
+					@content;
+				}
+			}
+
+			@else {
+				@warn "⚠️ Range `#{$point}` not defined in $breakpoints map.";
+			}
+		}
+
+		//  Single breakpoint
+		@else {
+			$size: map-get($breakpoints, $point);
+
+			@if $size !=null {
+				//  Auto-detect if no type given
+				$final-type: if($type !=auto,
+					$type,
+					if(str-index(#{$point}, 'min') or str-index(#{$point}, 'up'), min, max));
+
+				@if $final-type==max {
+					@media (max-width: $size) {
+						@content;
+					}
+				}
+
+				@else if $final-type==min {
+					@media (min-width: $size) {
+						@content;
+					}
+				}
+			}
+
+			@else {
+				@warn "⚠️ Breakpoint `#{$point}` not found in $breakpoints map.";
+			}
+		}
+	}
+}
+
+// Text Background Mixin With Extend
+@mixin text-background($background, $text-color: transparent, $blend-mode: normal, $bg-size: auto) {
+	background: $background;
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: $text-color;
+	background-size: $bg-size;
+	background-blend-mode: $blend-mode;
+}
+
+/*Position*/
+@mixin position($vertical, $horizontal) {
+	position: absolute;
+	#{$vertical}: 0;
+	#{$horizontal}: 0;
+	z-index: -1;
+}
+
+// Center Grid Mixin
+@mixin center-grid {
+	display: grid;
+	place-items: center;
+	place-content: center;
+}
+
+// Center Flex Mixin
+@mixin center-flex {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+// Transparent Border Mixin
+@mixin transparent-border($b-color, $border-width) {
+	display: inline-block;
+	position: relative;
+
+	// Creates the text outline using text-shadow
+	text-shadow: -#{$border-width} -#{$border-width} 0 $b-color,
+	#{$border-width} -#{$border-width} 0 $b-color,
+	-#{$border-width} #{$border-width} 0 $b-color,
+	#{$border-width} #{$border-width} 0 $b-color;
+}
+
+// Define absolute mixin
+@mixin absolute-content($width: 100%, $height: 100%, $background: none) {
+	position: absolute;
+	content: "";
+	width: $width;
+	height: $height;
+	background: $background;
+	transition: all 0.4s ease-in-out;
+}
+
+@mixin absolute-center {
+	position: absolute;
+	content: '';
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	transition: all .4s ease;
+}
+
+@mixin absolute-centerX {
+	position: absolute;
+	content: '';
+	left: 50%;
+	transform: translateX(-50%);
+	transition: all .4s ease;
+}
+
+@mixin absolute-centerY {
+	position: absolute;
+	content: '';
+	top: 50%;
+	transform: translateY(-50%);
+	transition: all .4s ease;
+}
+
+// Define Border mixin
+@mixin border($side, $width, $style, $color) {
+	position: relative;
+	border-#{$side}: $width #{$style} #{$color} !important;
+}
+
+@mixin outline($width, $style, $color) {
+	position: relative;
+	outline: $width #{$style} #{$color} !important;
+}
+
+@mixin border-style($width: 1px, $height: 1px, $background: $dark-color) {
+	width: $width;
+	height: $height;
+	background-color: $background;
+}
+
+@mixin filter-theme-color {
+	filter: brightness(0) saturate(100%) invert(39%) sepia(81%) saturate(1769%) hue-rotate(346deg) brightness(94%) contrast(89%);
+}
+
+@mixin filter-theme-color2 {
+	filter: brightness(0) saturate(100%) invert(91%) sepia(12%) saturate(1224%) hue-rotate(31deg) brightness(104%) contrast(75%);
+}
+
+@mixin filter-dark-color {
+	filter: brightness(0) saturate(100%) invert(12%) sepia(97%) saturate(556%) hue-rotate(135deg) brightness(92%) contrast(95%);
+}
+
+@mixin filter-white-color {
+	filter: brightness(0)invert(1);
+}
+
+@mixin bg-gradient($color1, $color2, $percentage: 50%) {
+	background-image: linear-gradient($color1 $percentage, $color2 $percentage) !important;
+}
+
+// Mixin to generate mix-blend-mode classes
+@mixin mix-blend-mode($modes...) {
+	@each $mode in $modes {
+		.mbm-#{$mode} {
+			mix-blend-mode: $mode;
+		}
+	}
+}
+
+// Mixin to generate max-width classes
+@mixin max-width($widths...) {
+	@each $width in $widths {
+		.mw-#{$width} {
+			max-width: $width !important;
+		}
+	}
+}
+
+@mixin direction($value) {
+	direction: #{$value};
+}

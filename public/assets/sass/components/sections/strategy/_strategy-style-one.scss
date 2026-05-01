@@ -1,0 +1,172 @@
+/*======== Strategy Section One =========*/
+
+.tv-strategy-section {
+	.strategy-inner {
+		border-radius: 30px 30px 0 0;
+	}
+
+	.rocket-shape {
+		position: absolute;
+		top: -120px;
+		left: 130px;
+		z-index: 1;
+	}
+}
+
+
+
+.strategy-wrapper {
+	display: flex;
+	gap: 30px;
+	overflow: hidden;
+	background: $light-color;
+	padding: 30px;
+	border-radius: 30px;
+
+	@include md {
+		gap: 20px;
+		flex-direction: column;
+	}
+
+	@include mobile-xl {
+		padding: 20px;
+	}
+
+	.strategy-left {
+		flex: 1;
+		overflow: hidden;
+		border-radius: 30px;
+
+		img {
+			width: 100%;
+			height: 100%;
+			border-radius: 16px;
+			@include transition;
+			object-fit: cover;
+			opacity: 1;
+			transform: scale(1);
+			transition: opacity 0.6s ease, transform 0.6s ease;
+
+			&.fade-out {
+				opacity: 0;
+				transform: scale(1.05);
+			}
+		}
+	}
+
+	.strategy-right {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		gap: 25px;
+
+		.strategy-item {
+			background: $light-color2;
+			border-radius: 16px;
+			padding: 40px;
+			position: relative;
+			overflow: hidden;
+			z-index: 1;
+			cursor: pointer;
+			@include transition;
+
+			@include mobile-xl {
+				padding: 20px;
+			}
+
+			&::before {
+				content: "";
+				position: absolute;
+				width: 0;
+				height: 100%;
+				top: 0;
+				left: 0;
+				background: $theme-color;
+				z-index: -1;
+				opacity: 0;
+				@include transition;
+			}
+
+			.step {
+				font-size: 13px;
+				line-height: 24px;
+				display: inline-block;
+				color: $dark-color;
+				border: 1px solid $border-color8;
+				border-radius: 17px;
+				padding: 3px 20px;
+				@include transition;
+				font-weight: 500;
+				font-family: $title-font;
+			}
+
+			.title {
+				font-size: 28px;
+				line-height: 1;
+				color: $dark-color;
+				font-weight: 600;
+				font-family: $title-font;
+				margin: 17px 0;
+			}
+
+			.desc {
+				font-size: 16px;
+				line-height: 26px;
+				color: $gray-color2;
+				font-family: $body-font;
+				margin: 0;
+
+				@include nestHub {
+					br {
+						display: none;
+					}
+				}
+
+				@include mobile-xl {
+					br {
+						display: none;
+					}
+				}
+			}
+
+			.number {
+				position: absolute;
+				right: 40px;
+				top: 25px;
+				@include transition;
+				font-size: 100px;
+				line-height: 1;
+				font-weight: 800;
+				color: transparent;
+				-webkit-text-stroke: 1px $border-color8;
+				font-family: $title-font;
+
+				@include mobile-xl {
+					font-size: 60px;
+				}
+			}
+
+			&.active,
+			&:hover {
+				&::before {
+					width: 100%;
+					opacity: 1;
+				}
+
+				.number {
+					-webkit-text-stroke: 1px $text-color3;
+				}
+
+				.step {
+					color: $white-color;
+					border-color: $white-color;
+				}
+
+				.title,
+				.desc {
+					color: $white-color;
+				}
+			}
+		}
+	}
+}

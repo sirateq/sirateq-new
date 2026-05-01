@@ -1,0 +1,295 @@
+/*==== Hero Section Six=====================*/
+
+.tv-hero-section.style-6 {
+  .hero-inner {
+    .hero-slider-2 {
+      .hero-area {
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        border-radius: 0px;
+
+        @include ml {
+          border-radius: 0px;
+        }
+
+        &::before {
+          background-image: linear-gradient(90deg, rgba(6, 17, 83, 0.9490196078431372) 0%, rgba(6, 17, 83, 0.9490196078431372) 40%, rgba(5, 17, 83, 0) 55%, rgba(5, 17, 83, 0) 100%);
+          position: absolute;
+          content: "";
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          z-index: 0;
+
+          @include sm {
+            background-image: linear-gradient(100deg, rgb(5, 17, 83) 0%, rgb(5, 17, 83) 38%, rgba(5, 17, 83, 0) 85%, rgba(5, 17, 83, 0) 100%);
+          }
+        }
+
+
+
+        .hero-content {
+          position: relative;
+          z-index: 1;
+          padding: 340px 0 120px 0;
+
+          @include ml {
+            padding: 150px 0 125px 0;
+          }
+
+          @include xl {
+            padding: 160px 0 100px 0;
+          }
+
+          @include lg {
+            padding: 160px 0 100px 0;
+          }
+
+          @include sm {
+            padding: 120px 0 80px 0;
+          }
+
+          .sub-title {
+            display: inline-block;
+            font-size: 14px;
+            text-transform: uppercase;
+            color: $white-color;
+            font-family: $title-font;
+            font-weight: 500;
+            margin-bottom: 17px;
+            padding: 3px 30px 3px 15px;
+            border-radius: 30px;
+            background-color: transparent;
+            border: none;
+
+            img {
+              margin-right: 8px;
+            }
+          }
+
+          .hero-title {
+            font-size: 80px;
+            line-height: 1.1;
+            color: $white-color;
+            font-weight: 800;
+            font-family: $title-font;
+
+            span {
+              font-weight: 600;
+            }
+
+            @include xl {
+              font-size: 80px;
+            }
+
+            @include lg {
+              font-size: 80px;
+            }
+
+            @include sm {
+              font-size: 60px;
+            }
+
+            @include xs {
+              font-size: 50px;
+            }
+
+            @include mobile-xl {
+              font-size: 40px;
+            }
+          }
+
+          .border {
+            background: $border-color7;
+          }
+
+          .text-icon {
+            display: flex;
+            align-items: start;
+            gap: 20px;
+
+            .icon {
+              flex-shrink: 0;
+
+              @include ml {
+                display: none !important;
+              }
+            }
+
+            .text {
+              margin-top: 30px;
+              color: $white-color;
+
+              @include respond-between(992px, 1024px) {
+                max-width: 70%;
+
+                br {
+                  display: none;
+                }
+              }
+
+              @include nestHub {
+                br {
+                  display: none;
+                }
+              }
+
+              @include xs {
+                br {
+                  display: none;
+                }
+              }
+            }
+          }
+
+          .hero-user {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-top: 40px;
+
+            @include xs {
+              flex-direction: column;
+              align-items: start;
+            }
+
+            .hero-social-proof {
+              display: flex;
+              align-items: center;
+              gap: 15px;
+
+              .social {
+                display: flex;
+                align-items: center;
+
+                img {
+                  display: flex;
+                  width: 58px;
+                  height: 58px;
+                  border-radius: 50%;
+                  margin-left: -25px;
+                  border: 3px solid $light-color;
+
+                  &:first-child {
+                    margin-left: 0;
+                  }
+                }
+              }
+
+              .happy-customers {
+                .text {
+                  font-size: 28px;
+                  line-height: 1;
+                  color: $white-color;
+                  font-weight: 600;
+                  font-family: $title-font;
+                }
+
+                .rating-viewers {
+                  color: $white-color;
+                  font-family: $body-font;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .hero-btn-wrapper {
+        right: 300px;
+        position: absolute;
+        z-index: 1;
+        bottom: 130px;
+
+
+        @include xl {
+          right: 150px;
+        }
+
+        @include sm {
+          bottom: 100px;
+          right: 90px;
+        }
+
+        @include mobile-xl{
+          display: none;
+        }
+
+        .array-button {
+          .array-prev {
+            color: $white-color;
+          }
+        }
+      }
+    }
+  }
+}
+
+.hero-bg-image {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+
+
+
+
+
+/* Active Slide Animation */
+.hero-content {
+  >* {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .sub-title {
+    transform: translateY(-30px);
+  }
+
+  .hero-title {
+    transform: translateX(-60px);
+  }
+
+  .text-icon {
+    transform: translateY(40px);
+  }
+
+  .hero-user {
+    transform: scale(0.8);
+  }
+
+  /* active slider */
+  .swiper-slide-active & {
+    >* {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .sub-title {
+      transform: translateY(0);
+      transition-delay: 0.6s;
+    }
+
+    .hero-title {
+      transform: translateX(0);
+      transition-delay: 1s;
+    }
+
+    .text-icon {
+      transform: translateY(0);
+      transition-delay: 1.4s;
+    }
+
+    .hero-user {
+      transform: scale(1);
+      transition-delay: 1.8s;
+    }
+  }
+}

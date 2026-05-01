@@ -1,0 +1,268 @@
+/*==== Hero Section Four=====================*/
+.tv-hero-section {
+  &.style-5 {
+    padding: 256px 0 120px;
+
+    @include ml {
+      padding: 200px 0 120px;
+    }
+
+    @include nestHub {
+      padding: 180px 0 100px;
+    }
+
+    @include md {
+      padding: 140px 0 80px;
+    }
+
+    @include mobile-xl {
+      padding: 120px 0 60px;
+    }
+
+    .hero-left {
+      .sub-title {
+        display: inline-block;
+        font-size: 14px;
+        text-transform: uppercase;
+        color: $theme-color;
+        font-family: $title-font;
+        font-weight: 500;
+        margin-bottom: 17px;
+        padding: 3px 30px 3px 15px;
+        border-radius: 30px;
+        border: 1px solid $theme-color;
+      }
+
+      .hero-title {
+        font-size: 80px;
+        line-height: 1.1;
+        color: $dark-color;
+        font-weight: 800;
+        font-family: $title-font;
+        margin: 2px 0 20px 0;
+
+        @include ml {
+          font-size: 70px;
+        }
+
+        @include nestHub {
+          font-size: 60px;
+        }
+
+        @include xs {
+          font-size: 60px;
+        }
+
+        @include mobile-xl {
+          font-size: 50px;
+        }
+
+        @include mobile-l {
+          font-size: 45px;
+        }
+
+        @include vxs {
+          font-size: 40px;
+        }
+
+        span {
+          color: $theme-color;
+        }
+      }
+
+      .text-icon {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .icon {
+          flex-shrink: 0;
+
+          @include nestHub {
+            display: none;
+          }
+
+          @include xs {
+            display: none;
+          }
+        }
+
+        .text {
+          font-size: 18px;
+          line-height: 30px;
+          color: $dark-color;
+          font-family: $body-font;
+          margin: 0;
+
+          @include xl {
+            br {
+              display: none;
+            }
+          }
+
+          @include md {
+            br {
+              display: inherit;
+            }
+          }
+
+          @include xs {
+            br {
+              display: none;
+            }
+          }
+        }
+      }
+
+      .hero-user {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        margin-top: 40px;
+
+        @include mobile-xl {
+          flex-direction: column;
+          align-items: start;
+        }
+
+        .hero-social-proof {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+
+          .social {
+            display: flex;
+            align-items: center;
+
+            img {
+              display: flex;
+              width: 58px;
+              height: 58px;
+              border-radius: 50%;
+              margin-left: -25px;
+              border: 3px solid $light-color;
+
+              &:first-child {
+                margin-left: 0;
+              }
+            }
+          }
+
+          .happy-customers {
+            .text {
+              font-size: 28px;
+              line-height: 1;
+              color: $dark-color;
+              font-weight: 600;
+              font-family: $title-font;
+            }
+
+            .rating-viewers {
+              color: $gray-color2;
+              font-family: $body-font;
+            }
+          }
+        }
+      }
+    }
+
+    .hero-right {
+      margin-right: -160px;
+      margin-left: 28px;
+
+      @include ml {
+        margin-right: -50px;
+        margin-left: 0;
+      }
+
+      @include xl {
+        margin-right: 0px;
+        margin-left: 0;
+      }
+
+      @include md {
+        display: none;
+      }
+
+      .image-box {
+        display: flex;
+        gap: 20px;
+        align-items: flex-end;
+
+        .image {
+          .bg-image {
+            img {
+              position: relative;
+            }
+          }
+
+          img {
+            position: absolute;
+            bottom: 0;
+          }
+        }
+
+        .hero-count {
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+
+          h2 {
+            font-size: 100px;
+            line-height: 1;
+            color: $theme-color;
+            font-weight: 700;
+            margin-bottom: 0;
+            margin-right: 30px;
+
+            >span {
+              position: relative;
+
+              &::before {
+                content: "+";
+                position: absolute;
+                right: -30px;
+                top: 10px;
+                font-size: 50px;
+                font-weight: 700;
+              }
+            }
+
+            @include xl {
+              display: none;
+            }
+          }
+
+          .experience-card {
+            padding: 15px 82px;
+            background: $bg-color10;
+            filter: drop-shadow(0px 20px 75px rgba(144, 164, 198, 0.3));
+            border: 1px solid $border-color12;
+            margin-bottom: 20px;
+            filter: drop-shadow(0px 20px 75px rgba(144, 164, 198, 0.3));
+            border: 1px solid rgba(255, 255, 255, 0.8);
+
+            h6 {
+              font-size: 16px;
+              line-height: 26px;
+              color: $dark-color;
+              font-weight: 500;
+              text-align: center;
+              margin: 0;
+            }
+
+            @include xl {
+              display: none;
+            }
+          }
+
+          .image-2 {
+            @include lg {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

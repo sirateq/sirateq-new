@@ -1,0 +1,204 @@
+/*==== Fotter Style One =====================*/
+.footer-section {
+    // overflow: hidden;
+    position: relative;
+
+    .overlay {
+        background-image: radial-gradient(circle at center,
+                rgba(5, 17, 83, 0.7019607843137254) 0%,
+                rgba(5, 17, 83, 0.9490196078431372) 79%,
+                rgba(5, 17, 83, 0.9490196078431372) 100%);
+        z-index: -1;
+    }
+
+    .footer-brand {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-right: 0;
+
+        @include sm {
+            margin-bottom: 47px;
+        }
+
+        &::before {
+            position: absolute;
+            content: "";
+            top: -100%;
+            right: 0;
+            width: 1px;
+            height: 600px;
+            background-color: $border-color5;
+
+            @include lg {
+                height: 726px;
+            }
+
+
+            @include md {
+                display: none;
+            }
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 60px;
+            padding: 0 0 30px;
+            border-bottom: 1px solid $border-color5;
+            margin: 40px 0 35px;
+
+            @include md {
+                border-bottom: none;
+            }
+
+            @include lg {
+                gap: 30px;
+            }
+
+            @include laptop-l {
+                gap: 20px;
+                flex-direction: column;
+            }
+
+            .contact-item {
+                .title {
+                    opacity: 0.502;
+                    font-size: 18px;
+                    line-height: 24px;
+                    text-transform: uppercase;
+                    color: $white-color;
+                    font-weight: 500;
+                    margin-bottom: 10px;
+                }
+
+                a {
+                    color: $white-color;
+                    font-size: 16px;
+                    line-height: 24px;
+                    font-family: $body-font;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+
+                    i {
+                        color: $theme-color;
+                    }
+
+                    &:hover {
+                        color: $theme-color;
+                    }
+                }
+            }
+        }
+
+        .social-links {
+            @include center-flex;
+            justify-content: flex-start;
+
+            a {
+                display: inline-block;
+                width: 34px;
+                height: 34px;
+                color: $white-color;
+                text-align: center;
+                line-height: 34px;
+                border-radius: 50%;
+                background-color: $bg-color7;
+                overflow: hidden;
+                position: relative;
+                z-index: 1;
+
+                +a {
+                    margin-left: 10px;
+                }
+
+                &.active,
+                &:hover {
+                    color: $white-color;
+
+                    &::before {
+                        left: 0;
+                        width: 100%;
+                    }
+                }
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    width: 0;
+                    height: 100%;
+                    background-color: $theme-color;
+                    z-index: -1;
+                    @include transition;
+                }
+            }
+        }
+    }
+
+    .footer-bottom {
+        border-top: 1px solid $border-color5;
+        padding: 28px 0;
+        // background-color: $dark-color;
+        position: relative;
+        overflow: hidden;
+
+        @include sm {
+            text-align: center;
+        }
+
+        p {
+            color: $white-color;
+            font-size: 15px;
+            line-height: 1.66;
+            margin: 0;
+
+            @include sm {
+                color: $white-color;
+            }
+
+            a {
+                color: $theme-color2;
+
+                &:hover {
+                    color: $theme-color2;
+                }
+            }
+        }
+
+        .footer-policy {
+            a {
+                color: $white-color;
+                font-size: 15px;
+                line-height: 1.66;
+                margin-right: 15px;
+                position: relative;
+
+                @include sm {
+                    color: $white-color;
+                }
+
+                &:hover {
+                    color: $theme-color2;
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
+
+                +a::before {
+                    position: absolute;
+                    content: "";
+                    left: -10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 2px;
+                    height: 15px;
+                    background: $gray-color2;
+                }
+            }
+        }
+    }
+}

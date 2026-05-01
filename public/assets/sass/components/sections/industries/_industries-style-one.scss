@@ -1,0 +1,160 @@
+// Industries Style One
+
+
+// .industries-wrapper {
+//   .industries-card {
+//     &:nth-child(2) {
+//       transform: translateY(150px);
+//     }
+
+//     &:nth-child(3) {
+//       transform: translateY(300px);
+//     }
+//   }
+// }
+
+
+.industries-card {
+  background: $white-color;
+  padding: 50px 15px 15px 15px;
+  border-radius: 30px;
+  text-align: center;
+  transition: all 0.4s ease;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+
+  &::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    right: 100%;
+    width: 0;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    border-radius: 5px;
+    background: $theme-color;
+    @include transition;
+    ;
+  }
+
+
+  h3 {
+    font-size: 30px;
+    line-height: 26px;
+    color: $dark-color;
+    font-weight: 600;
+    font-family: $title-font;
+    text-align: center;
+    @include transition;
+    margin-bottom: 40px;
+  }
+
+  .icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    background: $theme-color;
+    border-radius: 50%;
+    @include center-flex;
+    @include transition;
+    margin-bottom: -40px;
+    outline: 10px solid $white-color;
+    position: relative;
+    z-index: 3;
+
+    img {
+      @include transition;
+      filter: brightness(0) invert(1);
+    }
+  }
+
+  .box-inner {
+    padding: 90px 40px 50px 40px;
+    background: $light-color;
+    border-radius: 20px;
+    z-index: 2;
+    position: relative;
+
+    @include nestHub {
+      padding: 60px 20px 30px 20px;
+    }
+
+    @include mobile-m {
+      padding: 60px 20px 30px 20px;
+    }
+
+    .theme-btn {
+      font-size: 14px;
+      font-weight: 500;
+      font-family: $title-font;
+      position: relative;
+      padding: 8px 40px 8px 40px;
+      margin-bottom: 0px;
+      color: $dark-color;
+      background-color: transparent;
+      border: 1px solid $border-color8;
+      border-radius: 30px;
+      gap: 10px;
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 20%;
+        opacity: 0;
+        background: $theme-color;
+        transition: all 0.5s ease-in-out;
+        z-index: -1;
+        transform: skewx(0deg);
+      }
+
+      &::before {
+        left: 0;
+      }
+
+      &::after {
+        right: 0;
+      }
+
+      i {
+        font-size: 14px;
+        line-height: 1.9;
+      }
+    }
+  }
+
+  &:hover {
+    &::before {
+      right: 0;
+      width: 100%;
+    }
+
+    h3 {
+      color: $white-color;
+    }
+
+    .icon {
+      outline: 10px solid $theme-color;
+      background: $white-color;
+
+      img {
+        filter: inherit;
+      }
+    }
+
+    .theme-btn {
+      color: $white-color;
+
+      &::before,
+      &::after {
+        opacity: 1;
+        width: 100%;
+      }
+    }
+  }
+
+}

@@ -1,0 +1,265 @@
+// /*==== Project Style One =====================*/
+.tv-project-section {
+  .project-title-area {
+    align-items: center;
+    justify-content: space-between;
+
+    @include sm {
+      align-items: start;
+      flex-direction: column;
+    }
+  }
+}
+
+// box style 
+
+.tv-project-single-box {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+
+  .image-wrapper {
+    img {
+      width: 100%;
+    }
+  }
+
+  .project-info {
+    position: absolute;
+    bottom: -110px;
+    left: 40px;
+    transition: bottom 0.4s ease-in-out;
+    // transition: all 0.5s ease-in-out;
+    @include transition;
+
+    @include respond-between(1280px, 1299px) {
+      bottom: -145px;
+    }
+
+    .tag {
+      font-size: 13px;
+      line-height: 24px;
+      color: $white-color;
+      font-weight: 500;
+      font-family: $body-font;
+      padding: 4px 20px;
+      background: $bg-color5;
+      border: 1px solid $bg-color12;
+      border-radius: 15px;
+    }
+
+    .title {
+      font-size: 24px;
+      line-height: 34px;
+      margin-top: 15px;
+      color: $white-color;
+      font-weight: 600;
+
+      a {
+        color: $white-color;
+      }
+    }
+
+    .border {
+      background: $bg-color10;
+      width: 90%;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    p {
+      color: $white-color;
+    }
+
+    .icon-box {
+      width: 50px;
+      height: 50px;
+      border-radius: 25px;
+      background-color: $theme-color;
+      @include center-flex;
+
+      i {
+        color: $white-color;
+      }
+    }
+  }
+
+  &::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 65%;
+    @include transition;
+    // background-image: linear-gradient(0deg, rgba(5,17,83,0.9019607843137255) 0%, rgba(5,17,83,0.9019607843137255) 35%, rgba(5,17,83,0) 65%, rgba(5,17,83,0) 100%);
+
+    background-image: linear-gradient(0deg, rgba(5, 17, 83, 0.9999999999999999) 0%, rgba(5, 17, 83, 0.9999999999999999) 15%, rgba(5, 17, 83, 0) 57%, rgba(5, 17, 83, 0) 100%);
+    transition: all 0.4s ease-in-out;
+    left: 0;
+    bottom: 0;
+  }
+
+  &:hover {
+    &::before {
+      height: 100%;
+    }
+
+    .project-info {
+      bottom: 40px;
+
+      .border {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+}
+
+
+
+
+// inner page stye
+.tv-project-section {
+  &.inner {
+    .project-filter-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .menu-filtering {
+        display: flex;
+        justify-content: center;
+        padding: 15px;
+        max-width: 565px;
+        border-radius: 35px;
+        border: 1px solid $border-color8;
+
+        @include xs {
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+
+        li {
+          display: inline-block;
+          color: $dark-color;
+          font-size: 16px;
+          font-weight: 500;
+          padding: 0 23px;
+          height: 38px;
+          line-height: 37px;
+          border-radius: 19px;
+          border: 1px solid $border-color8;
+          background-color: rgba(0, 0, 0, 0);
+          transition: all .4s ease 0s;
+          cursor: pointer;
+
+          &+li {
+            margin-left: 10px;
+          }
+
+          &.active {
+            background: $theme-color;
+            color: $white-color;
+            border: 1px solid $theme-color;
+          }
+        }
+      }
+    }
+
+    .project-single-box {
+      @include transition;
+      overflow: hidden;
+
+      &::before {
+        display: none;
+      }
+
+      .thumb {
+        border-radius: 20px;
+        overflow: hidden;
+        transform: translateZ(0);
+
+        img {
+          width: 100%;
+          @include transition;
+        }
+      }
+
+      .project-info {
+        position: static;
+        padding: 22px 0 30px;
+        border-bottom: 1px solid $border-color8;
+
+        h4 {
+          @include nestHub {
+            font-size: 20px;
+          }
+        }
+
+        .project-badge {
+          margin-bottom: 0;
+
+          span {
+            color: $dark-color;
+            cursor: pointer;
+            @include transition;
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 500;
+            height: 30px;
+            line-height: 30px;
+            padding: 0 18px;
+            border-radius: 15px;
+            background-color: $bg-color14;
+            border: 1px solid $border-color;
+            margin-right: 5px;
+
+            &:hover {
+              color: $white-color;
+              background-color: $theme-color;
+              border-color: $theme-color;
+            }
+          }
+        }
+
+        .title {
+          margin-bottom: 15px;
+
+          a {
+            color: $dark-color;
+            background: linear-gradient($dark-color 0%, $dark-color 98%);
+            background-size: 0 2px;
+            background-repeat: no-repeat;
+            background-position: left 100%;
+            @include transition;
+
+            &:hover {
+              color: $dark-color;
+              background-size: 100% 2px;
+            }
+          }
+        }
+
+
+      }
+
+      &:hover {
+        .thumb {
+          img {
+            transform: scaleX(1.2);
+            transform-origin: top center;
+            transition: transform 0.2s ease-in-out;
+          }
+        }
+
+        .project-info {
+          .project-badge {
+            span {
+              border: 1px solid $theme-color;
+            }
+          }
+        }
+      }
+    }
+  }
+}

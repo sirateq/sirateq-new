@@ -1,0 +1,183 @@
+/*==== Newsletter Section One =====================*/
+.newsletter-section {
+	position: relative;
+	z-index: 2;
+	//   background-image: linear-gradient($light-color 50%, #06104E 50%);
+}
+
+.newsletter {
+	@include center-flex;
+	justify-content: space-between;
+	padding: 40px 60px 40px 0;
+	border-radius: 10px;
+	// background-color: $theme-color2;
+	position: relative;
+	z-index: 1;
+	gap: 85px;
+
+	.arrow-shape {
+		position: absolute;
+		right: 480px;
+		top: 30px;
+	}
+
+	@include md {
+		justify-content: space-between;
+	}
+
+	@include laptop-m {
+		padding: 42px 30px 45px;
+	}
+
+	@include tablet-l {
+		padding: 35px;
+	}
+
+	@include xs {
+		flex-direction: column;
+		gap: 18px;
+	}
+
+	@include mobile-l {
+		padding: 35px 25px;
+	}
+
+	.thumb {
+		position: absolute;
+		bottom: 0;
+		left: 50px;
+	}
+
+	.image-text {
+		padding-left: 230px;
+		display: flex;
+		align-items: start;
+		gap: 20px;
+
+		@include lg {
+			padding-left: 60px;
+		}
+
+		@include laptop-m {
+			padding-left: 0px;
+		}
+
+		img {
+			margin-top: 8px;
+
+			@include sm {
+				display: none;
+			}
+		}
+
+		.title {
+			font-size: 28px;
+			line-height: 1.28;
+			color: $white-color;
+			font-weight: 600;
+			margin: 0;
+
+			@include tablet-l {
+				font-size: 24px;
+
+				br {
+					display: none;
+				}
+			}
+
+			@include mobile-xl {
+				font-size: 22px;
+			}
+
+			@include mobile-m {
+				font-size: 20px;
+			}
+
+			@include mobile-s {
+				font-size: 19px;
+			}
+
+			@include xs {
+				text-align: center;
+			}
+		}
+	}
+
+	.theme-btn {
+		border: 1px solid $white-color;
+		background: transparent;
+		overflow: hidden;
+	}
+
+	.contact-info {
+		display: flex;
+		align-items: center;
+		@include transition;
+
+		@include xs {
+			margin-top: 12px;
+		}
+
+		&:hover {
+			.email-icon i {
+				@include animation(mirror_effect, 0.5s, ease-in-out);
+			}
+		}
+
+		.email-icon {
+			background-color: $white-color;
+			border-radius: 50%;
+			width: 80px;
+			height: 80px;
+			margin-right: 25px;
+			@include center-flex;
+
+			@include sm {
+				width: 70px;
+				height: 70px;
+			}
+
+			@include xs {
+				width: 60px;
+				height: 60px;
+				margin-right: 15px;
+			}
+
+			i {
+				color: $theme-color;
+				font-size: 28px;
+
+				@include xs {
+					font-size: 24px;
+				}
+			}
+		}
+
+		.email-details {
+			p {
+				opacity: 0.8;
+				color: $white-color;
+				margin-bottom: 5px;
+
+				@include xs {
+					display: none;
+				}
+			}
+
+			a {
+				font-size: 24px;
+				line-height: 1.66;
+				color: $white-color;
+				font-weight: 500;
+
+				@include mobile-xl {
+					font-size: 20px;
+				}
+
+				@include mobile-m {
+					font-size: 18px;
+				}
+			}
+		}
+	}
+}

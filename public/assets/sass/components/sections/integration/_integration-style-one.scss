@@ -1,0 +1,241 @@
+/*======== Integration Section One =========*/
+.tv-integration-section {
+	.integration-area {
+		position: relative;
+		margin-top: 150px;
+
+		.middle-icon {
+			position: relative;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 250px;
+			height: 250px;
+			z-index: 2;
+			overflow: hidden;
+			@include center-flex;
+
+			@include mobile-xl {
+				width: 210px;
+				height: 210px;
+			}
+
+
+
+			.icon-inner {
+				width: 140px;
+				height: 140px;
+				background: $theme-color;
+				border-radius: 50%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				@include mobile-xl {
+					width: 100px;
+					height: 100px;
+				}
+			}
+		}
+
+		.middle-icon::before {
+			content: "";
+			position: absolute;
+			width: 150px;
+			height: 150px;
+			background: $bg-color14;
+			border: 1px solid $border-color5;
+			border-radius: 50%;
+			z-index: -1;
+
+			@include mobile-xl {
+				width: 110px;
+				height: 110px;
+			}
+
+		}
+
+		.middle-icon::after {
+			content: "";
+			position: absolute;
+			width: 170px;
+			height: 170px;
+			background: $bg-color5;
+			border: 1px solid $border-color7;
+			border-radius: 50%;
+			z-index: -2;
+			backdrop-filter: blur(10px);
+
+			@include mobile-xl {
+				width: 120px;
+				height: 120px;
+			}
+		}
+
+		.middle-icon::before {
+			transform: scale(1.25);
+		}
+
+		.middle-icon::after {
+			transform: scale(1.4);
+		}
+
+		.integration-left,
+		.integration-right {
+			position: relative;
+
+			.icon {
+				position: absolute;
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+				background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+				border: 1px solid $border-color7;
+				@include center-flex;
+				backdrop-filter: blur(10px);
+
+				&::before {
+					content: "";
+					position: absolute;
+					width: 100px; // 15px bigger both sides
+					height: 100px;
+					border-radius: 50%;
+					border: 1px solid $border-color7;
+					background: $bg-color5;
+					z-index: 1;
+				}
+
+			}
+		}
+
+		.integration-left {
+			.icon {
+				&.one {
+					top: -78px;
+					right: 245px;
+
+					@include md {
+						top: -210px;
+						right: 15px;
+					}
+
+					@include xs {
+						top: -30px;
+						right: 108px;
+					}
+
+					@include vxs {
+						top: 40px;
+						right: 18px;
+					}
+				}
+
+				&.two {
+					top: 50px;
+					left: 40px;
+
+					@include nestHub {
+						left: 0;
+					}
+
+					@include md {
+						top: -41px;
+						left: 224px;
+					}
+
+					@include tablet-l {
+						left: 120px;
+					}
+
+					@include mobile-m {
+						left: 67px;
+					}
+
+					@include vxs {
+						left: 127px;
+					}
+				}
+
+				&.three {
+					bottom: -78px;
+					right: 245px;
+
+					@include md {
+						right: 18px;
+						bottom: -200px;
+					}
+
+					@include vxs {
+						right: 18px;
+						bottom: -250px;
+					}
+				}
+			}
+		}
+
+		.integration-right {
+
+			.icon {
+				&.one {
+					top: -78px;
+					left: 245px;
+
+					@include md {
+						top: -210px;
+						left: 15px;
+					}
+
+					@include vxs {
+						top: -220px;
+						left: 15px;
+					}
+				}
+
+				&.two {
+					top: 50px;
+					right: 40px;
+
+					@include nestHub {
+						right: 0;
+					}
+
+					@include md {
+						top: -41px;
+						right: 224px;
+					}
+
+					@include tablet-l {
+						right: 120px;
+					}
+
+					@include mobile-m {
+						right: 67px;
+					}
+
+					@include vxs {
+						right: 117px;
+					}
+				}
+
+				&.three {
+					bottom: -78px;
+					left: 245px;
+
+					@include md {
+						left: 18px;
+						bottom: -200px;
+					}
+
+					@include xs {
+						left: 108px;
+						bottom: -30px;
+					}
+
+					@include vxs {
+						left: 38px;
+						bottom: -3px;
+					}
+				}
+			}
+		}
+	}
+}

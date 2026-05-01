@@ -1,0 +1,178 @@
+/*==== Hero Section Four=====================*/
+.tv-hero-section {
+  &.style-4 {
+    @include md {
+      padding: 80px 0 0;
+    }
+
+    .hero-left {
+      padding: 150px 100px 130px 150px;
+      border-radius: 30px;
+      overflow: hidden;
+
+      @include xxl {
+        padding: 120px 70px 100px 80px;
+      }
+
+      @include ml {
+        padding: 100px 60px 80px 60px;
+      }
+
+      @include tablet-s {
+        padding: 80px 40px 60px 40px;
+      }
+
+      @include mobile-xl {
+        padding: 50px 30px 40px 30px;
+      }
+
+      @include mobile-xl {
+        padding: 50px 20px 40px 20px;
+        border-radius: 10px;
+      }
+
+
+      .sub-title {
+        display: inline-block;
+        font-size: 14px;
+        text-transform: uppercase;
+        color: $theme-color;
+        font-family: $title-font;
+        font-weight: 500;
+        margin-bottom: 17px;
+        padding: 3px 30px 3px 15px;
+        border-radius: 30px;
+        border: 1px solid $theme-color;
+      }
+
+      .hero-title {
+        font-size: 70px;
+        line-height: 1.1;
+        color: $dark-color;
+        font-weight: 800;
+        font-family: $title-font;
+        margin: 2px 0 25px 0;
+
+        @include xxl {
+          font-size: 60px;
+        }
+
+        @include xl {
+          font-size: 50px;
+        }
+
+        @include nestHub {
+          font-size: 40px;
+        }
+
+        @include xs {
+          font-size: 40px;
+        }
+
+        @include mobile-xl {
+          font-size: 30px;
+        }
+
+        span {
+          color: $theme-color;
+        }
+      }
+
+      .text-icon {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .icon {
+          flex-shrink: 0;
+
+          @include nestHub {
+            display: none;
+          }
+
+          @include xs {
+            display: none;
+          }
+        }
+
+        .text {
+          font-size: 18px;
+          line-height: 30px;
+          color: $dark-color;
+          font-family: $body-font;
+          margin: 0;
+
+          @include xl {
+            br {
+              display: none;
+            }
+          }
+
+          @include md {
+            br {
+              display: inherit;
+            }
+          }
+
+          @include xs {
+            br {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+
+    .hero-img {
+      height: 100%;
+
+      img {
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .video-box {
+      position: absolute;
+      content: "";
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      @include transition;
+      z-index: 5;
+      margin-top: 0;
+
+      @include md {
+        top: 43%;
+      }
+
+      @include tablet-l {
+        top: 48%;
+      }
+
+      .circle-box {
+        background: $theme-color;
+
+        @include md {
+          width: 175px;
+          height: 175px;
+        }
+
+        .logo-box {
+          position: absolute;
+          background: $white-color;
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          @include center-flex;
+        }
+
+        .text-inner {
+          svg {
+            width: 110px;
+          }
+        }
+      }
+    }
+  }
+}

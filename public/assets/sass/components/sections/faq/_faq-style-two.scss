@@ -1,0 +1,43 @@
+/*==== Faq Section Two =====================*/
+.tv-faq-section {
+  .container{
+    padding-bottom: 220px;
+  }
+  .faq-column {
+    .inner-column {
+      .accordion-box {
+        &.style-2 {
+          .accordion {
+            .acc-btn {
+              border-radius: 10px;
+              background: $bg-color14;
+              color: $white-color;
+
+              &.active {
+                color: $white-color;
+                background-color: $theme-color !important;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                border-color: transparent;
+              }
+            }
+            .acc-content{
+              .content{
+                border: 1px solid $border-color5;
+                background: transparent;
+                .text{
+                  color: $text-color2;
+                  @include lg{
+                    br{
+                      display: none;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

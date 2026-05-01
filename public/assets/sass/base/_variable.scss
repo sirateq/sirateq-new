@@ -1,0 +1,250 @@
+:root {
+	--theme-color: #1053f3;
+	--theme-color3: #061153;
+	--title-color: var(--dark-color);
+	--body-color: var(--gray-color);
+	--dark-color: var(--theme-color3);
+	--dark-color2: #09155c;
+	--dark-color3: #18225f;
+	--dark-color4:  #06134c;
+	--gray-color: #a0a3b5;
+	--gray-color2: #616161;
+	--white-color: #ffffff;
+	--light-color: #f4f7ff;
+	--light-color2: #e8edfa;
+	--light-color3: #e9eefb;
+	--light-color4: #b9bfe4;
+
+	// --light-color4: f;
+	--orange-color: #ff9d10;
+	--success-color: #28a745;
+	--error-color: #ff0000;
+	--bs-text-color1: #10171d;
+	--bs-text-color2: rgb(255 255 255 / 60%);
+	--bs-text-color3: rgb(255 255 255 / 30%);
+	--bs-text-color4: rgb(255 255 255 / 80%);
+	--bs-text-color5: #161616;
+	--bs-bg-color1: var(--theme-color);
+	--bs-bg-color2: #f3f6fe;
+	--bs-bg-color3: rgba(16, 83, 243, 0.2);
+	// --bs-bg-color3: #121e62;
+	--bs-bg-color4: #dce5fc;
+	--bs-bg-color5: rgba(255, 255, 255, 0.10);
+	--bs-bg-color6: rgba(189, 189, 189, 0.2);
+	--bs-bg-color7: rgba(98, 72, 255, 0.14);
+	--bs-bg-color8: rgba(255, 255, 255, 0.70);
+	--bs-bg-color9: rgba(98, 72, 255, 0.2);
+	--bs-bg-color10: rgba(255, 255, 255, 0.30);
+	--bs-bg-color11: rgba(244, 247, 255, 0.30);
+	--bs-bg-color12: rgba(255, 255, 255, 0.2);
+	--bs-bg-color13: #121e62;
+	--bs-bg-color14: rgba(255, 255, 255, 0.050);
+	--bs-bg-color15: rgba(255, 255, 255, 0.07);
+	--bs-bg-color16: rgba(255, 255, 255, 0.40);
+	--bs-bg-color17: rgba(246, 245, 252, 0.50);
+	--bs-bg-color18: rgba(243, 252, 253, 0.47);
+	--bs-bg-color19: rgba(3, 15, 68, 0.50);
+	--bs-bg-color20: rgba(255, 255, 255, 0.50);
+	--bs-bg-color21: #f2f5fd;
+	--bs-bg-color22: rgba(255, 255, 255, 0.14);
+	--bs-border-color: rgba(22, 22, 22, 0.10196078431372549);
+	--bs-border-color2: rgba(3, 15, 68, 0.10);
+	--bs-border-color3: rgba(255, 255, 255, 0.30);
+	--bs-border-color5: rgba(255, 255, 255, 0.15);
+	--bs-border-color7: rgba(255, 255, 255, 0.20);
+	--bs-border-color8: rgba(6, 17, 83, 0.1);
+	--bs-border-color9: rgba(98, 72, 255, 0.40);
+	--bs-border-color10: rgba(16, 83, 243, 0.2);
+	--bs-border-color11: rgba(255, 255, 255, 0.6);
+	--bs-border-color12: rgba(255, 255, 255, 0.70);
+	--bs-border-color13: var(--dark-color2);
+	--title-font: "Manrope", sans-serif;
+	--body-font: "Noto Sans", sans-serif;
+	--icon-font: "Font Awesome 6 Pro";
+	--icon-font2: "flaticon";
+	--main-container: 1320px;
+	--container-gutters: 24px;
+	--section-space: 120px;
+	--section-space-mobile: 80px;
+	--section-space-small-mobile: 60px;
+	--section-title-space: 70px;
+	--ripple-ani-duration: 5s;
+}
+
+// Color Variation
+$theme-color: var(--theme-color);
+$theme-color2: var(--theme-color2);
+$theme-color3: var(--theme-color3);
+$title-color: var(--title-color);
+$body-color: var(--body-color);
+$dark-color: var(--dark-color);
+$dark-color2: var(--dark-color2);
+$dark-color3: var(--dark-color3);
+$dark-color4: var(--dark-color4);
+$text-color1: var(--bs-text-color1);
+$text-color2: var(--bs-text-color2);
+$text-color3: var(--bs-text-color3);
+$text-color4: var(--bs-text-color4);
+$text-color5: var(--bs-text-color5);
+$bg-color1: var(--bs-bg-color1);
+$bg-color2: var(--bs-bg-color2);
+$bg-color3: var(--bs-bg-color3);
+$bg-color4: var(--bs-bg-color4);
+$bg-color5: var(--bs-bg-color5);
+$bg-color6: var(--bs-bg-color6);
+$bg-color7: var(--bs-bg-color7);
+$bg-color8: var(--bs-bg-color8);
+$bg-color9: var(--bs-bg-color9);
+$bg-color10: var(--bs-bg-color10);
+$bg-color11: var(--bs-bg-color11);
+$bg-color12: var(--bs-bg-color12);
+$bg-color13: var(--bs-bg-color13);
+$bg-color14: var(--bs-bg-color14);
+$bg-color15: var(--bs-bg-color15);
+$bg-color16: var(--bs-bg-color16);
+$bg-color17: var(--bs-bg-color17);
+$bg-color18: var(--bs-bg-color18);
+$bg-color19: var(--bs-bg-color19);
+$bg-color20: var(--bs-bg-color20);
+$bg-color21: var(--bs-bg-color21);
+$bg-color22: var(--bs-bg-color22);
+$gray-color: var(--gray-color);
+$gray-color2: var(--gray-color2);
+$white-color: var(--white-color);
+$light-color: var(--light-color);
+$light-color2: var(--light-color2);
+$light-color3: var(--light-color3);
+$light-color4: var(--light-color4);
+$orange-color: var(--orange-color);
+$success-color: var(--success-color);
+$error-color: var(--error-color);
+$border-color: var(--bs-border-color);
+$border-color2: var(--bs-border-color2);
+$border-color3: var(--bs-border-color3);
+$border-color4: var(--bs-border-color4);
+$border-color5: var(--bs-border-color5);
+$border-color6: var(--bs-border-color6);
+$border-color7: var(--bs-border-color7);
+$border-color8: var(--bs-border-color8);
+$border-color9: var(--bs-border-color9);
+$border-color10: var(--bs-border-color10);
+$border-color11: var(--bs-border-color11);
+$border-color12: var(--bs-border-color12);
+
+// Font Variation
+$icon-font: var(--icon-font);
+$icon-font2: var(--icon-font2);
+
+// Typography
+$title-font: var(--title-font);
+$body-font: var(--body-font);
+$body-font-size: 16px;
+$body-line-Height: 26px;
+$body-font-weight: 400;
+$p-line-Height: 1.6;
+$p-font-size2: 18px;
+$p-line-height2: 28px;
+
+
+
+// Device Variation Breakpoints
+$hd: 1921px; // Larger than 1920px
+$xxl: 1500px; // Extra large devices
+$ml: 1399px; // Medium-large devices
+$xl: 1299px; // Medium-large devices
+$lg: 1199px; // Large devices (Laptop)
+$md: 991px; // Medium devices
+$sm: 767px; // Small devices
+$xs: 575px; // Extra small devices
+$vxs: 375px; // Very small devices
+
+// Laptop Breakpoints
+$laptop-l: 1280px; // Nest Hub Max
+$laptop-m: 1024px; // Nest Hub
+$laptop-s: 912px; // Surface Pro 7
+
+// Tablet Breakpoints
+$tablet-l: 853px; // Asus Zenbook Fold
+$tablet-m: 820px; // iPad Air
+$tablet-s: 540px; // Surface Duo
+
+// Mobile Breakpoints
+$mobile-xl: 430px; // iPhone 14 Pro Max
+$mobile-l: 414px; // iPhone XR, Pixel 7, Galaxy S20 Ultra, Galaxy A51/71
+$mobile-m: 390px; // iPhone 12 Pro
+$mobile-s: 360px; // Samsung Galaxy S8+
+
+
+// Spacing Count with 5x
+$space-count: 30;
+
+// Section Space  For large Device
+$space: var(--section-space);
+$space-extra: calc(var(--section-space) - 30px);
+$space-extra2: calc(var(--section-space) - 40px);
+
+// Section Space On small Device
+$space-mobile: var(--section-space-mobile);
+$space-small-mobile: var(--section-space-small-mobile);
+$space-mobile-extra: calc(var(--section-space-mobile) - 30px);
+
+
+// BG Color Mapping
+$bgcolorMap: ();
+$bgcolorMap: map-merge(("theme" : $theme-color,
+		"color2" : $bg-color2,
+		"color21" : $bg-color21,
+		"theme3" : $theme-color3,
+		"white" : $white-color,
+		"dark" : $dark-color,
+		"dark2" : $dark-color2,
+		"dark3" : $dark-color3,
+		"dark4" : $dark-color4,
+		"light" : $light-color,
+		"light2" : $light-color2,
+		// "light4" : $light-color4,
+		"gray" : $gray-color,
+		"border" : $border-color,
+		"title" : $title-color,
+	), $bgcolorMap);
+
+
+// Overlay Color Mapping
+$overlaycolorMap: ();
+$overlaycolorMap: map-merge(("theme" : $theme-color,
+		"theme2" : $theme-color2,
+		"white" : $white-color,
+		"dark" : $dark-color,
+		"dark2" : $dark-color2,
+		"dark3" : $dark-color3,
+		"light" : $light-color,
+		"light2" : $light-color2,
+		"gray" : $gray-color,
+		"overlay1" : #131B23,
+	), $overlaycolorMap);
+
+
+// Text Color Mapping
+$textColorsMap: ();
+$textColorsMap: map-merge(("theme" : $theme-color,
+		"theme2" : $theme-color2,
+		"white" : $white-color,
+		"dark" : $dark-color,
+		"dark2" : $dark-color2,
+		"dark3" : $dark-color3,
+		"gray" : $gray-color,
+		"gray2" : $gray-color2,
+		"light" : $light-color,
+		"light2" : $light-color2,
+		"text2" : $text-color2,
+		"success" : $success-color,
+		"error" : $error-color),
+	$textColorsMap);
+
+
+// Font Mapping
+$fontsMap: ();
+$fontsMap: map-merge(("icon" : $icon-font,
+		"title" : $title-font,
+		"body" : $body-font,
+	), $fontsMap);

@@ -1,0 +1,78 @@
+// Call us Style One
+.tv-callus-section {
+    position: relative;
+
+    .callus-inner {
+        &::before {
+            background-image: linear-gradient(100deg,
+                    rgba(5, 17, 83, 0.9019607843137255) 0%,
+                    rgba(5, 17, 83, 0.9019607843137255) 40%,
+                    rgba(5, 17, 83, 0) 55%,
+                    rgba(5, 17, 83, 0) 100%);
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            border-radius: 0 30px;
+            top: 0;
+            left: 0;
+            z-index: 0;
+
+            @include ml {
+                border-radius: 0;
+            }
+        }
+
+        .image {
+            img {
+                border-radius: 0 0 30px 30px;
+
+                @include ml {
+                    border-radius: 0;
+                }
+            }
+        }
+    }
+
+    .callus-contact {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 60px;
+
+        @include lg {
+            margin-bottom: 0px;
+        }
+
+        @include xs{
+            flex-direction: column;
+            align-items: start;
+        }
+
+        .inner-contact {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1;
+
+            .content {
+                .call-text {
+                    margin: 0;
+                    font-size: 16px;
+                    line-height: 26px;
+                    color: $white-color;
+                    font-weight: 500;
+                    font-family: $title-font;
+                }
+
+                .call-phone {
+                    font-size: 22px;
+                    line-height: 1;
+                    color: $white-color;
+                    font-weight: 600;
+                    font-family: $title-font;
+                }
+            }
+        }
+    }
+}

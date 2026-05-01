@@ -1,0 +1,105 @@
+/*==== Process Section Three =====================*/
+.tv-process-section.style-4 {
+    .process-right {
+        .title-box {
+            display: flex;
+            gap: 20px;
+            cursor: pointer;
+            @include transition;
+            margin-top: 55px;
+            height: 70px;
+
+            &:first-child {
+                margin-top: 0px;
+            }
+
+            &:hover,
+            &.active {
+                height: 150px;
+
+                @include mobile-xl {
+                    height: 230px;
+                }
+
+                .icon {
+                    &::before {
+                        height: 110px;
+                    }
+                }
+
+                .content {
+                    p {
+                        opacity: 1;
+                        overflow: visible;
+                    }
+                }
+            }
+
+            .icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 20px;
+                background-color: $theme-color;
+                @include center-flex;
+                flex-shrink: 0;
+                position: relative;
+
+                &::before {
+                    position: absolute;
+                    content: "";
+                    left: 50%;
+                    top: 32px;
+                    transform: translateX(-50%);
+                    width: 2px;
+                    height: 20px;
+                    background: $theme-color;
+                    transition: all 0.5s ease;
+                    transition-duration: 0.5s;
+                }
+
+                span {
+                    font-size: 16px;
+                    line-height: 26px;
+                    color: $white-color;
+                    font-weight: 500;
+                    font-family: $title-font;
+                }
+            }
+
+            .content {
+
+                span {
+                    font-size: 16px;
+                    line-height: 1;
+                    color: $text-color2;
+                    font-weight: 500;
+                    font-family: $title-font;
+                    letter-spacing: 3px;
+                    display: inline-block;
+                    margin-bottom: 18px;
+                }
+
+                h4 {
+                    font-size: 20px;
+                    line-height: 1;
+                    color: $white-color;
+                    font-weight: 500;
+                    font-family: $title-font;
+                    margin: 0 0 20px;
+                }
+
+                p {
+                    font-size: 16px;
+                    line-height: 26px;
+                    color: $text-color2;
+                    font-family: $body-font;
+                    max-width: 85%;
+                    width: 100%;
+                    @include transition;
+                    opacity: 0;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+}

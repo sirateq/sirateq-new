@@ -1,0 +1,307 @@
+/*==== Hero Section Two =====================*/
+.tv-hero-section {
+  &.style-8 {
+    position: relative;
+    z-index: 1;
+    border-radius: 0;
+
+    .hero-content-left {
+      position: relative;
+      z-index: 5;
+      padding: 220px 0 170px 0;
+
+      @include lg {
+        padding: 120px 0 60px 0;
+      }
+
+      @include nestHub {
+        padding: 160px 0 110px 0;
+      }
+
+      .sub-title {
+        display: inline-block;
+        font-size: 14px;
+        text-transform: uppercase;
+        color: $white-color;
+        font-family: $title-font;
+        font-weight: 500;
+        margin-bottom: 17px;
+
+        // opacity: 0.502;
+        padding: 3px 30px 3px 15px;
+        border-radius: 24px;
+        background-color: $bg-color5;
+        border: 1px solid $border-color7;
+
+        @include vxs {
+          flex-direction: column;
+          align-items: baseline;
+        }
+
+        img {
+          margin-right: 5px;
+        }
+      }
+
+      .title {
+        font-size: 80px;
+        line-height: 1.12;
+        color: $dark-color;
+        font-weight: 800;
+        margin-bottom: 25px;
+
+        @include lg {
+          font-size: 70px;
+        }
+
+        @include nestHub {
+          font-size: 60px;
+
+          br {
+            display: none;
+          }
+        }
+
+        @include xs {
+          font-size: 45px;
+        }
+
+        @include tablet-s {
+          font-size: 42px;
+        }
+
+        @include mobile-xl {
+          font-size: 34px;
+        }
+
+        @include mobile-l {
+          font-size: 32px;
+        }
+
+        @include mobile-s {
+          font-size: 30px;
+        }
+      }
+
+      .border {
+        border-color: $border-color !important;
+
+        .bar {
+          @include absolute-content(100px, 1px, $theme-color);
+          animation: moveBorder 15s linear infinite;
+
+          &::after {
+            @include absolute-content(8px, 8px, $theme-color);
+            border-radius: 4px;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+          }
+        }
+      }
+
+      .text-icon {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .icon {
+          flex-shrink: 0;
+
+          @include tablet-s {
+            display: none;
+          }
+        }
+
+        .text {
+          font-size: 17px;
+          line-height: 28px;
+          color: $text-color2;
+          font-weight: 500;
+          margin: -3px 0;
+
+          @include respond-between(992px, 1199px) {
+            br {
+              display: none;
+            }
+          }
+
+          @include nestHub {
+            br {
+              display: none;
+            }
+          }
+
+          @include xs {
+            br {
+              display: none;
+            }
+          }
+        }
+      }
+
+      @include nestHub {
+        .hero-btn {
+          flex-direction: column;
+          align-items: start !important;
+        }
+      }
+
+      @include mobile-xl {
+        .hero-btn {
+          flex-direction: column;
+          align-items: start !important;
+        }
+      }
+    }
+
+    .hero-right {
+      position: relative;
+
+      .image-thumb {
+        margin-top: 157px;
+
+        @include ml {
+          direction: inherit !important;
+        }
+
+        @include laptop-m {
+          display: none;
+        }
+      }
+
+      .counter-info {
+        @include center-flex;
+        align-items: start;
+        flex-direction: column;
+        width: 280px;
+        height: 270px;
+        padding: 40px;
+        border-radius: 20px 20px 0 0;
+        background-color: $bg-color2;
+        background-color: rgba(255, 255, 255, 0.14901960784313725);
+        backdrop-filter: blur(10px);
+        position: absolute;
+        bottom: 0%;
+        left: -140px;
+        z-index: 2;
+
+        @include nestHub {
+          left: 0;
+          top: 85px;
+        }
+
+        @include md{
+          display: none;
+        }
+
+        .count-box {
+          font-size: 60px;
+          line-height: 1;
+          color: $white-color;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+        }
+
+        img {
+          margin-top: 20px;
+          -webkit-animation: emgSwing 1s ease-in-out 1s forwards infinite alternate;
+          animation: emgSwing 1s ease-in-out 1s forwards infinite alternate;
+          -webkit-transform-origin: top right;
+          -ms-transform-origin: top right;
+          transform-origin: top right;
+        }
+
+        .icon-box {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          margin-top: 16px;
+
+          .icon {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 42px;
+            width: 42px;
+            border-radius: 50%;
+            background: $theme-color;
+            color: $white-color;
+          }
+
+          .text {
+            p {
+              margin: 0;
+              font-size: 17px;
+              line-height: 24px;
+              color: $white-color;
+              font-weight: 500;
+            }
+          }
+        }
+      }
+
+    }
+
+    .info-box {
+      position: absolute;
+      bottom: 150px;
+      right: 130px;
+      background: $bg-color12;
+      border-radius: 20px;
+      padding: 30px 30px;
+      backdrop-filter: blur(20px);
+
+      @include nestHub {
+        bottom: 330px;
+      }
+      @include md{
+        display: none;
+      }
+
+      .hero-social-proof {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        .social {
+          display: flex;
+          align-items: center;
+
+          img {
+            display: flex;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-left: -20px;
+            border: 2px solid $light-color;
+
+            &:first-child {
+              margin-left: 0;
+            }
+          }
+        }
+
+        .happy-customers {
+          .text {
+            font-size: 24px;
+            line-height: 1;
+            color: $white-color;
+            font-weight: 600;
+            font-family: $title-font;
+          }
+
+          .rating-viewers {
+            font-size: 15px;
+            line-height: 26px;
+            color: $text-color2;
+            font-weight: 400;
+            font-family: $title-font;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,123 @@
+//  team style Two
+.tv-team-section {
+	.team-inner {
+		.team-btn-wrapper {
+			display: flex;
+			align-items: flex-end;
+			gap: 20px;
+			margin-bottom: 60px;
+
+			@include sm {
+				margin-bottom: 30px;
+			}
+
+		}
+
+		.team-social-wrapper {
+			.client-social-proof {
+				display: flex;
+				align-items: center;
+				gap: 20px;
+
+				@include nestHub {
+					flex-direction: column;
+					align-items: start;
+				}
+
+				.social {
+					display: flex;
+					align-items: center;
+
+					img {
+						display: flex;
+						width: 70px;
+						height: 70px;
+						border-radius: 50%;
+						margin-left: -25px;
+						background-color: $dark-color3;
+						border: 3px solid $white-color;
+
+						&:first-child {
+							margin-left: 0px;
+						}
+					}
+
+					h4 {
+						background: $theme-color;
+						width: 68px;
+						height: 68px;
+						border-radius: 50%;
+						color: $white-color;
+						flex-shrink: 0;
+						margin: 0;
+						font-size: 22px;
+						@include center-flex;
+						border: 2px solid $white-color;
+						margin-left: -25px;
+					}
+				}
+
+				.text {
+					color: $white-color;
+					margin: 0;
+					font-size: 20px;
+					line-height: 28px;
+					color: $white-color;
+					font-weight: 500;
+					font-family: $title-font;
+				}
+			}
+
+			.scribble-shape {
+				i {
+					display: inline-block;
+					font-size: 70px;
+					color: $theme-color;
+					-webkit-animation: scribble 2s infinite linear;
+					animation: scribble 2s infinite linear;
+				}
+			}
+		}
+	}
+}
+
+
+
+// team card style
+.tv-team-card {
+	&.style-2 {
+		@extend.tv-team-card;
+		background: transparent;
+		backdrop-filter: blur(30px);
+		border: 1px solid $border-color5;
+		box-shadow: none;
+
+		// .svg-border .rect1,
+		// .svg-border .rect2 {
+		// 	stroke: $white-color;
+		// }
+
+		.team-info {
+			background: #212C6B;
+
+			&::before {
+				background: url('data:image/svg+xml,<svg viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-11 h-11"><path d="M11 1.54972e-06L0 0L2.38419e-07 11C1.65973e-07 4.92487 4.92487 1.62217e-06 11 1.54972e-06Z" fill="%23212C6B"></path></svg>');
+			}
+
+			&::after {
+				background: url('data:image/svg+xml,<svg viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-11 h-11"><path d="M11 1.54972e-06L0 0L2.38419e-07 11C1.65973e-07 4.92487 4.92487 1.62217e-06 11 1.54972e-06Z" fill="%23212C6B"></path></svg>');
+			}
+
+			.info-inner {
+				.team-name {
+					@include nestHub{
+						font-size: 20px;
+					}
+					a{
+						color: $white-color;
+					}
+				}
+			}
+		}
+	}
+}

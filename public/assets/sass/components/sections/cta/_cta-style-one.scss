@@ -1,0 +1,231 @@
+/*==== Call To Action Section One =====================*/
+
+// cta style 1
+.cta-section.style-1 {
+
+    .cta-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 40px 60px 40px 140px;
+
+        @include sm {
+            padding: 40px 60px 40px 60px;
+        }
+
+        @include xs {
+            flex-direction: column;
+            align-items: start;
+            gap: 20px;
+        }
+
+        @include mobile-xl {
+            padding: 40px 40px 40px 40px;
+        }
+
+        .cta-left {
+            position: relative;
+
+            .mike {
+                position: absolute;
+                left: -90px;
+
+                @include sm {
+                    display: none;
+                }
+            }
+
+            h4 {
+                font-size: 20px;
+                line-height: 30px;
+                color: $white-color;
+                font-weight: 500;
+                font-family: $title-font;
+                margin: 0;
+
+                @include mobile-xl {
+                    br {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .cta-right {
+            position: relative;
+
+            .arrow {
+                position: absolute;
+                left: -60%;
+                top: -40%;
+
+                @include laptop-s {
+                    display: none;
+                }
+            }
+
+            .theme-btn {
+                background: transparent;
+                border: 1px solid $white-color;
+            }
+        }
+
+    }
+
+}
+
+
+// cta style 2
+.tv-cta-section.style-2 {
+    .cta-inner {
+        border-radius: 0 0 30px 30px;
+
+        @include ml {
+            border-radius: 0;
+        }
+
+        .cta-right {
+            position: relative;
+
+            @include md {
+                text-align: start !important;
+            }
+
+            .theme-btn {
+                background: transparent;
+                border: 1px solid $white-color;
+            }
+
+            .arrow {
+                position: absolute;
+                top: -50px;
+                left: 36%;
+
+                @include lg {
+                    left: 16%;
+                }
+
+                @include md {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+
+//  inner page 
+.tv-cta-section.inner {
+    .image-grid {
+        @include center-flex;
+        position: relative;
+        z-index: 1;
+        max-width: 650px;
+        width: 100%;
+        height: 495px;
+
+        .lines {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            z-index: -1;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            span {
+                width: 1px;
+                height: 100%;
+                background-color: $border-color8;
+            }
+        }
+
+        .lines2 {
+            position: absolute;
+            left: 0;
+            right: 0;
+            z-index: -1;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            height: 100%;
+
+            span {
+                width: 100%;
+                height: 1px;
+                background-color: $border-color8;
+            }
+        }
+
+        .image-box {
+            @include center-flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 425px;
+            width: 100%;
+
+            .image-item {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 127px;
+                height: 128px;
+                background-color: $theme-color;
+                border-radius: 50%;
+                overflow: hidden;
+            }
+        }
+    }
+}
+
+
+
+// cta style 3
+.tv-cta-section.style-3 {
+    .overlay {
+        background: linear-gradient(100deg, rgba(15, 83, 243, 0) 0%, rgba(15, 83, 243, 0) 24%, rgba(15, 83, 243, 0.9999999999999999) 36%, rgba(15, 83, 243, 0.9999999999999999) 100%);
+
+        @include md {
+            background: $theme-color;
+        }
+
+        &::before {
+            position: absolute;
+            content: '';
+            right: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: url(../images/cta/hm4-bg01.webp);
+            background-size: cover;
+            background-repeat: no-repeat;
+            mix-blend-mode: plus-lighter;
+        }
+    }
+}
+
+
+// cta style 4
+
+.tv-cta-section.style-4 {
+    .overlay {
+        background: linear-gradient(100deg, rgb(7 40 118 / 0%) 0%, rgb(12 48 135 / 0%) 21%, rgb(15, 83, 243) 31%, rgb(15, 83, 243) 100%);
+
+        @include md {
+            background: $theme-color;
+        }
+
+        &::before {
+            position: absolute;
+            content: '';
+            right: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: url(../images/cta/hm5-bg01.webp);
+            background-size: cover;
+            background-repeat: no-repeat;
+            mix-blend-mode: plus-lighter;
+        }
+    }
+}

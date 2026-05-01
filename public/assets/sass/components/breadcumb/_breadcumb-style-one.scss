@@ -1,0 +1,193 @@
+/*===== Breadcumb Section =====*/
+.tv-breadcrumb-section {
+    .tv-breadcrumb-inner {
+        padding: 160px 0;
+
+        @include md {
+            padding: 100px 0;
+        }
+
+        @include xs {
+            padding: 80px 0;
+        }
+
+    }
+
+    .title-outer {
+        text-align: center;
+
+        .page-title {
+            position: relative;
+
+            .scribble-shape i {
+                display: inline-block;
+                font-size: 70px;
+                color: $theme-color2;
+                -webkit-animation: scribble 2s infinite linear;
+                animation: scribble 2s infinite linear;
+                position: absolute;
+                left: -110px;
+                top: -20px;
+
+                @include xxl {
+                    display: none;
+                }
+            }
+        }
+
+        .title {
+            position: relative;
+            font-size: 52px;
+            line-height: 1;
+            color: $white-color;
+            font-weight: 700;
+            font-family: $title-font;
+            margin-bottom: 17px;
+
+            @include sm {
+                font-size: 46px;
+            }
+
+            @include xs {
+                font-size: 35px;
+            }
+        }
+
+        .image-box {
+            position: relative;
+
+            .shape {
+                position: absolute;
+                display: inline-block;
+
+                &.shape-1 {
+                    right: 400px;
+                    bottom: 110px;
+
+                    @include laptop-m {
+                        right: 290px;
+                        bottom: 170px;
+                    }
+
+                }
+
+                &.shape-2 {
+                    left: 380px;
+                    top: 30px;
+
+                    @include laptop-m {
+                        left: 280px;
+                        top: 70px;
+                    }
+
+                }
+
+                &.shape-3 {
+                    left: 370px;
+                    top: -130px;
+
+                    @include laptop-m {
+                        left: 270px;
+                        top: -190px;
+                    }
+                }
+
+                &.shape-4 {
+                    right: 390px;
+                    top: 25px;
+
+                    @include laptop-m {
+                        right: 270px;
+                        top: 65px;
+                    }
+                }
+            }
+
+            .image {
+                position: relative;
+
+                &::before {
+                    position: absolute;
+                    content: '';
+                    z-index: -1;
+                    left: 0;
+                    top: calc(100% - 310px);
+                    width: 500px;
+                    height: 500px;
+                    border-radius: 50%;
+                    background-color: $theme-color;
+                    clip-path: circle(50% at 50% 50%);
+
+                    @include sm {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+.page-breadcrumb {
+    position: relative;
+    margin-top: 5px;
+    position: relative;
+    margin-top: 5px;
+    display: inline-block;
+    background: $bg-color15;
+    padding: 4px 20px;
+    border-radius: 18px;
+    border: 1px solid $border-color5;
+
+    li {
+        position: relative;
+        display: inline-block;
+        font-size: 16px;
+        color: $white-color;
+        font-weight: 500;
+        text-transform: capitalize;
+
+        &:last-child {
+            color: $text-color2;
+            padding-right: 0;
+            margin-right: 0;
+
+            &::after {
+                display: none;
+            }
+        }
+
+        span {
+            padding: 0 2px 0 5px;
+        }
+
+
+        a {
+            color: $white-color;
+            font-size: 16px;
+            font-weight: 500;
+            font-family: $title-font;
+            text-transform: capitalize;
+            -webkit-transition: all 300ms ease;
+            transition: all 300ms ease;
+
+            &:hover {
+                color: $theme-color2;
+            }
+
+            >i {
+                font-size: 14px;
+                color: $white-color;
+                margin-right: 10px;
+            }
+        }
+
+        &:hover {
+            &:first-child {
+                &::before {
+                    color: $white-color;
+                }
+            }
+        }
+    }
+}

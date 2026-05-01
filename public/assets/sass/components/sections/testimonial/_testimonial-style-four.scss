@@ -1,0 +1,274 @@
+// testimonial style Three
+.tv-testimonial-section {
+	&.style-4 {
+		.tv-testimonial-inner {
+			border-radius: 0;
+
+			.testi-left-box {
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				border-radius: 30px;
+				background-image: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.10196078431372547) 80%, rgba(255, 255, 255, 0.10196078431372547) 100%);
+				padding: 40px 70px 50px 40px;
+				position: relative;
+				height: 100%;
+
+				@include mobile-xl {
+					padding: 40px 30px 50px 30px;
+				}
+
+				.content {
+					h2 {
+						font-size: 60px;
+						line-height: 1;
+						color: $white-color;
+						font-weight: 600;
+						font-family: $title-font;
+					}
+
+					h4 {
+						font-size: 24px;
+						line-height: 1;
+						color: $white-color;
+						font-weight: 600;
+						font-family: $title-font;
+						margin-bottom: 30px;
+					}
+
+					p {
+						font-size: 20px;
+						line-height: 32px;
+						color: $text-color2;
+						font-weight: 400;
+						font-family: $title-font;
+						margin-bottom: 230px;
+
+						@include xs {
+							margin-bottom: 130px;
+						}
+
+						@include mobile-xl {
+							margin-bottom: 50px;
+							font-size: 18px;
+						}
+					}
+				}
+
+				.box-user {
+					display: flex;
+					align-items: center;
+					gap: 15px;
+
+					.image {
+						img {
+							width: 66px;
+							height: 66px;
+							border-radius: 50%;
+						}
+					}
+
+					.testi-info {
+						h4 {
+							font-size: 22px;
+							line-height: 1;
+							color: $white-color;
+							font-weight: 500;
+							font-family: $title-font;
+							margin: 0;
+						}
+
+						p {
+							font-size: 15px;
+							line-height: 26px;
+							color: $text-color2;
+							font-family: $body-font;
+							margin: 8px 0 0;
+						}
+					}
+				}
+
+				.google-logo {
+					position: absolute;
+					bottom: 70px;
+					right: 40px;
+				}
+			}
+
+			.right-top-box {
+				border-radius: 30px;
+				background-image: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.10196078431372547) 80%, rgba(255, 255, 255, 0.10196078431372547) 100%);
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				padding: 40px;
+				position: relative;
+
+				h2 {
+					font-size: 40px;
+					line-height: 1;
+					color: $white-color;
+					font-weight: 600;
+					font-family: $title-font;
+
+					span {
+						font-size: 24px;
+						line-height: 1;
+						color: $white-color;
+						font-weight: 600;
+						font-family: $title-font;
+					}
+				}
+
+				p {
+					font-size: 18px;
+					line-height: 30px;
+					color: $text-color2;
+					font-weight: 400;
+					font-family: $title-font;
+					margin-bottom: 30px;
+				}
+
+
+				.box-user {
+					display: flex;
+					align-items: center;
+					gap: 15px;
+
+					.image {
+						img {
+							width: 54px;
+							height: 54px;
+							border-radius: 50%;
+						}
+					}
+
+					.testi-info {
+						h4 {
+							font-size: 18px;
+							line-height: 1;
+							color: $white-color;
+							font-weight: 500;
+							font-family: $title-font;
+							margin: 0;
+						}
+
+						p {
+							font-size: 14px;
+							line-height: 26px;
+							color: $text-color2;
+							font-family: $body-font;
+							margin: 8px 0 0;
+						}
+					}
+				}
+
+				.google-logo {
+					position: absolute;
+					bottom: 45px;
+					right: 40px;
+				}
+			}
+
+			.right-bottom-box {
+				display: flex;
+				align-items: center;
+				gap: 25px;
+				margin-top: 25px;
+
+				@include xs {
+					flex-direction: column;
+				}
+
+				.testi-small-box {
+					border-radius: 30px;
+					background-image: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.10196078431372547) 80%, rgba(255, 255, 255, 0.10196078431372547) 100%);
+					border: 1px solid rgba(255, 255, 255, 0.2);
+					padding: 30px;
+
+					p {
+						font-size: 16px;
+						line-height: 28px;
+						color: $text-color2;
+						font-weight: 400;
+						font-family: $title-font;
+						margin-bottom: 45px;
+					}
+
+					.box-user {
+						display: flex;
+						align-items: center;
+						gap: 15px;
+
+						.image {
+							img {
+								width: 54px;
+								height: 54px;
+								border-radius: 50%;
+							}
+						}
+
+						.testi-info {
+							h4 {
+								font-size: 18px;
+								line-height: 1;
+								color: $white-color;
+								font-weight: 500;
+								font-family: $title-font;
+								margin: 0;
+							}
+
+							p {
+								font-size: 14px;
+								line-height: 26px;
+								color: $text-color2;
+								font-family: $body-font;
+								margin: 8px 0 0;
+							}
+						}
+					}
+				}
+			}
+
+			.simple-testi-box {
+				@include transition;
+				position: relative;
+				overflow: hidden;
+				z-index: 1;
+
+				.quote-icon {
+					@include transition;
+				}
+				p{
+					@include transition;
+				}
+
+				&::before {
+					position: absolute;
+					content: "";
+					top: 0;
+					right: 100%;
+					width: 0;
+					height: 100%;
+					overflow: hidden;
+					z-index: -1;
+					border-radius: 5px;
+					background: $theme-color;
+					transition: all 0.4s ease 0s;
+				}
+
+				&:hover,
+				&.active {
+					border-color: transparent;
+					&::before {
+						right: 0;
+						width: 100%;
+					}
+
+					.quote-icon {
+						filter: brightness(0) invert(1);
+					}
+					p{
+						color: $white-color;
+					}
+				}
+			}
+		}
+	}
+}

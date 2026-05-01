@@ -1,0 +1,107 @@
+/*==== Process Section Three =====================*/
+.tv-process-section.style-3 {
+    .process-inner {
+        .process-box {
+            text-align: center;
+            padding: 50px 20px;
+            border-left: 1px solid $border-color5;
+            border-bottom: 1px solid $border-color5;
+            border-top: 1px solid $border-color5;
+            border-bottom-left-radius: 30px;
+            border-top-left-radius: 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            flex: 1;
+
+            &.style-2 {
+                background: $bg-color14;
+                border: none;
+                border-radius: 0;
+
+                .process-number {
+                    background: $theme-color;
+
+                    span {
+                        color: $white-color;
+                    }
+                }
+
+            }
+
+            &.style-3 {
+                border-left: none;
+                border-bottom: 1px solid $border-color5;
+                border-top: 1px solid $border-color5;
+                border-right: 1px solid $border-color5;
+                border-bottom-left-radius: 0px;
+                border-top-left-radius: 0px;
+                border-bottom-right-radius: 30px;
+                border-top-right-radius: 30px;
+            }
+
+            .process-img {
+                position: relative;
+                margin: 0 auto 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                max-width: 258px;
+                max-height: 258px;
+                overflow: hidden;
+            }
+
+
+            h3 {
+                color: $white-color;
+            }
+
+            p {
+                color: $text-color2;
+            }
+
+            .process-number {
+                position: absolute;
+                z-index: 1;
+                bottom: -29px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #131d5c;
+                border: 1px solid $border-color5;
+                width: 58px;
+                height: 58px;
+                @include center-flex;
+                border-radius: 50%;
+                margin-right: auto;
+                font-weight: 600;
+                @include transition;
+
+                span {
+                    font-size: 22px;
+                    line-height: 1;
+                    color: $text-color2;
+                    font-weight: 600;
+                    font-family: $title-font;
+                }
+            }
+
+            &:hover {
+                .process-number {
+                    background: $theme-color;
+
+                    span {
+                        color: $white-color;
+                    }
+                }
+
+                .bg-shape {
+                    transform: rotate(360deg);
+                }
+
+                .clip-svg path {
+                    transform-origin: 50% 50%;
+                    animation: rotate-path 5s linear infinite;
+                }
+            }
+        }
+    }
+}

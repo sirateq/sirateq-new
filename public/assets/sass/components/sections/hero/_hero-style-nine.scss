@@ -1,0 +1,212 @@
+/*==== Hero Section Nine =====================*/
+.tv-hero-section {
+  &.style-9 {
+    padding: 200px 0 120px;
+
+    @include xs {
+      padding: 150px 0 90px;
+    }
+
+    .hero-middle-content {
+      position: relative;
+
+      h6 {
+        font-size: 16px;
+        letter-spacing: 3px;
+        line-height: 24px;
+        color: $white-color;
+        font-weight: 500;
+        font-family: $title-font;
+        text-align: center;
+      }
+
+      .sec-title {
+        font-size: 60px;
+        line-height: 1.2;
+        color: $white-color;
+        font-weight: 700;
+        font-family: $title-font;
+        text-align: center;
+
+        @include sm {
+          font-size: 50px;
+        }
+
+        @include xs {
+          font-size: 40px;
+        }
+
+        @include mobile-xl {
+          font-size: 30px;
+        }
+
+        @include mobile-m {
+          font-size: 25px;
+        }
+      }
+
+      p {
+        font-size: 18px;
+        line-height: 30px;
+        color: $text-color2;
+        font-weight: 400;
+        font-family: $title-font;
+        text-align: center;
+
+        @include xs {
+          br {
+            display: none;
+          }
+        }
+      }
+
+      .btn-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        margin: 30px 0 70px;
+
+        @include mobile-xl {
+          flex-direction: column;
+          margin: 30px 0 40px;
+        }
+
+        .video-area {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+
+          .video-box {
+            .popup-video {
+              width: 56px;
+              height: 56px;
+              @include center-flex;
+              border-radius: 28px;
+              background-color: transparent;
+              color: $white-color;
+              border: 1px solid $white-color;
+
+              &::before {
+                all: unset;
+              }
+
+              &::after {
+                all: unset;
+              }
+            }
+          }
+
+          h4 {
+            font-size: 16px;
+            line-height: 24px;
+            color: $white-color;
+            font-weight: 500;
+            font-family: "Manrope";
+            margin: 0;
+          }
+        }
+      }
+
+      .hero-shape1 {
+        position: absolute;
+        bottom: 250px;
+        left: 70px;
+
+        @include nestHub {
+          bottom: 310px;
+        }
+
+        @include md {
+          bottom: 330px;
+        }
+
+        @include xs {
+          display: none;
+        }
+      }
+
+      .hero-shape2 {
+        position: absolute;
+        top: 200px;
+        right: 70px;
+
+        @include xs {
+          display: none;
+        }
+      }
+    }
+
+    .thumb1 {
+      padding: 40px 0 0 0;
+      text-align: center;
+      margin-right: 20px;
+
+      @include md {
+        margin-right: 0;
+      }
+
+
+      .icon {
+        width: 74px;
+        height: 74px;
+        @include center-flex;
+        border-radius: 37px;
+        background-color: $bg-color12;
+        border: 1px solid $border-color3;
+        margin: 0 auto;
+      }
+
+      h6 {
+        font-size: 22px;
+        line-height: 30px;
+        color: $white-color;
+        font-weight: 600;
+        font-family: $title-font;
+        margin: 20px 0 30px;
+      }
+    }
+
+    .thumb2 {
+      margin-left: -20px;
+      margin-right: -20px;
+
+      img {
+        width: 100%;
+      }
+
+      @include md {
+        margin-left: 0px;
+        margin-right: 0px;
+      }
+    }
+
+    .thumb3 {
+      margin-left: 20px;
+
+      @include md {
+        margin-left: 0px;
+      }
+
+      img {
+        @include mobile-xl {
+          width: 100%;
+        }
+      }
+    }
+
+    .thumb4 {
+      margin-left: 20px;
+
+      @include md {
+        margin-left: 0px;
+      }
+
+      img {
+        @include mobile-xl {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

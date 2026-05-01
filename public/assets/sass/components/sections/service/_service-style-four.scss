@@ -1,0 +1,222 @@
+/*======== Service Section One =========*/
+.tv-service-section.style-4 {
+    .tv-service-inner {
+        border-radius: 30px 30px 0 0;
+
+        @include ml {
+            border-radius: 0;
+        }
+
+        &::before {
+            position: absolute;
+            content: "";
+            z-index: 0;
+            bottom: 377px;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: $dark-color;
+            border-radius: 30px 30px 0 0;
+        }
+
+        &::after {
+            position: absolute;
+            content: "";
+            z-index: 0;
+            bottom: 3px;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            border-radius: 30px 30px 0 0;
+            background-image: url(../images/service/hm4-bg01.png);
+            background-repeat: no-repeat;
+            mix-blend-mode: screen;
+        }
+
+        .service-title-area {
+            .service-btn-wrapper {
+                z-index: 1;
+
+                .array-button {
+                    padding: 10px;
+                    border-radius: 50px;
+                    border: 1px solid $border-color7;
+                    background: $bg-color14;
+                    margin-top: 30px;
+
+                    @include sm {
+                        display: inline-flex;
+                        margin-top: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.service-box-four {
+    position: relative;
+    overflow: hidden;
+    border-radius: 30px;
+
+    &.current,
+    &:hover {
+        .image-box {
+            .thumb {
+                img {
+                    transform: scale(1.1);
+                }
+            }
+
+            .service-icon {
+                color: $white-color;
+
+                &::before {
+                    width: 100%;
+                }
+
+                img {
+                    @include filter-white-color;
+                }
+
+                svg {
+                    fill: $white-color;
+                }
+            }
+        }
+
+        .content {
+            &::before {
+                width: 100%;
+            }
+
+            .service-btn {
+                padding-left: 195px;
+                color: $theme-color;
+
+                @include ml {
+                    padding-left: 175px;
+                }
+
+                @include nestHub {
+                    padding-left: 152px;
+                }
+
+                @include vxs {
+                    padding-left: 156px;
+                }
+
+                &::before {
+                    width: 190px;
+
+                    @include ml {
+                        width: 160px;
+                    }
+
+                    @include nestHub {
+                        width: 144px;
+                    }
+
+                    @include vxs {
+                        width: 150px;
+                    }
+                }
+            }
+        }
+    }
+
+    .image-box {
+        position: relative;
+        z-index: 1;
+
+        img {
+            @include transition;
+        }
+
+        .thumb {
+            overflow: hidden;
+            img {
+                width: 100%;
+            }
+        }
+
+        .service-icon {
+            position: absolute;
+            left: 40px;
+            bottom: 30px;
+            @include center-flex;
+            width: 90px;
+            height: 90px;
+            background-color: $bg-color14;
+            backdrop-filter: blur(30px);
+            font-size: 46px;
+            color: $dark-color;
+            border-radius: 20px 20px 0 0;
+            overflow: hidden;
+
+
+            &::before {
+                content: "";
+                position: absolute;
+                z-index: -1;
+                left: 0;
+                top: 0;
+                width: 0;
+                height: 100%;
+                background: $theme-color;
+                @include transition;
+            }
+
+            svg {
+                fill: $dark-color;
+                width: 46px;
+                height: 46px;
+            }
+        }
+    }
+
+    .content {
+        margin-left: 40px;
+        margin-top: -30px;
+        padding: 43px 34px 43px 36px;
+        background: $light-color;
+        position: relative;
+        z-index: 1;
+        border-radius: 0 0 0 30px;
+        overflow: hidden;
+
+        @include lg {
+            margin-left: 0;
+        }
+
+        @include nestHub {
+            padding: 43px 20px 43px 20px;
+        }
+    }
+
+    .title {
+        font-size: 24px;
+        color: $dark-color;
+        font-weight: 600;
+    }
+
+    .service-btn {
+        font-size: 16px;
+        color: $dark-color;
+        font-weight: 500;
+        position: relative;
+        z-index: 1;
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 0;
+            height: 1px;
+            background: $theme-color;
+            z-index: -1;
+            @include transition;
+        }
+    }
+}

@@ -1,0 +1,107 @@
+/*==== Contact Section Two =====================*/
+.tv-contact-section.style-3 {
+	&::before {
+		position: absolute;
+		content: "";
+		z-index: -1;
+		top: 200px;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: $dark-color;
+		border-radius: 30px 30px 0 0;
+
+		@include ml {
+			border-radius: 0;
+		}
+	}
+
+	.contact-wrapper {
+		display: flex;
+		align-items: center;
+		border-radius: 30px;
+		overflow: hidden;
+
+		.contact-right-content {
+			background: $white-color;
+			padding-left: 80px;
+			border-radius: 0 30px 30px 0;
+			flex: 1;
+
+			@include lg {
+				padding-left: 40px;
+			}
+
+			@include md {
+				padding-left: 0;
+				padding: 40px;
+				border-radius: 0;
+			}
+
+			@include mobile-xl{
+				padding: 20px;
+			}
+		}
+	}
+}
+
+
+// contant form
+.contact-form.style-3 {
+	background: transparent;
+	padding: 0;
+
+	.contact_form {
+		.form-grid {
+			input {
+				background: $light-color !important;
+				border: none !important;
+			}
+		}
+
+		.form-group {
+			margin-bottom: 28px;
+
+			.custom-select {
+				background-color: $light-color !important;
+				border: none !important;
+			}
+
+			.select2-container {
+				.select2-selection--single {
+					background-color: $light-color !important;
+					border: none !important;
+				}
+			}
+
+			textarea {
+				background-color: $light-color !important;
+				border: none !important;
+			}
+		}
+	}
+}
+
+.contact-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: stretch;
+}
+
+.contact-wrapper .col-lg-6 {
+	display: flex;
+	flex-direction: column;
+}
+
+.contact-left-thumb img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.contact-right-content {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}

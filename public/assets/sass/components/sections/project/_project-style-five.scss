@@ -1,0 +1,227 @@
+/*==== Project Style Three =====================*/
+.tv-project-section.style-5 {
+  .tv-project-item-inner {
+    border-radius: 0 0 30px 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+
+    @include ml {
+      border-radius: 0;
+    }
+
+    .tv-project-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: #030f44;
+      border: 1px solid $border-color5;
+      padding: 15px;
+      border-radius: 20px;
+      overflow: hidden;
+      width: 100%;
+
+      @include laptop-s {
+        flex-direction: column;
+        gap: 30px;
+      }
+
+
+      .project-left {
+        position: relative;
+        min-width: 300px;
+
+        @include laptop-s {
+          width: 100%;
+        }
+
+        .overlay-anim4 {
+          border-radius: 20px;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+
+            @include laptop-m {
+              height: 340px;
+            }
+
+            @include laptop-s {
+              height: inherit;
+            }
+          }
+        }
+      }
+
+      .project-right {
+        padding: 0 40px 0 50px;
+        flex: 1;
+
+        @include laptop-m {
+          padding: 0 20px 0 20px;
+        }
+
+        h6 {
+          font-size: 14px;
+          line-height: 22px;
+          color: $white-color;
+          font-weight: 500;
+          font-family: $title-font;
+          border-radius: 16px;
+          background-color: $bg-color5;
+          border: 1px solid $border-color8;
+          display: inline-block;
+          padding: 3px 20px;
+        }
+
+        h2 {
+          font-size: 30px;
+          line-height: 40px;
+          color: $white-color;
+          font-weight: 600;
+          font-family: $title-font;
+
+          @include mobile-l {
+            br {
+              display: none;
+            }
+          }
+        }
+
+        p {
+          color: $text-color2;
+
+          @include laptop-m {
+            br {
+              display: none;
+            }
+          }
+        }
+
+        .project-tags {
+          display: flex;
+          align-items: center;
+
+          span {
+            font-size: 18px;
+            line-height: 1;
+            color: $white-color;
+            font-weight: 500;
+            font-family: $title-font;
+            margin-right: 15px;
+          }
+
+          li {
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            background-color: #3fc74c;
+            @include center-flex;
+
+            &:last-child {
+              background-color: $orange-color;
+              margin-left: 10px;
+            }
+          }
+        }
+
+        .learn-more {
+          color: $white-color;
+          font-weight: 500;
+          display: inline-block;
+          padding: 0 24px;
+          background: $bg-color5;
+          line-height: 40px;
+          border-radius: 20px;
+          border: 1px solid $border-color5;
+          position: relative;
+          z-index: 1;
+          overflow: hidden;
+
+          &::before {
+            position: absolute;
+            content: "";
+            left: 50%;
+            top: 0;
+            width: 0;
+            height: 100%;
+            background: $theme-color;
+            z-index: -1;
+            @include transition;
+          }
+
+          &:hover {
+            color: $white-color;
+
+            &::before {
+              width: 100%;
+              left: 0;
+            }
+          }
+        }
+
+        .border {
+          background: $bg-color5;
+
+          &::before {
+            position: absolute;
+            content: "";
+            left: 50%;
+            top: 0;
+            width: 0;
+            height: 1px;
+            background: $theme-color;
+            transition: all 0.4s ease 0s;
+          }
+
+          @include laptop-m {
+            // margin-top: 0 !important;
+            margin-bottom: 20px !important;
+          }
+        }
+
+        .tags {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 10px;
+          max-width: 300px;
+
+          @include mobile-xl {
+            grid-template-columns: repeat(2, 1fr);
+          }
+
+          span {
+            padding: 4px 20px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid $border-color8;
+            font-size: 14px;
+            line-height: 22px;
+            text-align: center;
+            color: $gray-color2;
+            font-weight: 500;
+            font-family: $title-font;
+
+            &:hover {
+              background: $theme-color;
+              color: $white-color;
+            }
+          }
+        }
+      }
+
+      &:hover {
+
+        .project-right {
+          .border::before {
+            width: 100%;
+            left: 0;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,429 @@
+// /*==== About Section Four =====================*/
+.tv-about-section.style-4 {
+  .bg.image img {
+    clip-path: inset(50px 0 0 0);
+  }
+
+  .about-left {
+    position: relative;
+    margin-right: 125px;
+
+    @include xxl {
+      margin-right: 70px;
+    }
+
+    @include ml {
+      margin-right: 0;
+    }
+
+    .main-image-box {
+      position: relative;
+
+      img {
+        max-width: inherit;
+      }
+
+      @include xl {
+        margin-right: -80px;
+      }
+
+      @include nestHub {
+        margin-right: -170px;
+      }
+
+      @include md {
+        margin-right: 0;
+      }
+
+      .agency-info {
+        @include center-flex;
+        flex-direction: column;
+        width: 160px;
+        height: 170px;
+        border-radius: 30px;
+        background-color: $theme-color;
+        position: absolute;
+        top: 0;
+        right: -25px;
+        z-index: 2;
+
+        @include ml {
+          top: 10px;
+          right: 75px;
+        }
+
+        @include xl {
+          display: none;
+        }
+
+        @include nestHub {
+          display: none;
+        }
+
+        @include md {
+          right: 171px;
+          top: 120px;
+        }
+
+        @include tablet-l {
+          right: 33px;
+        }
+
+        @include mobile-xl {
+          display: none;
+        }
+
+        &:hover .icon i {
+          @include animation(mirrorEffect, 0.5s, ease-in-out);
+        }
+
+        .icon {
+          @include center-flex;
+          width: 48px;
+          height: 48px;
+          font-size: 25px;
+          color: $theme-color;
+          background-color: $white-color;
+          border-radius: 50%;
+          margin-bottom: 15px;
+        }
+
+        p {
+          font-size: 15px;
+          line-height: 20px;
+          color: $white-color;
+          font-weight: 500;
+          margin-bottom: 0;
+          text-align: center;
+        }
+      }
+
+      .image-group {
+        .image1 {
+          margin-right: 160px;
+          direction: rtl;
+
+          @include nestHub {
+            direction: inherit;
+          }
+
+          @include md {
+            direction: inherit;
+            margin-right: 0;
+          }
+
+          img {
+            @include mobile-xl {
+              max-width: 100% !important;
+            }
+          }
+        }
+
+        .image2 {
+          display: flex;
+          justify-content: end;
+          margin-top: -205px;
+          margin-right: -70px;
+
+          @include ml {
+            margin-right: 30px;
+          }
+
+          @include xl {
+            margin-right: 120px;
+          }
+
+          @include nestHub {
+            margin-right: 230px;
+          }
+
+          @include md {
+            margin-right: 400px;
+          }
+
+          @include tablet-l {
+            margin-right: 240px;
+          }
+
+
+          @include sm {
+            margin-right: 160px;
+          }
+
+          @include xs {
+            margin-right: 150px;
+          }
+
+          @include tablet-s {
+            margin-right: 0;
+            justify-content: center;
+          }
+
+          @include mobile-xl {
+            margin-top: 30px;
+          }
+
+          .inner-box {
+            @include mobile-xl {
+              width: 100%;
+            }
+
+            img {
+              @include mobile-xl {
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+
+      .info-box {
+        @include center-flex;
+        gap: 15px;
+        width: 310px;
+        height: 120px;
+        border-radius: 30px;
+        filter: drop-shadow(0px 20px 25px rgba(211, 217, 234, 0.6));
+        background-color: rgba(255, 255, 255, 0);
+        backdrop-filter: blur(10px);
+        border: 1px solid $white-color;
+        position: absolute;
+        z-index: 2;
+        bottom: 0px;
+        left: -120px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08),
+            0 2px 6px rgba(0, 0, 0, 0.05);
+
+        @include xxl {
+          left: -50px;
+        }
+
+        @include ml {
+          left: -50px;
+        }
+
+        @include xl {
+          bottom: 70px;
+          z-index: 1;
+          display: none;
+        }
+
+        @include nestHub {
+          display: none;
+        }
+
+        @include md {
+          bottom: 40px;
+        }
+
+        @include xs {
+          display: none;
+        }
+
+        .img {
+          border-radius: 50%;
+        }
+
+        .info {
+          .name {
+            font-size: 20px;
+            color: $dark-color;
+            font-weight: 500;
+            margin-bottom: 0;
+          }
+
+          .position {
+            font-size: 15px;
+            color: $gray-color;
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+    .dot-shape {
+      position: absolute;
+      top: 50px;
+      right: 10px;
+
+      @include respond-between($laptop-m, $ml) {
+        display: none;
+      }
+
+      @include md {
+        right: 320px;
+      }
+
+      @include laptop-s {
+        right: 250px;
+      }
+
+      @include tablet-m {
+        right: 150px;
+      }
+
+      @include xs {
+        display: none;
+      }
+    }
+
+    .circle-path_shape {
+      position: absolute;
+      content: "";
+      left: 120px;
+      top: 200px;
+      width: 258px;
+      height: 258px;
+      border-radius: 50%;
+      background-color: $theme-color;
+      z-index: -1;
+
+      @include mobile-xl {
+        top: 150px;
+      }
+
+      @include nestHub {
+        left: 60px;
+      }
+
+      @include md {
+        left: 100px;
+      }
+
+      @include sm {
+        left: 100px;
+      }
+
+      @include xs {
+        display: none;
+      }
+    }
+  }
+
+  .about-content-wrap {
+    position: relative;
+
+    .about-content .about-feature {
+
+      .feature-text h5 {
+        font-size: 20px;
+        margin-bottom: 0;
+
+        @include xs {
+          font-size: 18px;
+        }
+      }
+    }
+
+    .about-content {
+      display: flex;
+      gap: 20px;
+
+      @include laptop-m {
+        flex-direction: column;
+      }
+
+      .about-feature {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        &:hover .feature-icon i {
+          @include animation(mirror_effect, 0.8s, ease-in-out);
+        }
+
+        .feature-icon {
+          @include center-flex;
+          flex-shrink: 0;
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          font-size: 30px;
+          background: $theme-color;
+          border: 1px solid $border-color10;
+          color: $white-color;
+        }
+
+        .feature-text {
+          h5 {
+            margin-bottom: 6px;
+          }
+
+          p {
+            font-size: 15px;
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      .about-stats {
+        width: 180px;
+        height: 220px;
+        padding: 22px 0 0;
+        border-radius: 10px;
+        filter: drop-shadow(0px 20px 45px $bg-color6);
+        background-color: $white-color;
+        border-top: 5px solid $theme-color;
+        flex-shrink: 0;
+        text-align: center;
+
+        h2 {
+          font-size: 50px;
+          line-height: 1.1;
+          color: $dark-color;
+          font-weight: 500;
+          margin-bottom: 0;
+
+          >span {
+            position: relative;
+
+            &::before {
+              content: "+";
+              position: absolute;
+              right: -20px;
+              top: 0;
+              font-size: 35px;
+              font-weight: 300;
+            }
+          }
+        }
+
+        >span {
+          font-size: 44px;
+          color: $theme-color;
+        }
+
+        p {
+          font-size: 15px;
+          margin: 4px 0 0;
+        }
+      }
+    }
+
+    .features li {
+      position: relative;
+      padding-left: 25px;
+      font-size: 18px;
+      line-height: 1;
+      color: $dark-color;
+      font-weight: 500;
+      font-family: $title-font;
+
+      +li {
+        margin-top: 20px;
+      }
+
+      &::before {
+        @include absolute-centerY;
+        content: "\f00c";
+        left: 0;
+        font-family: $icon-font;
+        color: $theme-color;
+        font-size: 15px;
+        font-weight: 900;
+      }
+    }
+  }
+
+
+}

@@ -1,0 +1,77 @@
+// /*==== About Section One =====================*/
+.tv-about-section {
+  .about-left {
+    .image-box {
+      position: relative;
+      width: 100%;
+      height: 100%;
+
+      img {
+        width: 100%;
+        height: 100%;
+        -o-object-fit: cover;
+        object-fit: cover;
+
+        @include md {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .about-right {
+    .right-top {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+
+      .text {
+        h4 {
+          font-size: 24px;
+          line-height: 28px;
+          color: $dark-color;
+          font-weight: 600;
+          font-family: $title-font;
+          margin: 10px 0;
+        }
+
+        p {
+          font-size: 16px;
+          line-height: 28px;
+          color: $gray-color2;
+
+          a {
+            color: $theme-color;
+          }
+        }
+      }
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 28px;
+      color: $gray-color2;
+      margin: 0;
+
+      @include nestHub {
+        br {
+          display: none;
+        }
+      }
+
+      @include mobile-xl {
+        br {
+          display: none;
+        }
+      }
+    }
+
+    .image {
+      img {
+        @include md {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+/*==== Join Section Inner=====================*/
+.join-section {
+
+    .join-thumb {
+        position: relative;
+
+        &::before {
+            @include absolute-content(100%, 100%, linear-gradient(0deg, rgba(3, 15, 67, 0.9999999999999999) 0%, rgba(3, 15, 67, 0.9999999999999999) 20%, rgba(3, 15, 67, 0) 52%, rgba(3, 15, 67, 0) 100%));
+            width: calc(100% + 300px);
+        }
+    }
+
+    .join-content-wrapper {
+        @include mobile-xl {
+            .sec-text br {
+                display: none;
+            }
+        }
+    }
+}

@@ -1,0 +1,181 @@
+/*==== Portfolio Section One =====================*/
+.tv-portfolio-section {
+    .portfolio-inner {
+        .portfolio-title {
+            h2 {
+                font-size: 150px;
+                line-height: 1;
+                color: $white-color;
+                font-weight: 800;
+                font-family: $title-font;
+                text-align: center;
+                margin-bottom: 40px;
+                z-index: 2;
+                position: relative;
+
+                @include lg {
+                    font-size: 130px;
+                }
+
+                @include sm {
+                    font-size: 100px;
+                }
+
+                @include tablet-s {
+                    font-size: 80px;
+                }
+
+                @include mobile-l {
+                    font-size: 50px;
+                }
+            }
+        }
+    }
+}
+
+
+// portfolio box style 
+.tv-portfolio-box {
+    background: $dark-color3;
+    border: 1px solid $border-color5;
+    border-radius: 20px;
+    padding: 25px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+
+    @include mobile-xl {
+        padding: 20px;
+    }
+
+    &:hover {
+        transform: translateY(-5px);
+
+        .box-content {
+            .border {
+                &::before {
+                    width: 100%;
+                    left: 0;
+                }
+            }
+        }
+
+        .box-image {
+            img {
+                transform: scale(1.1);
+            }
+
+            .video-btn {
+                .popup-video {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+        }
+    }
+
+    .box-image {
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+
+        img {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+            @include transition;
+            overflow: hidden;
+        }
+
+        .video-btn {
+            .popup-video {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                opacity: 0;
+                transform: scale(0.6);
+                @include transition;
+                @include center-flex;
+                border-radius: 50%;
+                width: 54px;
+                height: 54px;
+                background-color: $theme-color;
+
+                i {
+                    color: $white-color;
+                }
+            }
+        }
+
+    }
+
+    .box-content {
+        padding: 15px;
+
+        h3 {
+            a {
+                font-size: 28px;
+                line-height: 1;
+                color: $white-color;
+                font-weight: 600;
+                font-family: $title-font;
+
+                @include tablet-l {
+                    font-size: 24px;
+                }
+
+                @include respond-between(1280px, 1399px) {
+                    font-size: 24px;
+                }
+
+                @include mobile-s {
+                    font-size: 22px;
+                }
+            }
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 26px;
+            color: $text-color4;
+            font-weight: 400;
+            font-family: $title-font;
+        }
+
+        .border {
+            background: $border-color5;
+            margin: 25px 0;
+
+            &::before {
+                position: absolute;
+                content: "";
+                left: 50%;
+                top: 0;
+                width: 0;
+                height: 1px;
+                background: $theme-color;
+                transition: all 0.4s ease 0s;
+            }
+        }
+
+        .tags {
+            margin-top: 10px;
+
+            .tag {
+                display: inline-block;
+                background: $bg-color14;
+                color: $white-color;
+                border: 1px solid $border-color7;
+                padding: 2px 20px;
+                border-radius: 17px;
+                @include transition;
+                cursor: pointer;
+                font-size: 13px;
+                margin-right: 5px;
+
+                &:hover {
+                    background: $theme-color;
+                }
+            }
+        }
+    }
+}

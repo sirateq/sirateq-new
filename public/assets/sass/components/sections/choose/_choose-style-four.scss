@@ -1,0 +1,241 @@
+/*==== Choose Section Three =====================*/
+.tv-choose-section.style-4 {
+	.tv-choose-inner {
+		&::before {
+			position: absolute;
+			content: "";
+			z-index: 0;
+			top: 800px;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			background: $dark-color;
+		}
+
+		.choose-tab {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 15px;
+			border: 1px solid $border-color8;
+			border-radius: 43px;
+			max-width: 740px;
+			justify-content: space-between;
+			text-align: center;
+			margin: 0 auto;
+			margin-bottom: 50px;
+
+			@include xs {
+				justify-content: inherit;
+				flex-wrap: wrap;
+				gap: 20px;
+			}
+
+			.choose-card {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				background: $light-color;
+				padding: 15px 34px;
+				border-radius: 30px;
+				cursor: pointer;
+				position: relative;
+				z-index: 1;
+
+				&::before {
+					content: "";
+					position: absolute;
+					z-index: -1;
+					top: 0;
+					left: 0;
+					width: 0;
+					height: 100%;
+					background-color: $theme-color;
+					border-radius: 30px;
+					@include transition;
+				}
+
+				&:hover,
+				&.active {
+					&::before {
+						width: 100%;
+					}
+
+					.icon {
+						filter: brightness(0) invert(1);
+					}
+
+					.content {
+						h5 {
+							color: $white-color;
+						}
+					}
+				}
+
+				.content {
+					h5 {
+						font-size: 18px;
+						line-height: 28px;
+						color: $dark-color;
+						font-weight: 500;
+						font-family: $title-font;
+						margin: 0;
+						@include transition;
+					}
+				}
+			}
+		}
+
+		.choose-tab-wrapper {
+			opacity: 0;
+			height: 0;
+			overflow: hidden;
+			transform: translateY(20px);
+			transition: opacity 0.5s ease, transform 0.5s ease, height 0.5s ease;
+			visibility: hidden;
+
+			&.active {
+				opacity: 1;
+				height: auto;
+				transform: translateY(0);
+				visibility: visible;
+			}
+
+			.tv-choose-item {
+				position: relative;
+				display: flex;
+				align-items: center;
+				background: $light-color;
+				padding: 25px;
+				border-radius: 30px;
+				overflow: hidden;
+				width: 100%;
+
+				@include md {
+					padding: 15px;
+				}
+
+				@include sm {
+					flex-direction: column;
+					gap: 30px;
+					align-items: start;
+					padding: 15px 15px 30px;
+				}
+
+				.choose-left {
+					@include sm {
+						width: 100%;
+					}
+
+					.data-item-hover {
+						border-radius: 30px;
+						.data-img-hover {
+							img {
+								max-width: 640px;
+								width: 100%;
+								min-height: 550px;
+								height: 100%;
+								object-fit: cover;
+
+								@include sm {
+									max-width: 100%;
+								}
+							}
+						}
+					}
+				}
+
+				.choose-right {
+					padding: 0 30px 0 70px;
+
+					@include md {
+						padding: 0 30px 0 30px;
+					}
+
+					@include xs {
+						padding: 0;
+					}
+
+					h6 {
+						font-size: 14px;
+						line-height: 22px;
+						color: $theme-color;
+						font-weight: 500;
+						font-family: $title-font;
+						border: 1px solid $theme-color;
+						background: $bg-color5;
+						display: inline-block;
+						padding: 3px 25px;
+						border-radius: 50px;
+					}
+
+					h3 {
+						font-size: 30px;
+						line-height: 1;
+						color: $dark-color;
+						font-weight: 600;
+						font-family: $title-font;
+					}
+
+					p {
+						@include sm {
+							br {
+								display: none;
+							}
+						}
+					}
+
+					.counter-inner {
+						display: flex;
+						align-items: center;
+						gap: 16px;
+
+						.count {
+							font-size: 54px;
+							line-height: 1;
+							color: $theme-color;
+							font-weight: 700;
+							font-family: $title-font;
+							display: flex;
+							align-items: center;
+
+							.plus {
+								font-size: 30px;
+								margin-bottom: 20px;
+							}
+						}
+
+						h4 {
+							font-size: 18px;
+							line-height: 28px;
+							color: $dark-color;
+							font-weight: 700;
+							font-family: $title-font;
+							margin: 0;
+						}
+					}
+
+					.features {
+						li {
+							font-size: 18px;
+							line-height: 24px;
+							color: $dark-color;
+							font-weight: 500;
+							font-family: $title-font;
+							margin-bottom: 14px;
+
+							&:last-child {
+								margin-bottom: 0;
+							}
+
+							i {
+								color: $theme-color;
+								margin-right: 10px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

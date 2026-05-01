@@ -1,0 +1,58 @@
+/*==== Default Skills Style =====================*/
+.skills {
+    position: relative;
+    width: 100%;
+    margin-top: -11px;
+
+    .skill-item {
+        position: relative;
+        margin-bottom: 19px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        .skill-header {
+            position: relative;
+            margin-bottom: 0;
+
+            .skill-title {
+                font-size: 16px;
+                line-height: 28px;
+                color: $dark-color;
+                font-weight: 500;
+                font-family: $title-font;
+                margin-bottom: 11px;
+            }
+        }
+
+        .skill-bar {
+            .bar-inner {
+                position: relative;
+                width: 100%;
+                height: 5px;
+                border-radius: 3px;
+                background-color: $bg-color9;
+
+                .bar {
+                    width: 0;
+                    height: 5px;
+                    border-radius: 3px;
+                    -webkit-transition: all 3000ms ease;
+                    -o-transition: all 3000ms ease;
+                    transition: all 3000ms ease;
+                    background-color: $theme-color;
+                }
+
+                .skill-percentage {
+                    font-size: 16px;
+                    color: $dark-color;
+                    font-weight: 500;
+                    position: absolute;
+                    right: 0;
+                    bottom: 12px;
+                }
+            }
+        }
+    }
+}

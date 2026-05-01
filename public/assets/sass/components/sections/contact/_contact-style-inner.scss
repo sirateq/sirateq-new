@@ -1,0 +1,122 @@
+/*==== Contact Section Inner=====================*/
+.tv-contact-section.inner {
+    .contact-content-wrap {
+        .contact-info {
+            padding: 40px 0 35px;
+            border-top: 1px solid $border-color8;
+            border-bottom: 1px solid $border-color8;
+
+            .contact-item {
+                display: flex;
+                gap: 20px;
+                margin-bottom: 25px;
+
+                .icon {
+                    @include center-flex;
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    font-size: 24px;
+                    color: $white-color;
+                    background-color: $theme-color;
+                }
+
+                .info {
+                    h4 {
+                        font-size: 20px;
+                        line-height: 30px;
+                        color: $dark-color;
+                        font-weight: 600;
+                        font-family: $title-font;
+                        margin: 0;
+                    }
+
+                    p {
+                        font-size: 16px;
+                        line-height: 26px;
+                        color: $gray-color2;
+                        font-family: $body-font;
+                        margin: 0;
+                    }
+
+                    .content {
+                        a {
+                            font-size: 16px;
+                            line-height: 26px;
+                            color: $gray-color2;
+                            font-family: $body-font;
+                        }
+                    }
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        .social-links {
+            margin-top: 25px;
+
+            a {
+                display: inline-block;
+                font-size: 16px;
+                font-weight: 500;
+                color: $dark-color;
+                margin-right: 20px;
+
+                &:hover {
+                    color: $theme-color;
+                }
+            }
+        }
+    }
+
+    .contact-form {
+        margin-right: 0;
+        background: $white-color;
+        padding: 53px 50px 80px;
+
+        h2 {
+            font-size: 30px;
+            line-height: 1;
+            color: $dark-color;
+            font-weight: 700;
+            font-family: $title-font;
+        }
+
+        .contact_form {
+            .form-grid {
+                input {
+                    border-radius: 30px;
+                    padding-left: 52px;
+                }
+
+                .form-group {
+                    .icon {
+                        color: $theme-color
+                    }
+
+                    .select2 {
+                        .selection {
+                            .select2-selection {
+                                border-radius: 30px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .form-group {
+                textarea {
+                    border-radius: 30px !important;
+                    height: 170px;
+                }
+            }
+        }
+
+        button {
+            width: inherit;
+        }
+    }
+}

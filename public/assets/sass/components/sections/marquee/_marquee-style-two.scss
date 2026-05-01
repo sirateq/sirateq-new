@@ -1,0 +1,9 @@
+/*==== Marquee Section One =====================*/
+.marquee-wrap {
+    &.style-2{
+        border-radius: 0 0 30px 30px;
+        @include ml{
+            border-radius: 0;
+        }
+    }
+}

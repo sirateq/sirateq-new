@@ -1,0 +1,47 @@
+/*==== Project Style Three =====================*/
+.tv-project-section.style-3 {
+  .project-filter-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .menu-filtering {
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+      max-width: 600px;
+      border-radius: 35px;
+      border: 1px solid $border-color8;
+
+      @include xs {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      li {
+        display: inline-block;
+        color: $dark-color;
+        font-size: 16px;
+        font-weight: 500;
+        padding: 0 23px;
+        height: 38px;
+        line-height: 37px;
+        border-radius: 19px;
+        border: 1px solid $border-color8;
+        background-color: rgba(0, 0, 0, 0);
+        transition: all .4s ease 0s;
+        cursor: pointer;
+
+        &+li {
+          margin-left: 10px;
+        }
+
+        &.active {
+          background: $theme-color;
+          color: $white-color;
+          border: 1px solid $theme-color;
+        }
+      }
+    }
+  }
+}

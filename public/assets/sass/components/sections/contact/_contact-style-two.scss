@@ -1,0 +1,175 @@
+/*==== Contact Section Two =====================*/
+.tv-contact-section.style-2 {
+
+  .tv-contact-inner {
+    border-radius: 30px 30px 0 0;
+
+    @include ml {
+      border-radius: 0;
+    }
+
+    @include laptop-s{
+      background: $dark-color;
+    }
+
+    &::before {
+      position: absolute;
+      content: "";
+      width: 50%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background: $dark-color;
+      border-radius: 0 30px 30px 0;
+      z-index: 1;
+
+      @include ml {
+        border-radius: 0;
+      }
+
+      @include md {
+        z-index: 0;
+      }
+    }
+
+    .contact-us {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 150px;
+      margin-left: 80px;
+      bottom: 120px;
+      padding: 40px 0;
+      border-bottom: 1px solid $border-color7;
+      border-top: 1px solid $border-color7;
+
+      @include xxl {
+        gap: 60px;
+      }
+
+      @include lg {
+        gap: 20px;
+      }
+
+      @include xl {
+        margin-left: 0px;
+      }
+
+      @include md {
+        position: relative;
+        bottom: 0;
+      }
+
+      @include mobile-xl {
+        flex-direction: column;
+        align-items: start;
+      }
+
+      .contact-left,
+      .contact-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+
+        &::before {
+          position: absolute;
+          content: "";
+          right: -100px;
+          top: -40px;
+          width: 1px;
+          height: 156px;
+          background: $border-color7;
+
+          @include xxl {
+            right: -30px;
+          }
+
+          @include lg {
+            right: -10px;
+          }
+
+          @include laptop-m {
+            display: none;
+          }
+        }
+
+        .content {
+          p {
+            font-size: 16px;
+            line-height: 26px;
+            color: $text-color2;
+            font-weight: 500;
+            font-family: $title-font;
+            margin-bottom: 10px;
+          }
+
+          a {
+            font-size: 24px;
+            line-height: 1;
+            color: $white-color;
+            font-weight: 600;
+            font-family: $title-font;
+
+            @include nestHub {
+              font-size: 20px;
+            }
+
+            @include tablet-s {
+              font-size: 20px;
+            }
+          }
+        }
+
+        .icon {
+          border: 8px solid $bg-color14;
+          border-radius: 50%;
+          outline: 1px solid $border-color7;
+
+          .icon-inner {
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            @include center-flex;
+            background-color: $white-color;
+          }
+
+        }
+
+        &:hover {
+          .icon {
+            img {
+              animation: wobble_vertical 1s forwards ease-in-out 0s;
+            }
+          }
+        }
+
+      }
+
+      .contact-right {
+        &::before {
+          all: unset;
+        }
+      }
+    }
+  }
+
+  .overlay::before {
+    position: absolute;
+    content: "";
+    z-index: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(0deg, rgba(15, 83, 243, 0.9490196078431372) 0%, rgba(15, 83, 243, 0.9490196078431372) 30%, rgba(15, 83, 243, 0) 50%, rgba(15, 83, 243, 0) 100%);
+  }
+
+}
+
+
+// contant form
+.contact-form.style-2 {
+  position: relative;
+  z-index: 2;
+}

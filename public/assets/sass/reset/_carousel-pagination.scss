@@ -1,0 +1,114 @@
+// Swiper Pagination Default
+.swiper-dot {
+    position: relative;
+
+    .swiper-pagination-bullet {
+        width: 12px;
+        height: 12px;
+        background-color: $bg-color9;
+        @include transition;
+        opacity: 1;
+        border-radius: 50%;
+
+        &:not(:last-child) {
+            margin-left: 0;
+            margin-right: 15px;
+        }
+
+        &.swiper-pagination-bullet-active {
+            position: relative;
+            background-color: $theme-color;
+
+            &::before {
+                position: absolute;
+                top: -6px;
+                left: -6px;
+                width: 24px;
+                height: 24px;
+                line-height: 24px;
+                border-radius: 50%;
+                background-color: transparent;
+                border: 1px solid $theme-color;
+                content: "";
+            }
+        }
+    }
+}
+
+.array-button {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .array-prev,
+    .array-next {
+        @include center-flex;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 1px solid $border-color7;
+        font-size: 18px;
+        background-color: $bg-color5;
+        @include transition;
+        font-family: $icon-font;
+        color: $gray-color;
+
+        // @include sm {
+        //     width: 35px;
+        //     height: 35px;
+        //     font-size: 16px;
+        // }
+
+        // @include mobile-xl {
+        //     width: 30px;
+        //     height: 30px;
+        //     font-size: 14px;
+        // }
+
+        &.active,
+        &:hover {
+            background-color: $theme-color !important;
+            border-color: $theme-color;
+            color: $white-color;
+        }
+    }
+}
+
+/* Basic reset for the buttons */
+.owl-nav button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+/* Positioning and styling the buttons */
+.owl-nav {
+    display: flex;
+
+    .owl-prev,
+    .owl-next {
+        span {
+            @include center-flex;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 18px;
+            border: 1px solid $white-color;
+            background-color: transparent;
+            transition: background-color 0.3s, transform 0.3s;
+            font-family: $icon-font;
+            font-weight: 900;
+            color: $white-color;
+
+            &:hover {
+                background-color: $theme-color;
+                border-color: $theme-color;
+            }
+        }
+    }
+}

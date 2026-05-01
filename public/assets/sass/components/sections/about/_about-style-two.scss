@@ -1,0 +1,162 @@
+// /*==== About Section One =====================*/
+.tv-about-section.style-2 {
+  .about-left {
+    .left-img {
+      position: relative;
+      z-index: 1;
+      max-width: 466px;
+
+      svg {
+        position: absolute;
+        content: "";
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        left: -14px;
+        top: -10px;
+        fill: $theme-color;
+      }
+
+      .image {
+        -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='466pt' height='447pt' viewBox='0 0 466 447' preserveAspectRatio='xMidYMid meet'><g transform='translate(0,447) scale(0.1,-0.1)' fill='%23000' stroke='none'><path d='M1940 4445 c-222 -38 -529 -153 -746 -280 -421 -246 -741 -568 -928-934 -453 -886 -309 -1932 359 -2597 225 -223 504 -393 815 -497 842 -280 1669 -123 2385 454 386 311 637 685 760 1134 84 307 87 618 10 845 -108 318 -338 543 -694 681 -42 16 -159 50 -261 75 -237 58 -293 76 -415 134 -254 121 -402 283 -580 631 -66 130 -89 164 -144 220 -38 37 -90 77 -121 92 -111 54 -277 70 -440 42z'/></g></svg>");
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-size: 100% 100%;
+
+        mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='466pt' height='447pt' viewBox='0 0 466 447' preserveAspectRatio='xMidYMid meet'><g transform='translate(0,447) scale(0.1,-0.1)' fill='%23000' stroke='none'><path d='M1940 4445 c-222 -38 -529 -153 -746 -280 -421 -246 -741 -568 -928-934 -453 -886 -309 -1932 359 -2597 225 -223 504 -393 815 -497 842 -280 1669 -123 2385 454 386 311 637 685 760 1134 84 307 87 618 10 845 -108 318 -338 543 -694 681 -42 16 -159 50 -261 75 -237 58 -293 76 -415 134 -254 121 -402 283 -580 631 -66 130 -89 164 -144 220 -38 37 -90 77 -121 92 -111 54 -277 70 -440 42z'/></g></svg>");
+        mask-repeat: no-repeat;
+        mask-size: 100% 100%;
+        max-width: 100%;
+      }
+
+    }
+
+    .about-left-shape {
+      position: absolute;
+      top: 27%;
+      left: 32%;
+    }
+  }
+
+  .about-right {
+    .about-right-content {
+      display: flex;
+      align-items: center;
+      gap: 90px;
+
+      @include nestHub {
+        flex-direction: column;
+        align-items: start;
+        gap: 20px;
+      }
+
+      @include xs {
+        flex-direction: column;
+        align-items: start;
+        gap: 20px;
+      }
+
+      .content {
+        display: flex;
+        gap: 20px;
+        align-items: start;
+
+        .icon {
+          flex-shrink: 0;
+
+          @include nestHub {
+            display: none;
+          }
+
+          @include xs {
+            display: none;
+          }
+        }
+
+        .text {
+          p {
+            font-size: 16px;
+            line-height: 26px;
+            color: $gray-color2;
+            font-family: $body-font;
+          }
+
+          .features {
+            margin-top: 30px;
+
+            li {
+              font-size: 17px;
+              line-height: 28px;
+              color: $dark-color;
+              font-weight: 500;
+              font-family: $title-font;
+
+              i {
+                margin-right: 10px;
+                color: $theme-color;
+              }
+            }
+          }
+        }
+      }
+
+      .counter {
+        position: relative;
+
+        &::before {
+          position: absolute;
+          content: "";
+          top: -20px;
+          left: -40px;
+          width: 1px;
+          height: 248px;
+          background-color: $border-color8;
+
+          @include nestHub {
+            all: unset;
+          }
+
+          @include xs {
+            all: unset;
+          }
+        }
+
+        .about-counter {
+          .count {
+            font-size: 100px;
+            line-height: 1;
+            color: $theme-color;
+            font-weight: 600;
+            font-family: $title-font;
+            display: flex;
+            align-items: start;
+
+            .plus {
+              font-size: 50px;
+              margin-top: 7px;
+              font-weight: 700;
+            }
+          }
+
+          .text {
+            p {
+              font-size: 20px;
+              line-height: 28px;
+              color: $dark-color;
+              font-weight: 500;
+              font-family: $title-font;
+              margin-top: 35px;
+            }
+          }
+        }
+
+        .scribble-shape {
+          position: absolute;
+          right: -10px;
+          bottom: 40px;
+          animation: emgSwing 1s ease-in-out 1s forwards infinite alternate;
+          transform-origin: top right;
+        }
+      }
+    }
+  }
+}

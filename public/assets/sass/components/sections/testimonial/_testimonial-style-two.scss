@@ -1,0 +1,223 @@
+// testimonial style One
+.tv-testimonial-section {
+	.tv-testimonial-inner {
+		border-radius: 0 0 30px 30px;
+
+		.testi-image-wrapper {
+			display: flex;
+			align-items: end;
+			position: relative;
+			margin-left: -40px;
+
+			@include md {
+				justify-content: left;
+				margin-left: 0px;
+			}
+
+			.shape {
+				position: absolute;
+				top: 6px;
+				left: -50px;
+			}
+
+			.testi-single-card {
+				display: inline-block;
+				position: relative;
+				z-index: 1;
+				padding: 40px 40px;
+				max-width: 280px;
+				width: 100%;
+				height: max-content;
+				border-radius: 30px;
+				background-color: $theme-color;
+				flex-shrink: 0;
+				margin: 0 -135px 90px 0;
+
+				@include ml {
+					margin: 0 -165px 90px 0;
+				}
+
+				@include lg {
+					margin: 0 -210px 90px 0;
+				}
+
+				@include nestHub {
+					display: none;
+				}
+
+				.bg {
+					&.image {
+						img {
+							border-radius: 30px;
+						}
+					}
+				}
+
+
+				.count {
+					font-size: 60px;
+					line-height: 1;
+					color: $white-color;
+					font-weight: 600;
+					font-family: $title-font;
+					display: flex;
+					align-items: center;
+
+					.plus {
+						font-size: 30px;
+						margin-bottom: 20px;
+						color: $white-color;
+					}
+
+					@include mobile-xl {
+						font-size: 30px;
+					}
+				}
+
+				.title {
+					font-size: 22px;
+					line-height: 30px;
+					color: $white-color;
+					font-weight: 500;
+					margin: 60px 0 0;
+				}
+			}
+
+			.testi-image {
+				img {
+					border-radius: 30px;
+
+					@include mobile-xl {
+						max-width: 100%;
+					}
+				}
+			}
+		}
+	}
+}
+
+// testi card style
+.testimonial-card {
+	background-color: $light-color;
+	color: $white-color;
+	padding: 32px 30px 40px 40px;
+	padding-left: 40px;
+	border-radius: 30px;
+	position: relative;
+
+	@include tablet-s {
+		padding: 40px;
+	}
+
+	@include vxs {
+		padding: 30px;
+	}
+
+	&:hover .content .quote-icon {
+		@include animation(wobble_vertical, 1s, ease-in-out);
+	}
+
+	.content {
+		display: flex;
+		gap: 30px;
+
+		@include laptop-m {
+			flex-direction: column;
+		}
+
+		@include respond-between($laptop-s, $laptop-m - 1) {
+			flex-direction: column;
+		}
+
+		@include xs {
+			flex-direction: column;
+		}
+
+		.quote-icon {
+			font-size: 58px;
+			color: $theme-color;
+		}
+
+		.text {
+			font-size: 18px;
+			line-height: 30px;
+			color: $dark-color;
+			font-weight: 400;
+			font-style: italic;
+			margin: -6px 0 0;
+			font-family: $body-font;
+		}
+
+		.rating {
+			margin: 25px 0 45px;
+
+			@include tablet-s {
+				margin: 25px 0 30px;
+			}
+
+			i {
+				color: $orange-color;
+				font-size: 18px;
+				margin-right: 2px;
+
+				&:last-child {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+
+	.user-info {
+		@include center-flex;
+		justify-content: flex-start;
+		gap: 20px;
+
+		.user-image {
+			width: 70px;
+			height: 70px;
+			border-radius: 50%;
+		}
+
+		.user-name {
+			font-size: 21px;
+			line-height: 34px;
+			color: $dark-color;
+			font-weight: 500;
+			margin: 0;
+		}
+
+		.user-title {
+			color: $theme-color;
+			margin: 0;
+		}
+	}
+}
+
+// slider button style
+.tv-testimonial-section.style2 .testi-slider-two .array-button {
+	position: absolute;
+	z-index: 1;
+	bottom: 60px;
+	right: 60px;
+	gap: 10px;
+
+	@include sm {
+		bottom: 40px;
+		right: 40px;
+	}
+
+	@include mobile-m {
+		bottom: 20px;
+		right: 20px;
+	}
+
+	.array-prev,
+	.array-next {
+		width: 44px;
+		height: 44px;
+	}
+
+	.array-prev {
+		border: 1px solid $border-color8;
+	}
+}

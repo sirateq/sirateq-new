@@ -1,0 +1,327 @@
+// /*==== About Section Five =====================*/
+.tv-about-section.style-5 {
+
+  .about-left-box {
+    position: relative;
+    padding: 40px 40px 40px 30px;
+    border-radius: 30px;
+    background-image: linear-gradient(0deg, #f3f7ff 0%, #ffffff 100%);
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 1px;
+      border-radius: inherit;
+      background: linear-gradient(to top, rgb(177 181 203 / 30%), rgba(6, 17, 83, 0));
+      -webkit-mask:
+        linear-gradient($light-color 0 0) content-box,
+        linear-gradient($light-color 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .box-top {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      .icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 28px;
+        @include center-flex;
+        background-color: $theme-color;
+      }
+
+      h2 {
+        font-size: 60px;
+        color: $dark-color;
+        font-weight: 700;
+        font-family: $title-font;
+        line-height: 1;
+        margin: 0;
+
+        >span {
+          position: relative;
+
+          &::before {
+            content: "+";
+            position: absolute;
+            right: -25px;
+            top: 0;
+            font-size: 40px;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+
+    .box-midle {
+      h6 {
+        font-size: 18px;
+        line-height: 1;
+        color: $gray-color2;
+        font-weight: 500;
+        font-family: $title-font;
+        margin: 10px 0 28px;
+      }
+    }
+
+    .box-bottom {
+      margin-top: 105px;
+
+      @include lg {
+        margin-top: 80px;
+      }
+
+      @include nestHub {
+        margin-top: 20px;
+      }
+
+      .social {
+        display: flex;
+        align-items: center;
+
+        img {
+          display: flex;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          margin-left: -18px;
+          border: 3px solid $light-color;
+
+          &:first-child {
+            margin-left: 0;
+          }
+        }
+      }
+
+      h6 {
+        font-size: 18px;
+        line-height: 1;
+        color: $dark-color;
+        font-weight: 500;
+        font-family: $title-font;
+        margin: 15px 0 0;
+      }
+    }
+  }
+
+  .about-midle {
+    .about-card {
+      border-radius: 30px;
+      overflow: hidden;
+      position: relative;
+
+      &::before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 100%;
+        background: none;
+        transition: all 0.4s ease-in-out;
+        left: 0;
+        bottom: 0;
+        z-index: 1;
+        background-image: linear-gradient(0deg, rgba(5, 17, 83, 0.9999999999999999) 0%, rgba(5, 17, 83, 0.9999999999999999) 20%, rgba(5, 17, 83, 0) 60%, rgba(5, 17, 83, 0) 100%);
+      }
+
+      img {
+        width: 100%;
+      }
+
+      .about-details {
+        position: absolute;
+        width: 100%;
+        bottom: 23px;
+        left: 56%;
+        transform: translateX(-50%);
+        z-index: 2;
+
+        h5 {
+          font-size: 22px;
+          line-height: 32px;
+          color: $white-color;
+          font-weight: 600;
+          font-family: $title-font;
+
+          @include mobile-xl{
+            font-size: 16px;
+          }
+        }
+
+        p {
+          font-size: 15px;
+          line-height: 32px;
+          color: $white-color;
+          font-weight: 400;
+          font-family: $title-font;
+
+          span {
+            font-size: 15px;
+            line-height: 32px;
+            color: $text-color2;
+            font-weight: 400;
+            font-family: $title-font;
+          }
+        }
+      }
+
+      .video-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 2;
+
+        a {
+          background: $theme-color;
+          color: $white-color;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          @include center-flex;
+          transition: all 0.4s ease 0s;
+          font-size: 20px;
+
+          i {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+
+  .about-right {
+    .about-tags {
+      position: relative;
+      background-image: linear-gradient(0deg, #f3f7ff 0%, #ffffff 100%);
+      padding: 30px;
+      border-radius: 30px;
+      overflow: hidden;
+
+      @include xl{
+        padding: 20px;
+      }
+
+      @include md {
+        max-width: 400px;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 1px;
+        border-radius: inherit;
+        background: linear-gradient(to top, rgb(177 181 203 / 30%), rgba(6, 17, 83, 0));
+        -webkit-mask:
+          linear-gradient($light-color 0 0) content-box,
+          linear-gradient($light-color 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+      }
+
+      .title {
+        margin: 0 0 35px 0;
+      }
+
+      .widget-box {
+        .tag-list {
+          .tag {
+            font-size: 12px;
+            font-weight: 600;
+            font-family: $title-font;
+            height: 30px;
+            line-height: 30px;
+          }
+        }
+      }
+    }
+
+    .about-contact-card {
+      background: $theme-color;
+      border-radius: 30px;
+      padding: 30px;
+      margin-top: 25px;
+      position: relative;
+
+      @include md {
+        max-width: 400px;
+      }
+
+      h4 {
+        font-size: 22px;
+        line-height: 1;
+        color: $white-color;
+        font-weight: 600;
+        font-family: $title-font;
+        margin-bottom: 15px;
+      }
+
+      a {
+        font-size: 15px;
+        line-height: 1;
+        color: $white-color;
+        font-weight: 400;
+        font-family: $title-font;
+        display: inline-block;
+        margin-top: 10px;
+
+        &:first-child {
+          margin-top: 0;
+        }
+
+        i {
+          margin-right: 5px;
+        }
+      }
+
+      .social-icon {
+        display: flex;
+        align-items: start;
+        flex-wrap: wrap;
+        margin-top: 40px;
+
+        li {
+          margin-left: 8px;
+
+          &:first-child {
+            margin-left: 0px;
+          }
+
+          a {
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            border: 1px solid $border-color3;
+            background: $bg-color11;
+            @include center-flex;
+            transition: all 0.4s ease 0s;
+
+            i {
+              margin-right: 0;
+              @include transition;
+            }
+
+            &:hover {
+              background: $white-color;
+
+              i {
+                color: $theme-color;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

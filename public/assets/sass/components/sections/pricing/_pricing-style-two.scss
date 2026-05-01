@@ -1,0 +1,222 @@
+/*==== Pricing Section Two=====================*/
+.tv-pricing-section {
+  .pricing-content-wrapper {
+    position: sticky;
+    top: 100px;
+  }
+
+  .pricing-box {
+    background: $white-color;
+    border-radius: 30px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 25px;
+    justify-content: space-between;
+
+    @include md {
+      max-width: 700px;
+      width: 100%;
+    }
+
+    @include xs {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .pricing-left {
+      flex: 0 0 200px;
+      background: $light-color;
+      padding: 40px 90px 30px;
+      border-radius: 20px;
+
+      @include nestHub {
+        padding: 40px 50px 30px;
+      }
+
+      @include xs {
+        width: 100%;
+      }
+
+      .pricing-icon {
+        width: 76px;
+        height: 76px;
+        border-radius: 38px;
+        @include center-flex;
+        background: $theme-color;
+        @include transition;
+        margin: 0 auto;
+      }
+
+      .price {
+        font-size: 60px;
+        line-height: 1;
+        color: $dark-color;
+        font-weight: 700;
+        font-family: $title-font;
+        text-align: center;
+        margin: 12px 0;
+
+        sup {
+          font-size: 25px;
+          line-height: 1;
+          color: $dark-color;
+          font-weight: 700;
+          transition: all 0.4s ease-in-out;
+          top: -24px;
+        }
+      }
+
+      .month {
+        font-size: 18px;
+        line-height: 28px;
+        color: $dark-color;
+        font-weight: 500;
+        font-family: $title-font;
+        text-align: center;
+        margin: 0;
+      }
+
+      .plan-name {
+        display: inline-block;
+        margin-top: 12px;
+        padding: 4px 25px;
+        border-radius: 20px;
+        background: transparent;
+        color: $theme-color;
+        border: 1px solid $theme-color;
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
+
+    .pricing-right {
+      flex: 1;
+      padding-left: 40px;
+
+      @include xs {
+        width: 100%;
+      }
+
+      h3 {
+        font-size: 22px;
+        line-height: 1;
+        color: $dark-color;
+        font-weight: 600;
+        font-family: $title-font;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 20px 0;
+
+        li {
+          font-size: 16px;
+          line-height: 24px;
+          color: $gray-color2;
+          font-family: $body-font;
+          margin: 15px 0;
+
+          i {
+            margin-right: 8px;
+            color: $theme-color;
+          }
+
+          &.hide {
+            i {
+              color: $gray-color;
+            }
+          }
+        }
+      }
+
+    }
+
+    .purchase-btn {
+      position: absolute;
+      transform: rotate(90deg);
+      right: -65px;
+      text-decoration: none;
+
+      @include xl {
+        right: -45px;
+      }
+
+      @include xs {
+        right: -45px;
+        top: 50%;
+      }
+
+      a {
+        font-size: 16px;
+        line-height: 24px;
+        color: $dark-color;
+        position: relative;
+        background: $white-color;
+        display: inline-block;
+        border: 1px solid $border-color8;
+        padding: 10px 28px;
+        border-radius: 25px;
+        @include transition;
+        text-transform: uppercase;
+        overflow: hidden;
+        font-weight: 500;
+        font-family: $title-font;
+        z-index: 1;
+
+        &::before {
+          content: "";
+          background-color: $theme-color;
+          width: 0;
+          height: 50%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          transition: all .3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+          z-index: -1;
+        }
+
+        &::after {
+          content: "";
+          background-color: $theme-color;
+          width: 0;
+          height: 50%;
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          transition: all .3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+          z-index: -1;
+        }
+      }
+
+    }
+
+    &:hover {
+      .pricing-left {
+        .pricing-icon {
+          img {
+            animation: mirror_effect .8s forwards ease-in-out 0s;
+          }
+        }
+      }
+
+      .purchase-btn {
+        a {
+          color: $white-color;
+
+          &::before {
+            width: 100%;
+            height: 60%;
+          }
+
+          &::after {
+            width: 100%;
+            height: 40%;
+          }
+        }
+      }
+    }
+  }
+}

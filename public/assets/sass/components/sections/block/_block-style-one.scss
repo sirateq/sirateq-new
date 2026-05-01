@@ -1,0 +1,172 @@
+/*==== Block Section One =====================*/
+
+.team-box,
+.blog-box,
+.faq-box {
+    padding: 43px 40px 50px;
+    border-radius: 10px;
+    color: $white-color;
+    @include transition;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+
+    @include xl {
+        padding: 43px 35px 50px;
+    }
+
+    &:hover {
+        transform: translateY(-10px);
+    }
+
+    .title {
+        font-size: 28px;
+        color: $white-color;
+        font-weight: 500;
+        margin-bottom: 0;
+    }
+
+    .text {
+        color: $text-color2;
+        margin-bottom: 0;
+    }
+
+    .theme-btn.btn-style-one {
+        padding: 7px 22px;
+        font-size: 14px;
+        font-weight: 500;
+        background-color: transparent;
+        color: $white-color;
+        border: 1px solid $white-color;
+
+        &:hover {
+            color: $white-color;
+            border-color: $theme-color;
+        }
+
+        &::before,
+        &::after {
+            background-color: $theme-color;
+        }
+
+        &.two {
+            &:hover {
+                color: $dark-color;
+                border-color: $theme-color2;
+            }
+
+            &::before,
+            &::after {
+                background-color: $theme-color2;
+            }
+        }
+
+        &.three {
+            color: $dark-color;
+            border: 1px solid $dark-color;
+
+            &:hover {
+                color: $white-color;
+                border-color: $dark-color;
+            }
+
+            &::before,
+            &::after {
+                background-color: $dark-color;
+            }
+        }
+    }
+
+    &.bg-theme2 {
+
+        .title,
+        .text {
+            color: $dark-color;
+        }
+    }
+}
+
+.team-box {
+
+    .footer-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    .team-members {
+        margin-bottom: 0;
+
+        img {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            border: 3px solid $white-color;
+
+            &:not(:first-child) {
+                margin-left: -20px;
+            }
+        }
+    }
+
+    .team-count {
+        display: flex;
+        font-size: 65px;
+        line-height: .7;
+        color: $white-color;
+        font-weight: 500;
+        font-family: $title-font;
+
+        .plus {
+            font-size: 35px;
+        }
+    }
+}
+
+.blog-box {
+    .features li {
+        position: relative;
+        padding-left: 25px;
+
+        +li {
+            margin-top: 10px;
+        }
+
+        &::before {
+            @include absolute-centerY;
+            content: "\f00c";
+            left: 0;
+            font-family: $icon-font;
+            color: $white-color;
+            font-size: 15px;
+            font-weight: 900;
+
+        }
+    }
+}
+
+.faq-box {
+    &:hover .icon img {
+        @include animation(wobble_vertical, 1s, ease-in-out);
+    }
+
+    .content {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin: 27px 0 60px;
+
+        .icon {
+            font-size: 56px;
+            color: $dark-color;
+        }
+
+        .text {
+            font-size: 16px;
+            line-height: 24px;
+            color: $dark-color;
+            font-weight: 500;
+            font-family: $title-font;
+        }
+    }
+}

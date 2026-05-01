@@ -1,0 +1,204 @@
+/*==== Header Style Three=====================*/
+.header-style4 {
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+
+    @include md {
+        position: relative;
+    }
+
+    .main-wrapper {
+        padding: 0 50px;
+        background-color: transparent;
+        border-bottom: 1px solid $border-color5;
+
+        @include md {
+            border: none;
+        }
+
+        @include ml {
+            padding: 0 24px;
+        }
+
+        @include md {
+            background-color: $light-color;
+            padding: 0 12px;
+        }
+
+        .menu-area {
+            margin-top: 0;
+            border-radius: 0;
+            background-color: transparent;
+            padding: 0;
+
+            @include md {
+                background-color: $light-color;
+            }
+        }
+
+        .nav-menu {
+            flex: 0 0 auto;
+
+            .main-menu {
+                >ul {
+                    >li {
+
+                        &.active>a {
+                            color: $white-color;
+                        }
+
+                        >a {
+                            color: $white-color;
+
+                            &:hover {
+                                color: $theme-color;
+                            }
+                        }
+                    }
+                }
+
+
+
+                >ul {
+                    >li {
+                        &.menu-item-has-children {
+
+                            &>a::before {
+                                color: $white-color;
+                            }
+
+                            &>a:hover::before {
+                                opacity: 1;
+                                color: $theme-color;
+                            }
+                        }
+
+                        &.active>a::before {
+                            opacity: 1;
+                            color: $white-color;
+                        }
+                    }
+                }
+
+                ul.sub-menu {
+
+                    li {
+
+                        a {
+                            color: $dark-color;
+                        }
+
+                        &.active a {
+                            color: $theme-color;
+                        }
+
+                        &:hover a {
+                            color: $theme-color;
+                        }
+
+                        ul.sub-menu {
+                            li {
+                                a {
+                                    color: $dark-color;
+                                }
+
+                                &:hover a {
+                                    color: $theme-color;
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+
+        .header-right-wrapper {
+            .outer-box {
+                flex: 1;
+                @include center-flex;
+                justify-content: flex-end;
+
+                @include laptop-m {
+                    display: none;
+                }
+
+                .search-btn {
+                    background-color: transparent;
+                    border: 0;
+                    color: $white-color;
+
+                    &:hover {
+                        color: $white-color;
+                    }
+                }
+
+                .theme-btn{
+                    color: $dark-color;
+                    padding: 13px 20px;
+                }
+
+                .info-btn {
+                    position: relative;
+                    display: block;
+                    font-size: 18px;
+                    padding: 8px 0;
+                    padding-left: 63px;
+                    color: $dark-color;
+                    text-align: left;
+                    font-weight: 500;
+                    line-height: 27px;
+
+                    @include ml {
+                        display: none;
+                    }
+
+                    small {
+                        font-size: 15px;
+                        font-weight: 400;
+                    }
+
+                    i {
+                        position: absolute;
+                        left: 0;
+                        top: 50%;
+                        margin-top: -26px;
+                        line-height: 52px;
+                        width: 52px;
+                        height: 52px;
+                        border-radius: 50%;
+                        text-align: center;
+                        color: $white-color;
+                        background-color: $theme-color;
+                        font-size: 22px;
+                    }
+
+                    &:hover {
+                        small {
+                            color: $dark-color;
+                        }
+
+                        color: $theme-color;
+                    }
+                }
+            }
+        }
+    }
+
+    .header-sticky {
+        .main-wrapper {
+            background: $dark-color;
+            box-shadow: 0 0 20px $white-color;
+
+            @include md {
+                background: $light-color;
+            }
+
+            .nav-menu .main-menu>ul>li {
+                padding: 0;
+            }
+        }
+    }
+
+}

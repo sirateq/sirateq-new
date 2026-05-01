@@ -1,0 +1,157 @@
+/*======== Service Section Six =========*/
+.tv-service-section.style-6 {
+    .tv-service-inner {
+        .service-title-area {
+            .service-btn-wrapper {
+                z-index: 1;
+
+                .array-button {
+                    padding: 10px;
+                    border-radius: 50px;
+                    border: 1px solid rgba(6, 17, 83, 0.2);
+                    background: $bg-color14;
+                    margin-top: 30px;
+
+                    .array-prev {
+                        border: 1px solid rgba(6, 17, 83, 0.2);
+                    }
+
+                    @include sm {
+                        display: inline-flex;
+                        margin-top: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.service-box-six {
+    position: relative;
+    overflow: hidden;
+    border-radius: 30px;
+
+
+    .image-box {
+        position: relative;
+        z-index: 1;
+
+        img {
+            @include transition;
+        }
+
+        .thumb {
+            overflow: hidden;
+
+            img {
+                width: 100%;
+            }
+        }
+
+
+        .content {
+            position: absolute;
+            bottom: 0;
+            background: $bg-color5;
+            backdrop-filter: blur(10px);
+            left: 0px;
+            width: 90%;
+            height: 140px;
+            padding: 35px;
+            border-radius: 0 20px 0 20px;
+            @include transition;
+
+            .icon-inner {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+
+                .icon {
+                    width: 60px;
+                    height: 60px;
+                    @include center-flex;
+                    border-radius: 30px;
+                    background-color: $bg-color5;
+                    border: 1px solid $border-color7;
+                }
+
+                .text {
+                    font-size: 24px;
+                    line-height: 1.2;
+                    color: $white-color;
+                    font-weight: 500;
+                    font-family: $title-font;
+                    margin: 0;
+                }
+            }
+
+            .border {
+                background: $border-color7;
+                opacity: 0;
+                visibility: 0;
+                @include transition;
+            }
+
+            .theme-btn {
+                background-color: $bg-color5;
+                border: 1px solid $border-color7;
+                color: $dark-color;
+                padding: 5px 5px 5px 15px;
+                font-size: 14px;
+                color: $white-color;
+                font-weight: 600;
+                font-family: $title-font;
+
+                &:hover {
+                    color: $white-color;
+                }
+
+                .arrow-all-2 {
+                    transform: rotate(45deg);
+
+                    i {
+                        width: 12px;
+                        height: 12px;
+
+                        svg path {
+                            fill: $white-color;
+                            transition: fill 0.3s ease;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    &.current,
+    &:hover {
+
+        .image-box {
+            .thumb {
+                img {
+                    transform: scale(1.1);
+                }
+            }
+
+            .content {
+                height: 220px;
+
+                .border {
+                    opacity: 1;
+                    visibility: visible;
+                }
+
+                .icon-inner {
+                    .icon {
+                        img {
+                            animation: wobble_vertical 1s forwards ease-in-out 0s;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+}

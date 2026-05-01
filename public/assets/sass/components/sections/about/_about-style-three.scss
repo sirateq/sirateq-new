@@ -1,0 +1,171 @@
+// /*==== About Section One =====================*/
+.tv-about-section.style-3 {
+	.about-left {
+		.about-thumb {
+			position: relative;
+
+			img {
+				@include md {
+					width: 100%;
+				}
+			}
+
+			&::before {
+				position: absolute;
+				content: "";
+				top: 0;
+				right: 30px;
+				width: 1px;
+				height: 585px;
+				background-color: $border-color8;
+
+				@include lg {
+					display: none;
+				}
+			}
+		}
+
+		.border {
+			width: 93%;
+			border-bottom: 1px solid $border-color8 !important;
+		}
+
+		.counter {
+			margin-left: 70px;
+
+			@include md {
+				margin-left: 0;
+			}
+
+			.about-counter {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				position: relative;
+
+				.count-box {
+					font-size: 100px;
+					line-height: 1;
+					color: $theme-color;
+					font-weight: 800;
+					font-family: $title-font;
+					display: flex;
+					align-items: center;
+				}
+
+				.text {
+					span {
+						font-size: 38px;
+						line-height: 1;
+						color: $theme-color;
+						font-weight: 700;
+						font-family: $title-font;
+					}
+
+					p {
+						font-size: 18px;
+						line-height: 24px;
+						color: $dark-color;
+						font-weight: 600;
+						text-transform: uppercase;
+						font-family: $title-font;
+						margin: 0;
+					}
+				}
+
+				.scribble {
+					position: absolute;
+					left: -70px;
+					top: 0px;
+				}
+			}
+		}
+	}
+
+
+	.about-right {
+		@include mobile-xl {
+			flex: 1;
+		}
+
+		.video-box {
+			margin-left: 50px;
+
+			@include nestHub {
+				margin-left: 0;
+			}
+
+			.circle-box {
+				background: $theme-color;
+
+				@include mobile-xl {
+					width: 150px;
+					height: 150px;
+				}
+
+				.logo-box {
+					position: absolute;
+					background: $white-color;
+					width: 60px;
+					height: 60px;
+					border-radius: 50%;
+					@include center-flex;
+				}
+
+				.text-inner {
+					svg {
+						@include mobile-xl {
+							width: 100px;
+						}
+					}
+				}
+			}
+		}
+
+		.profile-card {
+			border-radius: 20px;
+			overflow: hidden;
+			text-align: center;
+			position: relative;
+
+			&::before {
+				@include absolute-content($width: 100%, $height: 100%, $background: none);
+				left: 0;
+				bottom: 0;
+				z-index: 1;
+				background-image: linear-gradient(0deg, #061153 0%, #061153 10%, rgba(9, 73, 73, 0) 58%, rgba(9, 73, 73, 0) 100%);
+			}
+
+			@include mobile-xl {
+				img {
+					width: 100%;
+				}
+			}
+
+			.profile-details {
+				position: absolute;
+				width: 100%;
+				bottom: 13px;
+				left: 50%;
+				transform: translateX(-50%);
+				z-index: 2;
+
+				.name {
+					font-size: 18px;
+					line-height: 24px;
+					color: $light-color2;
+					font-weight: 600;
+					margin-bottom: 3px;
+				}
+
+				.title {
+					opacity: 0.600;
+					font-size: 14px;
+					line-height: 24px;
+					color: $light-color2;
+				}
+			}
+		}
+	}
+
+}

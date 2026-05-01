@@ -1,0 +1,148 @@
+/*======== Service Section Three =========*/
+
+.tv-service-wrapper {
+
+	.tv-service-item-two {
+		background: $dark-color;
+		padding: 40px 0;
+		border-top: 1px solid $border-color5;
+		z-index: 1;
+		// margin-bottom: 50px;
+		top: 50px;
+		overflow: hidden;
+
+		@include r(md, min) {
+			position: sticky;
+			top: 150px;
+
+			// @for $i from 2 through 10 {
+			// 	&:nth-child(#{$i}) {
+			// 		top: 150px + (($i - 1) * 120px);
+			// 	}
+			// }
+		}
+
+		&:last-child {
+			border-bottom: 1px solid $border-color5;
+		}
+
+		.tv-service-inner {
+			display: flex;
+			justify-content: space-between;
+
+			@include laptop-s {
+				flex-direction: column;
+				gap: 20px;
+			}
+
+			.inner-box {
+				display: flex;
+
+				@include laptop-s {
+					flex-direction: column;
+					align-items: start;
+				}
+
+				.number {
+					font-size: 24px;
+					line-height: 1;
+					color: $white-color;
+					font-weight: 500;
+					font-family: $title-font;
+					margin-top: 7px;
+				}
+
+				.content {
+					margin-left: 282px;
+
+					@include nestHub {
+						margin-left: 100px;
+					}
+
+					@include md {
+						margin-left: 80px;
+					}
+
+					@include laptop-s {
+						margin-left: 0;
+						margin-top: 20px;
+					}
+
+					h2 {
+						a {
+							font-size: 70px;
+							line-height: 1;
+							color: $white-color;
+							font-weight: 700;
+							font-family: $title-font;
+
+							@include mobile-xl {
+								font-size: 40px;
+							}
+						}
+					}
+
+					p {
+						opacity: 0.502;
+						font-size: 16px;
+						line-height: 26px;
+						color: $white-color;
+						font-family: $body-font;
+
+						@include mobile-xl {
+							br {
+								display: none;
+							}
+						}
+					}
+
+					.tags {
+						display: flex;
+						flex-wrap: wrap;
+						gap: 10px;
+						max-width: 400px;
+						margin-top: 75px;
+
+						@include laptop-s {
+							margin-top: 40px;
+						}
+
+						@include mobile-xl {
+							grid-template-columns: repeat(2, auto);
+						}
+
+						span {
+							padding: 4px 20px;
+							border-radius: 16px;
+							cursor: pointer;
+							transition: 0.3s;
+							border: 1px solid $border-color5;
+							font-size: 14px;
+							line-height: 22px;
+							text-align: center;
+							color: $text-color4;
+							font-weight: 500;
+							font-family: $title-font;
+
+							&:hover {
+								background: $theme-color;
+								color: $white-color;
+								border: 1px solid $theme-color;
+							}
+						}
+					}
+				}
+			}
+
+			.thumb {
+				border-radius: 24px;
+
+				img {
+					@include laptop-s {
+						width: 100%;
+					}
+				}
+			}
+		}
+	}
+}

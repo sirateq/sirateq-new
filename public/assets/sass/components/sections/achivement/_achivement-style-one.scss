@@ -1,0 +1,164 @@
+/*==== Achivement Section One =====================*/
+.tv-achivement-section {
+
+	@include laptop-m {
+		padding-bottom: 60px;
+	}
+
+	.achivement-content-wrapper {
+		p {
+			@include mobile-xl {
+				br {
+					display: none;
+				}
+			}
+		}
+
+		.inner-contact {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			z-index: 1;
+
+			.content {
+				.call-text {
+					margin: 0;
+					font-size: 16px;
+					line-height: 26px;
+					color: $gray-color2;
+					font-weight: 500;
+					font-family: $title-font;
+				}
+
+				.call-phone {
+					font-size: 22px;
+					line-height: 1;
+					color: $dark-color;
+					font-weight: 600;
+					font-family: $title-font;
+				}
+			}
+		}
+	}
+
+	.achivement-image-wrapper {
+		position: relative;
+
+		.thumb-bg {
+			position: absolute;
+			z-index: 0;
+			left: -180px;
+			top: 50px;
+
+			svg {
+				width: 441px;
+				height: auto;
+				fill: $theme-color;
+			}
+		}
+
+		.thumb {
+			margin-left: -340px;
+		}
+	}
+
+	.achivement-right-wrapper {
+		.content {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+
+			h4 {
+				margin: 0;
+			}
+		}
+
+		.counter-box {
+			background: $white-color;
+			border-radius: 24px;
+			padding: 40px 40px;
+			margin-top: 30px;
+
+			@include nestHub {
+				width: 430px;
+			}
+
+			@include md {
+				max-width: 430px;
+				width: 100%;
+			}
+
+			@include xs {
+				max-width: 100%;
+			}
+
+			.counter-inner {
+				display: flex;
+				align-items: center;
+				gap: 15px;
+				margin-bottom: 50px;
+
+				@include xs {
+					margin-bottom: 40px;
+				}
+
+				@include mobile-xl {
+					margin-bottom: 30px;
+				}
+
+				.icon {
+					width: 60px;
+					height: 60px;
+					border-radius: 30px;
+					@include center-flex;
+					background-color: $theme-color;
+
+					i {
+						font-size: 25px;
+						color: $white-color;
+					}
+				}
+
+				.count {
+					font-size: 48px;
+					line-height: 1;
+					color: $dark-color;
+					font-weight: 700;
+					font-family: $title-font;
+					display: flex;
+					align-items: center;
+
+					.plus {
+						font-size: 30px;
+						margin-bottom: 20px;
+						color: $theme-color;
+					}
+
+					@include mobile-xl {
+						font-size: 30px;
+					}
+				}
+			}
+
+			p {
+				font-size: 20px;
+				line-height: 28px;
+				color: $dark-color;
+				font-weight: 500;
+				font-family: $title-font;
+				margin: 0;
+			}
+
+			&:hover {
+				.counter-inner {
+					.icon {
+						img {
+							animation: wobble_vertical 1s forwards ease-in-out 0s;
+						}
+					}
+				}
+			}
+		}
+	}
+
+}

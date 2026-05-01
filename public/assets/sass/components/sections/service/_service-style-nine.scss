@@ -1,0 +1,103 @@
+/*======== Service Section Nine =========*/
+.service-box-9 {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.03137254901960784);
+    padding: 35px;
+    border-radius: 24px;
+    overflow: hidden;
+
+    @include nestHub {
+        padding: 20px;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 1px;
+        border-radius: inherit;
+        background: linear-gradient(to bottom, rgba(114, 128, 205, 0.3), rgba(112, 123, 192, 0));
+        -webkit-mask: linear-gradient(var(--light-color) 0 0) content-box,
+            linear-gradient(var(--light-color) 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+    }
+
+    &::after {
+        position: absolute;
+        content: "";
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transform: scaleX(0);
+        transform-origin: center;
+        background-color: $theme-color;
+        transition: all 500ms ease;
+        z-index: -1;
+        border-radius: 8px;
+    }
+
+    .service-top {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+
+        h4 {
+            font-size: 20px;
+            line-height: 28px;
+            color: $white-color;
+            font-weight: 600;
+            font-family: $title-font;
+            margin: 0;
+
+            @include nestHub {
+                font-size: 17px;
+            }
+        }
+
+        .logo {
+            width: 46px;
+            height: 46px;
+            border-radius: 23px;
+            @include center-flex;
+            @include transition;
+            background-color: $theme-color;
+
+            img {
+                filter: brightness(0) invert(1);
+                @include transition;
+            }
+        }
+    }
+
+    .title {
+        color: $white-color;
+        font-size: 42px;
+        display: flex;
+        align-items: center;
+        line-height: 1;
+    }
+
+    &:hover {
+        &::after {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        .service-top {
+            .logo {
+                background: $white-color;
+
+                img {
+                    filter: none;
+                }
+            }
+        }
+    }
+}

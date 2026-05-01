@@ -1,0 +1,65 @@
+// Direction utility classes
+@each $dir in (rtl, ltr, initial, inherit) {
+    .direction-#{$dir} {
+        direction: $dir !important;
+    }
+}
+
+// Mixin for generating display utilities with a prefix
+@mixin generate-display($prefix) {
+    @each $dir in (rtl, ltr, initial, inherit) {
+        .#{$prefix}-direction-#{$dir} {
+            direction: $dir !important;
+        }
+    }
+}
+
+// Mixin for generating utilities
+@mixin generate-utilities($prefix) {
+    @include generate-display($prefix);
+}
+
+
+
+// Include utility classes
+@mixin generate-utilities($prefix) {
+    @include generate-align($prefix);
+    @include generate-display($prefix);
+}
+
+// Generate utility classes for each breakpoint
+@include hd {
+    @include generate-utilities('hd');
+}
+
+@include xxl {
+    @include generate-utilities('xxl');
+}
+
+@include ml {
+    @include generate-utilities('ml');
+}
+
+@include xl {
+    @include generate-utilities('xl');
+}
+
+@include lg {
+    @include generate-utilities('lg');
+}
+
+@include md {
+    @include generate-utilities('md');
+}
+
+@include sm {
+    @include generate-utilities('sm');
+}
+
+@include xs {
+    @include generate-utilities('xs');
+}
+
+@include vxs {
+    @include generate-utilities('vxs');
+}

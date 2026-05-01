@@ -1,0 +1,254 @@
+/*==== Pricing Section One=====================*/
+.tv-pricing-section {
+  .tv-pricing-card {
+    .popular-badge {
+      background: $theme-color;
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+      line-height: 24px;
+      text-transform: uppercase;
+      color: $white-color;
+      font-weight: 600;
+      font-family: $title-font;
+      padding: 18px 0 48px;
+      border-radius: 40px 40px 0 0;
+      margin-bottom: -34px;
+    }
+
+    &.style2 {
+      .pricing-inner-box {
+        background: $theme-color3;
+
+        &::before {
+          all: unset;
+        }
+
+        .pricing-inner {
+          .pricing-plan {
+            .plan {
+              color: $white-color;
+              border: 1px solid $border-color5;
+              background: $bg-color14;
+            }
+
+            span {
+              color: $white-color;
+            }
+
+            .price {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+
+              .billing-cycle {
+                color: $text-color2;
+              }
+
+              h2 {
+                color: $white-color;
+              }
+            }
+
+            p {
+              color: $text-color2;
+            }
+
+            h4 {
+              color: $white-color;
+            }
+          }
+
+          .features {
+            li {
+              color: $text-color2;
+
+              i {
+                color: $white-color;
+              }
+
+              span {
+                margin-right: 5px;
+
+                i {
+                  color: $text-color2;
+                }
+              }
+            }
+          }
+
+          .theme-btn {
+            background: $theme-color;
+            border: 1px solid $border-color8;
+            color: $white-color;
+
+            span {
+              color: $white-color;
+            }
+
+            &:hover {
+              background: $theme-color;
+            }
+          }
+        }
+      }
+    }
+
+    .pricing-inner-box {
+      background: $white-color;
+      border-radius: 40px;
+      padding: 50px 50px;
+      position: relative;
+
+
+
+      .top-icon {
+        position: absolute;
+        top: 40px;
+        right: 40px;
+      }
+
+      &::before {
+        position: absolute;
+        content: "";
+        left: 50%;
+        transform: translateX(-50%);
+        transition: all 0.4s ease 0s;
+        top: 10px;
+        width: 98%;
+        height: 100%;
+        border-radius: 40px;
+        background: $bg-color3;
+        z-index: -1;
+        transition: all 0.4s ease 0s;
+      }
+
+      .pricing-inner {
+        .pricing-plan {
+          .plan {
+            font-size: 16px;
+            line-height: 1;
+            color: $theme-color;
+            background-color: rgba(255, 255, 255, 0);
+            font-weight: 500;
+            font-family: $title-font;
+            padding: 5px 20px;
+            border-radius: 17px;
+            display: inline-block;
+            border: 1px solid $theme-color;
+          }
+
+          span {
+            font-size: 16px;
+            line-height: 22px;
+            color: $dark-color;
+            font-weight: 500;
+          }
+
+          .price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .billing-cycle {
+              font-size: 18px;
+              line-height: 1;
+              color: $dark-color;
+              font-weight: 500;
+              font-family: $title-font;
+            }
+
+            h2 {
+              font-size: 40px;
+              line-height: 1;
+              color: $theme-color;
+              font-weight: 700;
+              font-family: $title-font;
+
+              sup {
+                font-size: 20px;
+                line-height: 30px;
+                color: $dark-color;
+                font-weight: 600;
+                font-family: $title-font;
+                top: -20px;
+              }
+            }
+          }
+
+          h4 {
+            font-size: 18px;
+            line-height: 26px;
+            color: $dark-color;
+            font-weight: 500;
+            font-family: $title-font;
+            margin-top: 20px;
+          }
+        }
+
+        .features {
+          li {
+            font-size: 16px;
+            line-height: 26px;
+            color: $dark-color;
+            font-family: $body-font;
+            margin: 5px 0;
+
+            i {
+              color: $theme-color;
+            }
+
+            span {
+              margin-right: 5px;
+
+              i {
+                color: $dark-color;
+              }
+            }
+
+            &.disabled {
+              i {
+                color: $gray-color;
+              }
+            }
+          }
+        }
+
+        .theme-btn {
+          display: inline-block;
+          background: $light-color;
+          padding: 13px 40px 13px 40px;
+          display: flex;
+          gap: 10px;
+          text-align: center;
+          border: 1px solid $border-color8;
+          @include transition;
+          .arrow1 {
+            @include transition;
+          }
+
+        }
+      }
+
+    }
+
+    &:hover {
+      .pricing-inner-box {
+        &::before {
+          top: 0px;
+        }
+
+        .pricing-inner {
+          .theme-btn {
+            background: $theme-color;
+            color: $white-color;
+
+            span {
+              color: $white-color !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}

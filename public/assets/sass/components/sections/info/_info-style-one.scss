@@ -1,0 +1,48 @@
+// Info style One
+.info-section {
+    .info-box {
+        padding: 48px 40px;
+        border-radius: 10px;
+        @include mobile-xl {
+            padding: 48px 30px;
+        }
+        .bg-image {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: -1;
+        }
+        .content {
+            .title {
+                font-size: 30px;
+                line-height: 40px;
+                color: $dark-color;
+                font-weight: 700;
+                font-family: $title-font;
+                @include mobile-xl {
+                    font-size: 27px;
+                    br {
+                        display: none;
+                    }
+                }
+            }
+            p {
+                @include mobile-xl {
+                    br {
+                        display: none;
+                    }
+                }
+            }
+            .theme-btn {
+                @include laptop-m {
+                    margin-top: 20px !important;
+                }
+            }
+        }
+        .image {
+            @include laptop-m {
+                display: none;
+            }
+        }
+    }
+}

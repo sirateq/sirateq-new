@@ -1,0 +1,184 @@
+/*==== Hero Section Two =====================*/
+.tv-hero-section {
+  &.style-7 {
+    .hero-inner {
+      .hero-area {
+        .hero-text {
+          padding: 280px 0 170px;
+
+          @include laptop-m {
+            padding: 200px 0 110px;
+          }
+
+          @include tablet-l {
+            padding: 150px 0 55px;
+          }
+
+          @include mobile-xl {
+            padding: 120px 0 55px;
+          }
+
+          h1 {
+            font-size: 118px;
+            line-height: 1;
+            color: $white-color;
+            font-weight: 800;
+            font-family: $title-font;
+
+            @include ml {
+              font-size: 110px;
+            }
+
+            @include lg {
+              font-size: 100px;
+            }
+
+            @include laptop-m {
+              font-size: 80px;
+            }
+
+            @include tablet-l {
+              font-size: 70px;
+            }
+
+            @include mobile-xl {
+              font-size: 50px;
+              text-align: start;
+            }
+
+            .solution {
+              display: inline-flex;
+              align-items: center;
+              gap: 25px;
+              position: relative;
+
+              @include xs {
+                margin-left: 0px;
+              }
+
+              @include sm {
+                gap: 10px;
+              }
+
+              @include mobile-xl {
+                margin-left: 0px;
+              }
+
+              .icons {
+                display: flex;
+
+                @include mobile-xl {
+                  // display: none;
+                }
+
+                .user {
+                  width: 96px;
+                  height: 96px;
+                  border-radius: 50%;
+
+                  @include laptop-m {
+                    width: 76px;
+                    height: 76px;
+                  }
+                }
+
+                .spin-icon {
+                  width: 96px;
+                  height: 96px;
+                  border-radius: 50%;
+                  background: $theme-color;
+                  @include center-flex;
+                  flex-shrink: 0;
+
+                  @include laptop-m {
+                    width: 76px;
+                    height: 76px;
+                  }
+                }
+              }
+
+              .scribble {
+                position: absolute;
+                left: -121px;
+                top: -10px;
+              }
+            }
+          }
+
+          .content {
+            margin-left: 150px;
+            margin-top: 35px;
+            @include sm{
+              margin-left: 0;
+            }
+
+            p {
+              color: $text-color2;
+              margin: 0;
+              @include nestHub{
+                br{
+                  display: none;
+                }
+              }
+              @include mobile-xl{
+                br{
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+
+        .scribble {
+          position: absolute;
+          bottom: 185px;
+          left: 50px;
+        }
+
+        .hero-thumb {
+          img {
+            max-width: inherit;
+            margin-top: 121px;
+            margin-left: -140px;
+
+            @include lg {
+              margin-left: -210px;
+            }
+          }
+
+          @include laptop-m {
+            display: none;
+          }
+        }
+      }
+
+      .hero-social {
+        position: absolute;
+        top: 220px;
+        right: 700px;
+        height: 70px;
+        width: 70px;
+        border-radius: 50%;
+        background: $white-color;
+        @include center-flex;
+        outline: 15px solid $theme-color;
+
+        @include lg {
+          display: none;
+        }
+
+        &.two {
+          top: inherit;
+          bottom: 440px;
+          right: 260px;
+        }
+
+        &.three {
+          top: inherit;
+          bottom: 220px;
+          right: 145px;
+        }
+      }
+    }
+  }
+}

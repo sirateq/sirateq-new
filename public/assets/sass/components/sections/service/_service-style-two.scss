@@ -1,0 +1,250 @@
+/*======== Service Section Two =========*/
+.tv-service-section.style-2 {
+    .tv-service-inner {
+        border-radius: 30px;
+
+        @include ml {
+            border-radius: 0;
+        }
+    }
+}
+
+
+.tv-service-single-box {
+    background: $white-color;
+    padding: 50px 40px;
+    @include transition;
+    position: relative;
+    background: $bg-color5;
+    border: 1px solid $border-color7;
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    overflow: hidden;
+    z-index: 1;
+
+    .inner-box {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+
+        .icon {
+            background: $bg-color14;
+            border: 1px solid $border-color7;
+            @include center-flex;
+            height: 84px;
+            width: 84px;
+            border-radius: 50%;
+            margin: 0 auto;
+            z-index: 1;
+            position: relative;
+            @include transition;
+        }
+
+        .title {
+            font-size: 26px;
+            line-height: 34px;
+            font-weight: 600;
+            margin-top: 30px;
+            color: $white-color;
+            @include transition;
+
+            @include ml {
+                font-size: 23px;
+            }
+
+            @include respond-between(1281px, 1299px) {
+                font-size: 20px;
+            }
+        }
+
+        .border2 {
+            position: relative;
+            left: 50%;
+            height: 1px;
+            width: 90px;
+            background-color: $border-color8;
+            transform: translateX(-50%);
+
+            &::before {
+                position: absolute;
+                content: "";
+                left: 50%;
+                top: 0;
+                width: 0;
+                height: 1px;
+                background: $theme-color;
+                transition: all 0.4s ease 0s;
+            }
+        }
+
+        .text {
+            @include transition;
+            color: $text-color2;
+            margin: 0;
+        }
+
+        .theme-btn {
+            color: $dark-color;
+            padding: 10px 25px;
+            font-size: 14px;
+            border-radius: 24px;
+            overflow: hidden;
+            color: $white-color;
+            background-color: transparent;
+            border: 1px solid $text-color3;
+
+            &::before,
+            &::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 20%;
+                opacity: 0;
+                background: $theme-color;
+                transition: all 0.5s ease-in-out;
+                z-index: -1;
+                transform: skewx(0deg);
+            }
+
+            .link-effect {
+                .effect-1 {
+                    font-size: 14px;
+                    line-height: 26px;
+                    color: $white-color;
+                    font-weight: 500;
+                    font-family: $title-font;
+                }
+            }
+
+            &::before {
+                left: 0;
+            }
+
+            &::after {
+                right: 0;
+            }
+
+            i {
+                margin-left: 10px;
+                font-size: 14px;
+                margin-top: 2px;
+            }
+        }
+    }
+
+    &::before {
+        position: absolute;
+        content: "";
+        background-image: url("../images/service/hm2-bg02.webp");
+        top: 0;
+        width: 0;
+        height: 100%;
+        left: 50%;
+        background-size: cover;
+        @include transition;
+        z-index: -1;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    &:hover {
+        border-color: transparent;
+
+        &::before {
+            left: 0;
+            width: 100%;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .inner-box {
+            .title {
+                color: $theme-color3;
+            }
+
+            .text {
+                color: $gray-color2;
+            }
+
+            .icon {
+                background: transparent;
+                border-color: $theme-color;
+            }
+
+            .border2 {
+                &::before {
+                    width: 100%;
+                    left: 0;
+                }
+            }
+
+            .theme-btn {
+                border: 1px solid transparent;
+                color: $white-color;
+
+                &::before,
+                &::after {
+                    opacity: 1;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+
+// inner page
+
+.tv-service-section.inner {
+    .tv-service-inner {
+        .tv-service-single-box {
+            background: $white-color;
+            border: none;
+
+            .inner-box {
+                .icon {
+                    border: 1px solid $border-color8;
+                }
+
+                .title {
+                    color: $dark-color;
+                }
+
+                p {
+                    color: $gray-color2;
+                }
+
+                .theme-btn {
+                    border: 1px solid $border-color8;
+                    color: $dark-color;
+
+                    .link-effect {
+                        span {
+                            color: $dark-color;
+                        }
+                    }
+                }
+
+            }
+
+            &:hover {
+                border: none;
+                .icon {
+                    border: 1px solid $theme-color;
+                }
+
+                .theme-btn {
+                    border: 1px solid $border-color8;
+                    color: $white-color;
+
+                    .link-effect {
+                        span {
+                            color: $white-color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

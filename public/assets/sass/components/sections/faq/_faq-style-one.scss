@@ -1,0 +1,311 @@
+/*==== Faq Section One=====================*/
+.tv-faq-section {
+	position: relative;
+	.faq-image-wrapper{
+		@include md{
+			direction: inherit !important;
+		}
+	}
+}
+
+
+
+
+.tv-faq-section {
+	.accordion-box {
+		position: relative;
+
+		.accordion {
+			position: relative;
+			background-color: transparent;
+			margin-bottom: 20px;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+
+			.acc-btn {
+				position: relative;
+				font-size: 18px;
+				line-height: 28px;
+				color: $dark-color;
+				font-weight: 500;
+				font-family: $title-font;
+				cursor: pointer;
+				padding: 18px 30px;
+				padding-right: 50px;
+				background: $light-color;
+				border: 1px solid $bg-color12;
+				border-radius: 20px;
+				@include transition;
+
+				@include xs {
+					padding-left: 20px;
+				}
+
+				@include mobile-l {
+					font-size: 16px;
+				}
+
+				.icon {
+					@include absolute-centerY;
+					right: 20px;
+					@include center-flex;
+					width: 20px;
+					height: 20px;
+					background: $theme-color;
+					border-radius: 50%;
+					text-align: center;
+					font-size: 24px;
+					color: $white-color;
+
+					i {
+						@include transition;
+					}
+
+
+					&::before {
+						@include absolute-center;
+						width: 2px;
+						height: 12px;
+						background-color: $white-color;
+						content: "";
+					}
+
+					&::after {
+						@include absolute-center;
+						width: 12px;
+						height: 2px;
+						background-color: $white-color;
+						content: "";
+					}
+				}
+
+				&.active {
+					color: $white-color;
+					background-color: $theme-color !important;
+					border-bottom-left-radius: 0;
+					border-bottom-right-radius: 0;
+					border-color: transparent;
+
+					.icon {
+						background: $white-color;
+						color: $white-color;
+
+						&::before {
+							height: 0;
+							background-color: $theme-color;
+						}
+
+						&::after {
+							background-color: $theme-color;
+						}
+					}
+				}
+			}
+
+			.acc-content {
+				position: relative;
+				display: none;
+
+				.content {
+					position: relative;
+					padding: 25px 30px 30px;
+					margin-top: 0;
+					border-bottom-left-radius: 20px;
+					border-bottom-right-radius: 20px;
+					background: $light-color;
+
+					@include xs {
+						padding: 20px;
+					}
+
+					.text {
+						display: block;
+						font-size: 16px;
+						color: $gray-color2;
+						margin-bottom: 0;
+					}
+				}
+			}
+
+			.acc-content.active {
+				display: block;
+			}
+		}
+	}
+}
+
+
+// faq right style
+.faq-image-wrapper {
+	display: flex;
+	align-items: end;
+	position: relative;
+
+	@include md {
+		direction: inherit !important;
+	}
+
+	.faq-image {
+		img {
+			max-width: inherit;
+			border-radius: 30px;
+
+			@include mobile-xl {
+				max-width: 100%;
+			}
+
+			@include laptop-m {
+				max-width: 100%;
+			}
+		}
+	}
+
+	.shape {
+		position: absolute;
+		top: 10px;
+		right: -110px;
+	}
+
+	.faq-single-card {
+		display: inline-block;
+		position: absolute;
+		right: -130px;
+		flex-shrink: 0;
+		background: $light-color2;
+		outline: 25px solid $light-color2;
+		border-radius: 30px 0 0 0;
+
+		@include ml {
+			right: -100px;
+		}
+
+		@include xl {
+			right: 0;
+		}
+
+		@include laptop-m {
+			display: none;
+		}
+
+		&::before {
+			position: absolute;
+			right: 130px;
+			top: -55px;
+			content: "";
+			height: 30px;
+			width: 30px;
+			background: url('data:image/svg+xml,<svg viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-11 h-11"><path d="M11 1.54972e-06L0 0L2.38419e-07 11C1.65973e-07 4.92487 4.92487 1.62217e-06 11 1.54972e-06Z" fill="%23e8edfa"></path></svg>');
+			transform: rotate(180deg);
+
+			@include ml {
+				right: 100px;
+			}
+
+			@include xl {
+				right: 0;
+			}
+
+			@include laptop-m {
+				display: none;
+			}
+
+		}
+
+		&::after {
+			position: absolute;
+			left: -55px;
+			bottom: 0px;
+			content: "";
+			height: 30px;
+			width: 30px;
+			background: url('data:image/svg+xml,<svg viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-11 h-11"><path d="M11 1.54972e-06L0 0L2.38419e-07 11C1.65973e-07 4.92487 4.92487 1.62217e-06 11 1.54972e-06Z" fill="%23e8edfa"></path></svg>');
+			transform: rotate(180deg);
+
+			@include laptop-m {
+				display: none;
+			}
+		}
+
+		.faq-car-inner {
+			z-index: 1;
+			padding: 40px 35px 50px;
+			max-width: 240px;
+			width: 100%;
+			height: max-content;
+			border-radius: 30px;
+			background-color: $theme-color;
+			position: relative;
+
+			@include nestHub {
+				display: none;
+			}
+
+			.bg {
+				&.image {
+					img {
+						border-radius: 30px;
+					}
+				}
+			}
+
+			&:hover {
+				.icon {
+					transform: rotate(360deg);
+				}
+			}
+
+			.icon {
+				@include center-flex;
+				width: 70px;
+				height: 70px;
+				border-radius: 10px;
+				background-color: $white-color;
+				font-size: 30px;
+				color: $theme-color;
+				@include transition;
+			}
+
+			.title {
+				font-size: 20px;
+				line-height: 30px;
+				color: $white-color;
+				font-weight: 500;
+				margin: 30px 0 0;
+			}
+
+			.count {
+				font-size: 50px;
+				line-height: 1;
+				color: $white-color;
+				font-weight: 600;
+				font-family: $title-font;
+				display: flex;
+				align-items: center;
+
+				.plus {
+					font-size: 30px;
+					margin-bottom: 20px;
+				}
+
+				@include mobile-xl {
+					font-size: 30px;
+				}
+			}
+		}
+
+	}
+}
+
+
+// inner page style
+
+.faq-image-wrapper.faq-inner{
+	.faq-single-card{
+		right: 0;
+		&::before{
+			right: 60px;
+		}
+	}
+}

@@ -1,0 +1,145 @@
+// testimonial style Five
+.tv-testimonial-section {
+	&.style-5 {
+		.testi-left {
+			position: sticky;
+			top: 100px;
+
+			.title-wrap {
+				p {
+					@include laptop-m {
+						br {
+							display: none;
+						}
+					}
+				}
+			}
+
+			.client-social-proof {
+				gap: 10px;
+
+				.social {
+					display: flex;
+					align-items: center;
+
+					.icon {
+						width: 56px;
+						height: 56px;
+						@include center-flex;
+						border-radius: 50%;
+						margin-left: -15px;
+						background-color: $theme-color;
+						border: 3px solid $light-color;
+						color: $white-color;
+
+						&:first-child {
+							margin-left: 0;
+						}
+
+						img {
+							all: unset;
+						}
+					}
+				}
+
+				.content {
+					h4 {
+						font-size: 18px;
+						line-height: 26px;
+						color: $dark-color;
+						font-weight: 500;
+						font-family: $title-font;
+						margin: 0;
+					}
+				}
+			}
+		}
+
+
+		.testi-box-five {
+			background: $light-color;
+			padding: 50px 40px;
+			border-radius: 24px;
+
+			@include r(xs, min) {
+				position: sticky;
+				top: 100px;
+			}
+
+			.content {
+				h4 {
+					img {
+						margin-right: 8px;
+					}
+				}
+
+				p {
+					font-size: 18px;
+					line-height: 30px;
+					color: $dark-color;
+					font-weight: 400;
+					font-family: $title-font;
+					margin: 14px 0;
+				}
+			}
+
+			.rating {
+				margin-bottom: 30px;
+
+				i {
+					color: $orange-color;
+				}
+
+				span {
+					font-size: 18px;
+					line-height: 30px;
+					color: $dark-color;
+					font-weight: 500;
+					font-family: $title-font;
+					text-align: center;
+				}
+			}
+
+			.box-user {
+				display: flex;
+				align-items: center;
+				gap: 20px;
+
+				.testi-info {
+					h4 {
+						font-size: 20px;
+						line-height: 28px;
+						color: $dark-color;
+						font-weight: 600;
+						font-family: $title-font;
+						margin: 0;
+					}
+
+					p {
+						font-size: 14px;
+						line-height: 26px;
+						color: $gray-color2;
+						font-family: $body-font;
+						margin: 0;
+					}
+				}
+
+				.quote-icon {
+					font-size: 12px;
+					color: $white-color;
+					width: 22px;
+					height: 22px;
+					border-radius: 50%;
+					display: inline-block;
+					background: $theme-color;
+					text-align: center;
+					line-height: 20px;
+					border: 1px solid $white-color;
+					position: absolute;
+					bottom: 5px;
+					right: -8px;
+				}
+			}
+		}
+	}
+}

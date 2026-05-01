@@ -1,0 +1,80 @@
+// technology section style One
+.technology-section{
+    .technology-left-img {
+        margin-top: -40px;
+        @include md{
+            margin-top: 0px;
+        }
+    }
+    .industry-box {
+        background-color: $bg-color5;
+        backdrop-filter: blur(10px);
+        border-radius: 5px;
+        padding: 28px 30px;
+        height: 100%;
+        position: relative;
+        transition: all 0.3s ease;
+        &::before{
+            position: absolute;
+            content: "";
+            top: 0;
+            right: 100%;
+            width: 0;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            border-radius: 5px;
+            background: $theme-color;
+            transition: all .4s ease 0s;
+        }
+
+        .industry-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            .title {
+                margin: 0;
+                @include nestHub{
+                    font-size: 20px;
+                }
+                a {
+                    margin: 0;
+                    color: $white-color;
+                }
+            }
+            .arrow-icon {
+                position: absolute;
+                right: 50px;
+                top: 50%;
+                transform: translateY(-50%);
+                @include transition;
+                opacity: 0;
+                i{
+                    color: $white-color;
+                }
+            }
+        }
+
+        &:hover {
+            transform: translateY(-4px);
+            border: transparent;
+            &::before{
+                right: 0;
+                width: 100%;
+            }
+            .title{
+                a{
+                    color: $white-color;
+                }
+            }
+
+            .arrow-icon {
+                opacity: 1;
+                right: 30px;
+                @include vxs{
+                    right: 20px;
+                }
+            }
+        }
+    }
+}
