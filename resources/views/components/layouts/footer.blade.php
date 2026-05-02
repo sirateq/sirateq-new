@@ -26,10 +26,10 @@
 
         <div class="py-18">
             <ul class="list-inline mb-0 d-flex flex-wrap gap-3" style="font-size: 13px; font-weight: 700; letter-spacing: .03em;">
-                <li class="list-inline-item"><a href="{{ route('about-us') }}" class="text-white">ABOUT COMPANY</a></li>
-                <li class="list-inline-item"><a href="{{ route('services') }}" class="text-white">SOLUTIONS</a></li>
-                <li class="list-inline-item"><a href="{{ route('products') }}" class="text-white">PRODUCTS</a></li>
-                <li class="list-inline-item"><a href="{{ route('contact-us') }}" class="text-white">CONTACT US</a></li>
+                <li class="list-inline-item"><a href="{{ route('about-us') }}" class="text-white">About Us</a></li>
+                <li class="list-inline-item"><a href="{{ route('services') }}" class="text-white">Services</a></li>
+                <li class="list-inline-item"><a href="{{ route('products') }}" class="text-white">Products</a></li>
+                <li class="list-inline-item"><a href="{{ route('contact-us') }}" class="text-white">Contact Us</a></li>
             </ul>
         </div>
 
