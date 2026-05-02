@@ -6,7 +6,7 @@
         <div class="row align-items-start g-4">
             <div class="col-lg-7">
                 <h2 class="mb-0 text-white" style="font-size: clamp(34px, 5.2vw, 64px); line-height: .98; font-weight: 700; letter-spacing: -.02em;">
-                    Let's Work<br>Together
+                    Let's Work<br>Together 
                 </h2>
             </div>
             <div class="col-lg-5">
