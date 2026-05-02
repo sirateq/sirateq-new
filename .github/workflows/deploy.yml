@@ -29,8 +29,8 @@ jobs:
           set -e
           cd /var/www/sirateq
 
-          git fetch origin develop
-          git reset --hard origin/develop
+          git fetch origin master
+          git reset --hard origin/master
           git clean -fd
 
           composer install --no-dev --optimize-autoloader
