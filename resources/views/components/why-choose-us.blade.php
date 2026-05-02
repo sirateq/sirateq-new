@@ -2,7 +2,7 @@
     $whyChooseItems = [
         [
             'target' => 'img1',
-            'icon' => 'assets/images/choose/hm5-icon01.webp',
+            'icon' => 'assets/images/choose/126190.jpg',
             'tag' => 'Product Innovation',
             'title' => 'Purpose-Built Digital Solutions',
             'description' => 'We design and build practical software products like Pollvite, Sendazi, ERP platforms, and industry-specific systems that solve real business problems.',

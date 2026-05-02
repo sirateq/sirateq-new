@@ -2,7 +2,7 @@
 Hero Section Six
 ==============================-->
 @php
-    $heroSlide = ['class' => 'pageTurn', 'bg' => 'assets/images/hero/hm6-bg1.webp'];
+    $heroSlide = ['class' => 'pageTurn', 'bg' => 'assets/images/hero/118153.jpg'];
 
     $heroContent = [
         'tagline' => 'Empowering Businesses Through Technology',
@@ -37,16 +37,16 @@ Hero Section Six
                                                         <span class="effect-1">Learn More</span>
                                                         <span class="effect-1">Learn More</span>
                                                     </span>
-                                                    <span class="arrow-all">
-                                                        <i>
-                                                            <svg width="16" height="19" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M2 6H10M10 6L6 2M10 6L6 10" stroke="#1053f3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                            </svg>
-                                                            <svg width="16" height="19" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M2 6H10M10 6L6 2M10 6L6 10" stroke="#1053f3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                            </svg>
-                                                        </i>
-                                                    </span>
+                                                {{-- <span class="arrow-all">
+                                                    <i>
+                                                        <svg width="16" height="19" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M2 6H10M10 6L6 2M10 6L6 10" stroke="#1053f3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                        </svg>
+                                                        <svg width="16" height="19" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M2 6H10M10 6L6 2M10 6L6 10" stroke="#1053f3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                        </svg>
+                                                    </i>
+                                                </span> --}}
                                                 </a>
                                             </div>
                                         </div>

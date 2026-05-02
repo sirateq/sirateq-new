@@ -1375,11 +1375,8 @@ JS TABLE OF CONTENTS
 					nextEl: ".array-next",
 				},
 				breakpoints: {
-					1199: {
+					992: {
 						slidesPerView: 3,
-					},
-					1024: {
-						slidesPerView: 2,
 					},
 					768: {
 						slidesPerView: 2,

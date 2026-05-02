@@ -36,13 +36,31 @@
             'title' => 'Specialized Technology Solutions',
             'description' => 'We develop custom software and tailored technology systems to solve unique business challenges.',
         ],
+        [
+            'image' => 'assets/images/hero/85817.jpg',
+            'icon' => 'assets/images/service/hm6-icon02.webp',
+            'title' => 'CCTV &amp; Surveillance',
+            'description' => 'We supply, install, and maintain CCTV and surveillance systems so you can monitor premises, deter incidents, and review footage with confidence.',
+        ],
+        [
+            'image' => 'assets/images/hero/121439.jpg',
+            'icon' => 'assets/images/service/hm6-icon04.webp',
+            'title' => 'Graphic Design &amp; Branding',
+            'description' => 'We craft visual identities, marketing graphics, and brand guidelines that strengthen recognition and communicate your story clearly across every touchpoint.',
+        ],
+        [
+            'image' => 'assets/images/hero/136321.jpg',
+            'icon' => 'assets/images/service/hm6-icon01.webp',
+            'title' => 'Printing',
+            'description' => 'We produce high-quality print materials—from business stationery to marketing collateral—with consistent color, finishes, and delivery timelines you can rely on.',
+        ],
     ];
 @endphp
 
 <section class="tv-service-section bg-light style-6">
     <div class="tv-service-inner space position-relative overflow-hidden bg-light2">
         <div class="container">
-            <div class="row">
+            <div class="row mb-10">
                 <div class="col-lg-12">
                     <div class="service-title-area d-flex justify-content-between sm-flex-column sm-mb-30">
                         <!-- Section Title -->
@@ -80,7 +98,7 @@
                                                 </div>
                                                 <div class="content">
                                                     <div class="icon-inner">
-                                                        <div class="icon"><img src="{{ $service['icon'] }}" alt="Service icon"></div>
+                                                        {{-- <div class="icon"><img src="{{ $service['icon'] }}" alt="Service icon"></div> --}}
                                                         <h4 class="text">{!! $service['title'] !!}</h4>
                                                     </div> 
                                                     <div class="border my-25"></div>
