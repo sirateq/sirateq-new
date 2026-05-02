@@ -3,8 +3,8 @@ name: Deploy (Force Sync)
 on:
   push:
     branches:
-      - master
       - main
+      - master
 
 jobs:
   deploy:
@@ -12,45 +12,37 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup SSH Agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
       - name: Test SSH
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "echo Connected"
 
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
-
       - name: Deploy to Hetzner
         run: |
-          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
 
           set -e
-
           cd /var/www/sirateq
-
-          echo "🔥 Force syncing code (discarding local changes)"
 
           git fetch origin develop
           git reset --hard origin/develop
           git clean -fd
 
-          echo "📦 Installing dependencies"
           composer install --no-dev --optimize-autoloader
 
-          echo "🗄 Running migrations"
           php artisan migrate --force
 
-          echo "⚡ Optimizing Laravel"
-          php artisan optimize:clear 
+          php artisan optimize:clear
           php artisan optimize
 
-          # php artisan storage:link || true
+          php -r 'opcache_reset();' || true
 
-          echo "♻️ Reloading services"
-          sudo systemctl reload php8.3-fpm
+          sudo systemctl restart php8.3-fpm
           sudo systemctl reload nginx
 
           echo "✅ Deployment complete"
