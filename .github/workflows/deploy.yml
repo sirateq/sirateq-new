@@ -12,11 +12,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Debug SSH values
-        run: |
-          echo "User: ${{ secrets.SERVER_USER }}"
-          echo "IP: ${{ secrets.SERVER_IP }}"
-
+      - name: Test SSH
+        run: ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "echo Connected"
+     
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
