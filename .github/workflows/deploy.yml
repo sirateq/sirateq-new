@@ -3,7 +3,8 @@ name: Deploy (Force Sync)
 on:
   push:
     branches:
-      - develop
+      - master
+      - main
 
 jobs:
   deploy:
