@@ -13,8 +13,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Test SSH
-        run: ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "echo Connected"
-     
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "echo Connected"
+
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
