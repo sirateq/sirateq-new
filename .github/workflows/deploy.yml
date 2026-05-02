@@ -40,7 +40,7 @@ jobs:
           php artisan optimize:clear
           php artisan optimize
 
-          php -r 'opcache_reset();' || true
+          # php -r 'opcache_reset();' || true
 
           sudo systemctl restart php8.3-fpm
           sudo systemctl reload nginx
