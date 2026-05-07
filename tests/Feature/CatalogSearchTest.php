@@ -2,6 +2,7 @@
 
 use App\Livewire\Shop\Catalog;
 use App\Models\Category;
+use App\Models\InventoryItem;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -42,4 +43,32 @@ test('shop catalog finds product by variant SKU', function () {
     Livewire::test(Catalog::class)
         ->set('search', 'unique-sku-xyz')
         ->assertSee('Hidden Name');
+});
+
+test('shop catalog shows out of stock when no variant has inventory', function () {
+    $category = Category::factory()->create();
+    $product = Product::factory()->for($category)->create([
+        'name' => 'Zero Stock Widget',
+        'is_active' => true,
+    ]);
+    $variant = ProductVariant::factory()->for($product)->create(['price' => 50]);
+    InventoryItem::factory()->for($variant, 'variant')->create(['quantity' => 0]);
+
+    Livewire::test(Catalog::class)
+        ->assertSee('Zero Stock Widget')
+        ->assertSee(__('Out of stock'));
+});
+
+test('shop catalog hides out of stock badge when a variant is in stock', function () {
+    $category = Category::factory()->create();
+    $product = Product::factory()->for($category)->create([
+        'name' => 'Stocked Widget',
+        'is_active' => true,
+    ]);
+    $variant = ProductVariant::factory()->for($product)->create(['price' => 50]);
+    InventoryItem::factory()->for($variant, 'variant')->create(['quantity' => 10]);
+
+    Livewire::test(Catalog::class)
+        ->assertSee('Stocked Widget')
+        ->assertDontSee(__('Out of stock'));
 });

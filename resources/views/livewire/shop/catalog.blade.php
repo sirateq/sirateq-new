@@ -1,78 +1,75 @@
 <div>
-    {{-- Slim top breadcrumb strip --}}
-    <div style="background: linear-gradient(135deg, #061153 0%, #1053f3 50%, #14387a 100%);">
-        <div class="container py-6 sm:py-8">
-            <nav aria-label="breadcrumb" class="flex flex-wrap items-center justify-center gap-2 text-center text-sm font-medium text-white/85">
-                <a href="{{ route('home') }}" wire:navigate class="transition hover:text-white">{{ __('Home') }}</a>
-                <span class="text-white/50">/</span>
-                <span class="text-white">{{ __('Shop') }}</span>
-            </nav>
-            <div class="mx-auto mt-5 max-w-3xl text-center">
-                <h1 class="text-3xl font-bold tracking-tight text-white sm:text-4xl" style="text-shadow: 0 1px 2px rgba(0,0,0,0.15);">
-                    {{ __('Discover products') }}
-                </h1>
-                <p class="mt-2 text-sm text-white/80 sm:text-base">
-                    {{ __('Search by name, SKU, or browse categories and filters below.') }}
-                </p>
-                <div class="mx-auto mt-6 flex max-w-2xl items-stretch gap-2 rounded-2xl bg-white/95 p-1.5 shadow-lg shadow-black/20 ring-1 ring-white/30 backdrop-blur-sm sm:p-2">
-                    <label class="sr-only" for="shop-search">{{ __('Search products') }}</label>
-                    <div class="relative flex flex-1 items-center">
-                        <span class="pointer-events-none absolute left-3 text-zinc-400 sm:left-4">
-                            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-                        </span>
-                        <input
-                            id="shop-search"
-                            type="search"
-                            wire:model.live.debounce.350ms="search"
-                            placeholder="{{ __('Search name, SKU, variant…') }}"
-                            autocomplete="off"
-                            class="h-11 w-full rounded-xl border-0 bg-transparent pl-10 pr-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-[#1053f3]/40 sm:h-12 sm:pl-11 sm:text-base"
-                        />
-                    </div>
-                    @if (filled(trim($search)))
-                        <button type="button" wire:click="$set('search', '')"
-                                class="shrink-0 rounded-xl px-3 text-sm font-semibold text-[#061153] transition hover:bg-zinc-100 sm:px-4">
-                            {{ __('Clear') }}
-                        </button>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
+    <x-breadcrum-shop
+        image="{{ asset('assets/images/server-woman.png') }}"
+        height="160px"
+        title="{{ __('Shop') }}"
+        :breadcrumbs="[
+            ['label' => __('Home'), 'url' => route('home')],
+            ['label' => __('Shop')],
+        ]"
+    />
 
-    <section class="relative overflow-hidden" style="padding-top: 40px; padding-bottom: 88px; background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 35%, #eef2ff 100%);">
+    <section class="relative overflow-hidden" style="padding-top: 28px; padding-bottom: 88px; background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 35%, #eef2ff 100%);">
         <div class="pointer-events-none absolute inset-0 opacity-[0.35]" style="background-image: radial-gradient(circle at 20% 20%, rgba(6,17,83,0.06) 0%, transparent 45%), radial-gradient(circle at 80% 60%, rgba(16,83,243,0.07) 0%, transparent 40%);"></div>
 
         <div class="container relative">
             {{-- Toolbar card --}}
             <div class="rounded-2xl border border-white/80 bg-white/90 p-4 shadow-lg shadow-zinc-900/5 backdrop-blur-md sm:p-5">
-                <div class="flex flex-wrap items-center justify-between gap-4">
-                    <div class="flex min-w-0 flex-1 flex-wrap items-center gap-x-4 gap-y-2">
-                        <p class="m-0 text-sm text-zinc-600">
-                            <span class="font-semibold tabular-nums" style="color: #061153;">{{ $this->products->count() }}</span>
+                <div class="flex flex-col gap-4">
+                    {{-- Search --}}
+                    <div class="flex w-full min-w-0 flex-col gap-2 sm:flex-row sm:items-stretch">
+                        <div class="flex min-w-0 flex-1 items-stretch gap-2 rounded-xl border bg-white p-1.5 shadow-sm"
+                             style="border-color: #e5e7eb;">
+                            <label class="sr-only" for="shop-search">{{ __('Search products') }}</label>
+                            <div class="relative flex flex-1 items-center">
+                                {{-- <span class="pointer-events-none absolute left-3 text-zinc-400">
+                                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                                </span> --}}
+                                <input
+                                    id="shop-search"
+                                    type="search"
+                                    wire:model.live.debounce.350ms="search"
+                                    placeholder="{{ __('Search name, SKU, variant…') }}"
+                                    autocomplete="off"
+                                    class="h-11 w-full rounded-lg border-0 bg-transparent pl-10 pr-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-[#1053f3]/30"
+                                />
+                            </div>
                             @if (filled(trim($search)))
-                                {{ __('results for') }}
-                                <span class="font-semibold" style="color: #061153;">“{{ \Illuminate\Support\Str::limit(trim($search), 40) }}”</span>
-                            @else
-                                {{ __('products') }}
+                                <button type="button" wire:click="$set('search', '')"
+                                        class="shrink-0 rounded-lg px-3 text-sm font-semibold text-[#061153] transition hover:bg-zinc-100 sm:px-4">
+                                    {{ __('Clear') }}
+                                </button>
                             @endif
-                        </p>
-                        <div class="flex flex-wrap items-center gap-3 text-sm font-semibold" style="color: #061153;">
-                            <a href="{{ route('shop.cart') }}" wire:navigate
-                               class="inline-flex items-center gap-2 rounded-lg px-1 py-0.5 transition hover:bg-zinc-100 hover:text-[#1053f3]">
-                                <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
-                                {{ __('Cart') }}
-                            </a>
-                            <span class="hidden h-4 w-px bg-zinc-200 sm:inline" aria-hidden="true"></span>
-                            <a href="{{ route('shop.orders.track') }}" wire:navigate
-                               class="inline-flex items-center gap-2 rounded-lg px-1 py-0.5 transition hover:bg-zinc-100 hover:text-[#1053f3]">
-                                <i class="fa-solid fa-truck" aria-hidden="true"></i>
-                                {{ __('Track order') }}
-                            </a>
                         </div>
                     </div>
 
-                    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+                    <div class="flex flex-wrap items-center justify-between gap-4">
+                        <div class="flex min-w-0 flex-1 flex-wrap items-center gap-x-4 gap-y-2">
+                            <p class="m-0 text-sm text-zinc-600">
+                                <span class="font-semibold tabular-nums" style="color: #061153;">{{ $this->products->count() }}</span>
+                                @if (filled(trim($search)))
+                                    {{ __('results for') }}
+                                    <span class="font-semibold" style="color: #061153;">“{{ \Illuminate\Support\Str::limit(trim($search), 40) }}”</span>
+                                @else
+                                    {{ __('products') }}
+                                @endif
+                            </p>
+                            <div class="flex flex-wrap items-center gap-3 text-sm font-semibold" style="color: #061153;">
+                                <a href="{{ route('shop.cart') }}" wire:navigate
+                                   class="inline-flex items-center gap-2 rounded-lg px-1 py-0.5 transition hover:bg-zinc-100 hover:text-[#1053f3]">
+                                    <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+                                    {{ __('Cart') }}
+                                </a>
+                                <span class="hidden h-4 w-px bg-zinc-200 sm:inline" aria-hidden="true"></span>
+                                <a href="{{ route('shop.orders.track') }}" wire:navigate
+                                   class="inline-flex items-center gap-2 rounded-lg px-1 py-0.5 transition hover:bg-zinc-100 hover:text-[#1053f3]">
+                                    <i class="fa-solid fa-truck" aria-hidden="true"></i>
+                                    {{ __('Track order') }}
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap items-center gap-2 sm:gap-3">
                         <div class="inline-flex overflow-hidden rounded-xl border bg-white" style="border-color: #e5e7eb;">
                             <button type="button" wire:click="setView('grid')"
                                     class="flex h-10 w-10 items-center justify-center transition sm:h-11 sm:w-11"
@@ -116,6 +113,7 @@
                         </button>
                     </div>
                 </div>
+            </div>
             </div>
 
             {{-- Filter panel --}}
@@ -186,12 +184,12 @@
                 <div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     @foreach ($this->products as $product)
                         @php($mainUrl = $product->main_image_url)
-                        @php($minPrice = (float) ($product->variants->min('price') ?? 0))
                         @php($isNew = $product->created_at?->gt(now()->subDays(14)))
+                        @php($outOfStock = $product->isOutOfStock())
                         <a href="{{ route('shop.products.show', $product->slug) }}" wire:navigate
                            class="group relative flex flex-col overflow-hidden rounded-2xl border border-zinc-200/80 bg-white shadow-md shadow-zinc-900/5 transition duration-300 hover:-translate-y-1 hover:border-[#1053f3]/35 hover:shadow-xl hover:shadow-[#061153]/10"
                            wire:key="product-{{ $product->id }}">
-                            <div class="relative aspect-square overflow-hidden bg-zinc-100">
+                            <div class="relative aspect-square overflow-hidden bg-zinc-100 {{ $outOfStock ? 'opacity-85' : '' }}">
                                 @if ($mainUrl)
                                     <img src="{{ $mainUrl }}" alt="{{ $product->name }}"
                                          class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
@@ -204,15 +202,22 @@
                                     </div>
                                 @endif
                                 <div class="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/25 to-transparent opacity-0 transition group-hover:opacity-100"></div>
-                                @if ($isNew)
-                                    <span class="absolute left-3 top-3 rounded-lg bg-amber-400 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-zinc-900 shadow-sm">
-                                        {{ __('New') }}
-                                    </span>
-                                @endif
+                                <div class="absolute left-3 top-3 z-[1] flex flex-wrap gap-2">
+                                    @if ($isNew)
+                                        <span class="rounded-lg bg-amber-400 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-zinc-900 shadow-sm">
+                                            {{ __('New') }}
+                                        </span>
+                                    @endif
+                                    @if ($outOfStock)
+                                        <span class="rounded-lg bg-red-600 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white shadow-sm">
+                                            {{ __('Out of stock') }}
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
                             <div class="flex flex-1 flex-col p-4 text-center sm:p-5">
-                                <p class="text-base font-bold tabular-nums" style="color: #061153;">
-                                    GH₵{{ number_format($minPrice, 2) }}
+                                <p class="text-xl font-bold tabular-nums sm:text-2xl" style="color: #061153;">
+                                    {{ $product->storefrontVariantPriceLabel() }}
                                 </p>
                                 <p class="mt-2 line-clamp-2 text-sm font-semibold leading-snug" style="color: #0f172a;">
                                     {{ $product->name }}
@@ -232,20 +237,27 @@
                 <div class="mt-10 space-y-4">
                     @foreach ($this->products as $product)
                         @php($mainUrl = $product->main_image_url)
-                        @php($minPrice = (float) ($product->variants->min('price') ?? 0))
                         @php($isNew = $product->created_at?->gt(now()->subDays(14)))
+                        @php($outOfStock = $product->isOutOfStock())
                         <a href="{{ route('shop.products.show', $product->slug) }}" wire:navigate
                            class="group flex items-center gap-5 overflow-hidden rounded-2xl border border-zinc-200/80 bg-white p-4 shadow-md transition hover:border-[#1053f3]/30 hover:shadow-lg sm:p-5"
                            wire:key="product-list-{{ $product->id }}">
-                            <div class="relative h-28 w-28 shrink-0 overflow-hidden rounded-xl bg-zinc-100 sm:h-32 sm:w-32">
+                            <div class="relative h-28 w-28 shrink-0 overflow-hidden rounded-xl bg-zinc-100 sm:h-32 sm:w-32 {{ $outOfStock ? 'opacity-85' : '' }}">
                                 @if ($mainUrl)
                                     <img src="{{ $mainUrl }}" alt="{{ $product->name }}" class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
                                 @endif
-                                @if ($isNew)
-                                    <span class="absolute left-2 top-2 rounded-md bg-amber-400 px-1.5 py-0.5 text-[10px] font-bold text-zinc-900">
-                                        {{ __('New') }}
-                                    </span>
-                                @endif
+                                <div class="absolute left-2 top-2 z-[1] flex flex-col gap-1.5">
+                                    @if ($isNew)
+                                        <span class="rounded-md bg-amber-400 px-1.5 py-0.5 text-[10px] font-bold text-zinc-900">
+                                            {{ __('New') }}
+                                        </span>
+                                    @endif
+                                    @if ($outOfStock)
+                                        <span class="rounded-md bg-red-600 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white">
+                                            {{ __('Out of stock') }}
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
                             <div class="flex flex-1 items-center justify-between gap-4">
                                 <div class="min-w-0">
@@ -256,8 +268,8 @@
                                     </p>
                                 </div>
                                 <div class="shrink-0 text-right">
-                                    <p class="text-lg font-bold tabular-nums" style="color: #061153;">
-                                        GH₵{{ number_format($minPrice, 2) }}
+                                    <p class="text-xl font-bold tabular-nums sm:text-2xl" style="color: #061153;">
+                                        {{ $product->storefrontVariantPriceLabel() }}
                                     </p>
                                     <p class="mt-1 text-xs text-zinc-500">
                                         {{ $product->variants->count() }} {{ \Illuminate\Support\Str::plural(__('option'), $product->variants->count()) }}

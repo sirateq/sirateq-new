@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 
@@ -31,6 +32,11 @@ class ProductVariant extends Model
     public function inventoryItem(): HasOne
     {
         return $this->hasOne(InventoryItem::class);
+    }
+
+    public function optionSelections(): HasMany
+    {
+        return $this->hasMany(ProductVariantOptionSelection::class, 'product_variant_id');
     }
 
     /**

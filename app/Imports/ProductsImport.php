@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\Category;
 use App\Models\InventoryItem;
 use App\Models\Product;
+use App\Models\ProductOptionStructure;
 use App\Models\ProductVariant;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -64,6 +65,13 @@ class ProductsImport implements OnEachRow, WithHeadingRow
                 'price' => 0,
                 'is_active' => true,
             ]);
+
+            ProductOptionStructure::attachVariantToOptionGroup(
+                $product,
+                $variant,
+                'Option',
+                'Default',
+            );
 
             InventoryItem::query()->create([
                 'product_variant_id' => $variant->id,

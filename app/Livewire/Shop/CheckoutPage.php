@@ -379,6 +379,10 @@ class CheckoutPage extends Component
 
     public function deliveryFee(): float
     {
+        if ($this->payment_method === 'pay_on_delivery') {
+            return 0.0;
+        }
+
         if (! $this->delivery_zone || ! array_key_exists($this->delivery_zone, self::DELIVERY_ZONES)) {
             return 0.0;
         }
@@ -472,7 +476,9 @@ class CheckoutPage extends Component
     protected function createPendingOrder(Cart $cart, array $validated, Paystack $paystack): array
     {
         $subtotal = (float) $cart->subtotal();
-        $deliveryFee = (float) (self::DELIVERY_ZONES[$validated['delivery_zone']]['fee'] ?? 0);
+        $deliveryFee = $validated['payment_method'] === 'pay_on_delivery'
+            ? 0.0
+            : (float) (self::DELIVERY_ZONES[$validated['delivery_zone']]['fee'] ?? 0);
         $discountTotal = 0.0;
         $couponId = null;
 

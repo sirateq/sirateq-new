@@ -16,7 +16,8 @@ uses(RefreshDatabase::class);
 test('shop catalog page loads', function () {
     $response = $this->get(route('shop.index'));
 
-    $response->assertSuccessful();
+    $response->assertSuccessful()
+        ->assertSee('id="shop-search"', false);
 });
 
 test('checkout places order and decrements stock', function () {
@@ -53,6 +54,10 @@ test('checkout places order and decrements stock', function () {
         ->assertRedirect(route('shop.orders.show', Order::query()->latest()->first()));
 
     expect($variant->inventoryItem->fresh()->quantity)->toBe(3);
+
+    $order = Order::query()->latest()->first();
+    expect((float) $order->delivery_fee)->toBe(0.0);
+    expect((float) $order->total)->toBe(240.0);
 });
 
 test('checkout applies coupon discount', function () {
@@ -93,5 +98,8 @@ test('checkout applies coupon discount', function () {
         ->call('placeOrder')
         ->assertRedirect(route('shop.orders.show', Order::query()->latest()->first()));
 
-    expect(Order::query()->latest()->first()->discount_total)->toBe('20.00');
+    $order = Order::query()->latest()->first();
+    expect($order->discount_total)->toBe('20.00');
+    expect((float) $order->delivery_fee)->toBe(0.0);
+    expect((float) $order->total)->toBe(80.0);
 });

@@ -7,7 +7,9 @@ use App\Models\CartItem;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use Flux\Flux;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Js;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
@@ -24,13 +26,36 @@ class ProductShow extends Component
 
     public string $selectedVariant = '';
 
+    /** @var array<int, int> group id => product_option_value id */
+    public array $selectedValueByGroupId = [];
+
     public ?string $activeImage = null;
 
     public function mount(Product $product): void
     {
-        $this->product = $product->load(['variants.inventoryItem', 'images', 'category']);
-        $this->selectedVariant = (string) $this->product->variants->first()?->id;
+        $this->product = $product->load([
+            'variants.inventoryItem',
+            'variants.optionSelections',
+            'images',
+            'category',
+            'optionGroups.values.productImage',
+        ]);
+
+        $first = $this->product->variants->first();
+        $this->selectedVariant = (string) $first?->id;
+
+        $this->selectedValueByGroupId = [];
+        if ($first) {
+            foreach ($this->product->optionGroups as $group) {
+                $sel = $first->optionSelections->firstWhere('product_option_group_id', $group->id);
+                if ($sel) {
+                    $this->selectedValueByGroupId[$group->id] = $sel->product_option_value_id;
+                }
+            }
+        }
+
         $this->activeImage = $this->product->main_image_url;
+        $this->syncGalleryFromSelectedOptions();
     }
 
     public function setActiveImage(string $url): void
@@ -38,10 +63,114 @@ class ProductShow extends Component
         $this->activeImage = $url;
     }
 
+    public function selectOptionValue(int $groupId, int $valueId): void
+    {
+        $this->selectedValueByGroupId[$groupId] = $valueId;
+
+        $variant = $this->resolveVariantFromOptionSelection();
+        if ($variant) {
+            $this->selectedVariant = (string) $variant->id;
+        }
+
+        $this->syncGalleryFromSelectedOptions();
+        unset($this->cartItem);
+    }
+
     public function selectVariant(int $variantId): void
     {
         $this->selectedVariant = (string) $variantId;
+        $variant = $this->product->variants->firstWhere('id', $variantId);
+        if ($variant) {
+            foreach ($this->product->optionGroups as $group) {
+                $s = $variant->optionSelections->firstWhere('product_option_group_id', $group->id);
+                if ($s) {
+                    $this->selectedValueByGroupId[$group->id] = $s->product_option_value_id;
+                }
+            }
+        }
+        $this->syncGalleryFromSelectedOptions();
         unset($this->cartItem);
+    }
+
+    /**
+     * Whether any in-stock variant matches this hypothetical choice for the given group.
+     */
+    public function isOptionValueAvailable(int $groupId, int $valueId): bool
+    {
+        $this->product->loadMissing(['variants.inventoryItem', 'variants.optionSelections']);
+
+        $partial = $this->selectedValueByGroupId;
+        $partial[$groupId] = $valueId;
+
+        foreach ($this->product->variants as $variant) {
+            $stock = (int) optional($variant->inventoryItem)->quantity;
+            if ($stock < 1) {
+                continue;
+            }
+            $matches = true;
+            foreach ($this->product->optionGroups as $group) {
+                $expected = $partial[$group->id] ?? null;
+                if ($expected === null) {
+                    $matches = false;
+                    break;
+                }
+                $row = $variant->optionSelections->firstWhere('product_option_group_id', $group->id);
+                if ((int) ($row?->product_option_value_id) !== (int) $expected) {
+                    $matches = false;
+                    break;
+                }
+            }
+            if ($matches) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    protected function resolveVariantFromOptionSelection(): ?ProductVariant
+    {
+        foreach ($this->product->variants as $variant) {
+            $ok = true;
+            foreach ($this->product->optionGroups as $group) {
+                $expected = $this->selectedValueByGroupId[$group->id] ?? null;
+                if ($expected === null) {
+                    $ok = false;
+                    break;
+                }
+                $row = $variant->optionSelections->firstWhere('product_option_group_id', $group->id);
+                if ((int) ($row?->product_option_value_id) !== (int) $expected) {
+                    $ok = false;
+                    break;
+                }
+            }
+            if ($ok) {
+                return $variant;
+            }
+        }
+
+        return null;
+    }
+
+    protected function syncGalleryFromSelectedOptions(): void
+    {
+        foreach ($this->product->optionGroups as $group) {
+            $vid = $this->selectedValueByGroupId[$group->id] ?? null;
+            if (! $vid) {
+                continue;
+            }
+            $value = $group->values->firstWhere('id', $vid);
+            if ($value?->product_image_id) {
+                $value->loadMissing('productImage');
+                if ($value->productImage) {
+                    $this->activeImage = $value->productImage->url;
+
+                    return;
+                }
+            }
+        }
+
+        $this->activeImage = $this->product->main_image_url;
     }
 
     public function addToCart(): void
@@ -176,6 +305,92 @@ class ProductShow extends Component
         unset($this->cartItem);
     }
 
+    /**
+     * @return Collection<int, Product>
+     */
+    #[Computed]
+    public function youMayAlsoLike(): Collection
+    {
+        $limit = 4;
+
+        $sameCategory = Product::query()
+            ->where('is_active', true)
+            ->where('id', '!=', $this->product->id)
+            ->where('category_id', $this->product->category_id)
+            ->with(['variants.inventoryItem', 'images', 'category'])
+            ->latest()
+            ->limit($limit)
+            ->get();
+
+        if ($sameCategory->count() >= $limit) {
+            return collect($sameCategory->all());
+        }
+
+        $excludeIds = $sameCategory->pluck('id')->push($this->product->id)->all();
+
+        $more = Product::query()
+            ->where('is_active', true)
+            ->whereNotIn('id', $excludeIds)
+            ->with(['variants.inventoryItem', 'images', 'category'])
+            ->latest()
+            ->limit($limit - $sameCategory->count())
+            ->get();
+
+        return collect($sameCategory->concat($more)->all());
+    }
+
+    public function copyShareLink(): void
+    {
+        $url = route('shop.products.show', $this->product, absolute: true);
+
+        $this->js(
+            'navigator.clipboard.writeText('.Js::from($url).').then('
+            .'() => $wire.afterShareLinkCopied(),'
+            .'() => $wire.shareLinkCopyFailed());'
+        );
+    }
+
+    public function afterShareLinkCopied(): void
+    {
+        Flux::toast(variant: 'success', text: __('Link copied to clipboard.'));
+    }
+
+    public function shareLinkCopyFailed(): void
+    {
+        Flux::toast(variant: 'danger', text: __('Could not copy the link. Try again or use a share button below.'));
+    }
+
+    public function openNativeShare(): void
+    {
+        $url = Js::from(route('shop.products.show', $this->product, absolute: true));
+        $title = Js::from($this->product->name);
+
+        $this->js(
+            <<<JS
+                (async () => {
+                    if (! navigator.share) {
+                        \$wire.nativeShareFallback();
+
+                        return;
+                    }
+
+                    try {
+                        await navigator.share({ title: {$title}, text: {$title}, url: {$url} });
+                    } catch (e) {
+                        if (e && e.name !== 'AbortError') {
+                            \$wire.nativeShareFallback();
+                        }
+                    }
+                })();
+                JS
+        );
+    }
+
+    public function nativeShareFallback(): void
+    {
+        Flux::toast(text: __('Copy the link or use a social icon below.'));
+    }
+
     protected function resolveOrCreateCart(): Cart
     {
         return Cart::firstOrCreate(
@@ -194,6 +409,15 @@ class ProductShow extends Component
 
     public function render()
     {
-        return view('livewire.shop.product-show');
+        $shareUrl = route('shop.products.show', $this->product, absolute: true);
+
+        return view('livewire.shop.product-show', [
+            'shareUrl' => $shareUrl,
+            'shareUrlEnc' => rawurlencode($shareUrl),
+            'shareTitleEnc' => rawurlencode($this->product->name),
+            'whatsappTextEnc' => rawurlencode($this->product->name."\n".$shareUrl),
+            'mailtoSubjectEnc' => rawurlencode($this->product->name),
+            'mailtoBodyEnc' => rawurlencode($shareUrl),
+        ]);
     }
 }

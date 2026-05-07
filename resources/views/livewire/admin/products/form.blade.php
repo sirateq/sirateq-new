@@ -114,7 +114,73 @@
                 @endif
             </div>
 
-            {{-- Variants --}}
+            {{-- Product options (dimensions) --}}
+            <div class="rounded-xl border border-zinc-200/70 bg-white p-6 shadow-sm dark:border-zinc-700/60 dark:bg-zinc-900">
+                <header class="mb-4 flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex items-center gap-2">
+                        <flux:icon name="rectangle-stack" class="size-5 text-zinc-500" />
+                        <flux:heading size="lg">{{ __('Product options') }}</flux:heading>
+                    </div>
+                    <flux:button type="button" variant="subtle" size="sm" icon="plus" wire:click="addOptionGroup">
+                        {{ __('Add option') }}
+                    </flux:button>
+                </header>
+                <flux:subheading class="mb-4">{{ __('Define dimensions such as Color, Size, or Gender. Each sellable variant picks one value per option.') }}</flux:subheading>
+                <flux:separator class="mb-5" />
+
+                <div class="space-y-6">
+                    @foreach ($optionGroups as $gi => $group)
+                        <div class="rounded-xl border border-zinc-200/80 bg-zinc-50/50 p-4 dark:border-zinc-700/60 dark:bg-zinc-800/30"
+                             wire:key="opt-group-{{ $gi }}">
+                            <div class="mb-3 flex flex-wrap items-start justify-between gap-2">
+                                <div class="grid flex-1 gap-3 sm:grid-cols-3">
+                                    <flux:input wire:model.blur="optionGroups.{{ $gi }}.name" :label="__('Option name')" :placeholder="__('e.g. Color, Size, Gender')" />
+                                    <flux:select wire:model.live="optionGroups.{{ $gi }}.display_type" :label="__('Display style')">
+                                        <flux:select.option value="text">{{ __('Text / chip') }}</flux:select.option>
+                                        <flux:select.option value="swatch_color">{{ __('Color swatch') }}</flux:select.option>
+                                        <flux:select.option value="swatch_image">{{ __('Image swatch') }}</flux:select.option>
+                                    </flux:select>
+                                    @if (count($optionGroups) > 1)
+                                        <div class="flex items-end">
+                                            <flux:button type="button" variant="ghost" size="sm" icon="trash" wire:click="removeOptionGroup({{ $gi }})">
+                                                {{ __('Remove option') }}
+                                            </flux:button>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                @foreach ($group['values'] as $vi => $val)
+                                    <div class="flex flex-wrap items-end gap-2 rounded-lg border border-zinc-200/70 bg-white p-3 dark:border-zinc-700/60 dark:bg-zinc-900"
+                                         wire:key="opt-val-{{ $gi }}-{{ $vi }}">
+                                        <flux:input wire:model.blur="optionGroups.{{ $gi }}.values.{{ $vi }}.label" :label="__('Value label')" class="min-w-[140px] flex-1" :placeholder="__('e.g. Red, Large')" />
+                                        @if (($group['display_type'] ?? 'text') === 'swatch_color')
+                                            <flux:input wire:model.blur="optionGroups.{{ $gi }}.values.{{ $vi }}.hex_color" :label="__('Hex')" placeholder="#e11d48" class="w-32" />
+                                        @endif
+                                        @if (($group['display_type'] ?? 'text') === 'swatch_image')
+                                            <flux:select wire:model="optionGroups.{{ $gi }}.values.{{ $vi }}.product_image_id" :label="__('Swatch image')" class="min-w-[200px] flex-1">
+                                                <flux:select.option value="">{{ __('None') }}</flux:select.option>
+                                                @foreach ($swatchImageChoices as $choice)
+                                                    <flux:select.option value="{{ $choice['id'] }}">{{ $choice['label'] }}</flux:select.option>
+                                                @endforeach
+                                            </flux:select>
+                                        @endif
+                                        @if (count($group['values']) > 1)
+                                            <flux:button type="button" variant="ghost" size="sm" icon="trash" wire:click="removeOptionValue({{ $gi }}, {{ $vi }})" />
+                                        @endif
+                                    </div>
+                                @endforeach
+                                <flux:button type="button" variant="ghost" size="sm" icon="plus" wire:click="addOptionValue({{ $gi }})">
+                                    {{ __('Add value') }}
+                                </flux:button>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            {{-- Variants (SKUs / price / stock) --}}
             <div class="rounded-xl border border-zinc-200/70 bg-white p-6 shadow-sm dark:border-zinc-700/60 dark:bg-zinc-900">
                 <header class="mb-4 flex items-center justify-between gap-2">
                     <div class="flex items-center gap-2">
@@ -125,7 +191,7 @@
                         {{ __('Add variant') }}
                     </flux:button>
                 </header>
-                <flux:subheading class="mb-4">{{ __('Sizes, colors, or options. SKU is optional and filled in automatically when left blank. Default stock for new rows is 1,000.') }}</flux:subheading>
+                <flux:subheading class="mb-4">{{ __('Each row is one sellable SKU: pick one value per option, then set price and stock.') }}</flux:subheading>
                 <flux:separator class="mb-5" />
 
                 @error('variants')
@@ -137,9 +203,15 @@
                         <div class="rounded-xl border border-zinc-200/70 bg-zinc-50/60 p-4 dark:border-zinc-700/60 dark:bg-zinc-800/40"
                              wire:key="variant-{{ $variant['key'] }}">
                             <div class="grid grid-cols-1 gap-3 md:grid-cols-12">
-                                <div class="md:col-span-3">
-                                    <flux:input wire:model="variants.{{ $idx }}.name" :label="__('Variant')" :placeholder="__('e.g. Medium')" />
-                                </div>
+                                @foreach ($optionGroups as $gi => $g)
+                                    <div class="md:col-span-3">
+                                        <flux:select wire:model.live="variants.{{ $idx }}.selected_value_indexes.{{ $gi }}" :label="$g['name']" :placeholder="$g['name']">
+                                            @foreach ($g['values'] as $vi => $optVal)
+                                                <flux:select.option value="{{ $vi }}">{{ $optVal['label'] }}</flux:select.option>
+                                            @endforeach
+                                        </flux:select>
+                                    </div>
+                                @endforeach
                                 <div class="md:col-span-3">
                                     <flux:input
                                         wire:model="variants.{{ $idx }}.sku"

@@ -64,7 +64,7 @@ class Catalog extends Component
     {
         $products = Product::query()
             ->where('is_active', true)
-            ->with(['category', 'variants', 'images'])
+            ->with(['category', 'variants.inventoryItem', 'images'])
             ->when($this->categoryId, fn ($q) => $q->where('category_id', $this->categoryId))
             ->latest()
             ->get()

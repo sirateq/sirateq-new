@@ -9,29 +9,6 @@
         ]"
     />
 
-    <div class="bg-light border-b" style="border-color: #e5e7eb;">
-        <div class="container py-4">
-            <form method="get" action="{{ route('shop.index') }}" class="mx-auto flex max-w-2xl gap-2">
-                <label class="sr-only" for="product-show-shop-search">{{ __('Search the shop') }}</label>
-                <div class="relative flex flex-1">
-                    <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400">
-                        <i class="fa-solid fa-magnifying-glass text-sm" aria-hidden="true"></i>
-                    </span>
-                    <input id="product-show-shop-search" type="search" name="q" value=""
-                           placeholder="{{ __('Search the shop…') }}"
-                           autocomplete="off"
-                           class="h-11 w-full rounded-xl border bg-white pl-10 pr-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1053f3] focus:outline-none focus:ring-2 focus:ring-[#1053f3]/25"
-                           style="border-color: #e5e7eb;">
-                </div>
-                <button type="submit"
-                        class="shrink-0 rounded-xl px-5 text-sm font-semibold text-white transition hover:brightness-110"
-                        style="background: linear-gradient(135deg, #061153, #1053f3);">
-                    {{ __('Search') }}
-                </button>
-            </form>
-        </div>
-    </div>
-
     @php($selected = $product->variants->firstWhere('id', (int) $selectedVariant) ?? $product->variants->first())
     @php($stock = (int) optional($selected?->inventoryItem)->quantity)
     @php($mainPrice = (float) ($selected?->price ?? 0))
@@ -130,11 +107,45 @@
                             </p>
                         @endif
 
-                        {{-- Variant selector --}}
-                        @if ($product->variants->count() > 1)
+                        {{-- Option pickers (Color, Size, Gender, …) --}}
+                        @if ($product->optionGroups->isNotEmpty())
+                            @foreach ($product->optionGroups as $group)
+                                <div wire:key="opt-grp-{{ $group->id }}">
+                                    <p style="margin: 0 0 10px 0; font-size: 14px; font-weight: 600; color: #061153;">
+                                        {{ $group->name }}
+                                    </p>
+                                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                        @foreach ($group->values as $value)
+                                            @php
+                                                $isSel = (int) ($selectedValueByGroupId[$group->id] ?? 0) === (int) $value->id;
+                                                $avail = $this->isOptionValueAvailable($group->id, $value->id);
+                                            @endphp
+                                            <button type="button"
+                                                    wire:click="selectOptionValue({{ $group->id }}, {{ $value->id }})"
+                                                    title="{{ $value->label }}"
+                                                    @disabled(! $avail)
+                                                    style="display: inline-flex; align-items: center; gap: 8px; padding: {{ $group->display_type === 'swatch_image' ? '4px' : '8px 14px' }}; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s;
+                                                        border: 2px solid {{ $isSel ? '#061153' : '#e5e7eb' }};
+                                                        background: {{ $isSel ? 'rgba(6,17,83,0.06)' : '#fff' }};
+                                                        color: #061153;
+                                                        opacity: {{ $avail ? '1' : '0.45' }};
+                                                        {{ ! $avail ? 'cursor: not-allowed;' : '' }}">
+                                                @if ($group->display_type === 'swatch_color' && filled($value->hex_color))
+                                                    <span style="width: 22px; height: 22px; border-radius: 999px; border: 1px solid rgba(0,0,0,0.12); background: {{ $value->hex_color }}; flex-shrink: 0;"></span>
+                                                @endif
+                                                @if ($group->display_type === 'swatch_image' && $value->productImage)
+                                                    <img src="{{ $value->productImage->url }}" alt="" style="width: 36px; height: 36px; object-fit: cover; border-radius: 6px;">
+                                                @endif
+                                                <span>{{ $value->label }}</span>
+                                            </button>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endforeach
+                        @elseif ($product->variants->count() > 1)
                             <div>
                                 <p style="margin: 0 0 8px 0; font-size: 14px; font-weight: 600; color: #061153;">
-                                    {{ __('Size:') }}
+                                    {{ __('Choose option') }}
                                     <span style="font-weight: 400; color: #4b5563;">{{ $selected?->name }}</span>
                                 </p>
                                 <div style="display: flex; flex-wrap: wrap; gap: 8px;">
@@ -226,19 +237,105 @@
                                     {{ $product->category->name }}
                                 </a>
                             </div>
-                            <div style="display: flex; gap: 12px;">
-                                <span style="width: 100px; color: #6b7280;">{{ __('Share:') }}</span>
-                                <div style="display: flex; align-items: center; gap: 12px; color: #4b5563;">
-                                    <a href="#" aria-label="Facebook" style="color: inherit;"><i class="fa-brands fa-facebook-f"></i></a>
-                                    <a href="#" aria-label="Twitter" style="color: inherit;"><i class="fa-brands fa-twitter"></i></a>
-                                    <a href="#" aria-label="Instagram" style="color: inherit;"><i class="fa-brands fa-instagram"></i></a>
-                                    <a href="#" aria-label="LinkedIn" style="color: inherit;"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-start;">
+                                <span style="width: 100px; flex-shrink: 0; color: #6b7280;">{{ __('Share:') }}</span>
+                                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; color: #4b5563;">
+                                    <button type="button"
+                                            wire:click="openNativeShare"
+                                            title="{{ __('Share') }}"
+                                            aria-label="{{ __('Share') }}"
+                                            style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 999px; border: 1px solid #e5e7eb; background: #fff; color: #061153; cursor: pointer;">
+                                        <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
+                                    </button>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ $shareUrlEnc }}"
+                                       target="_blank" rel="noopener noreferrer"
+                                       title="{{ __('Share on Facebook') }}"
+                                       aria-label="{{ __('Share on Facebook') }}"
+                                       style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 999px; border: 1px solid #e5e7eb; background: #fff; color: inherit;">
+                                        <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="https://twitter.com/intent/tweet?url={{ $shareUrlEnc }}&text={{ $shareTitleEnc }}"
+                                       target="_blank" rel="noopener noreferrer"
+                                       title="{{ __('Share on X') }}"
+                                       aria-label="{{ __('Share on X') }}"
+                                       style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 999px; border: 1px solid #e5e7eb; background: #fff; color: inherit;">
+                                        <i class="fa-brands fa-twitter" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ $shareUrlEnc }}"
+                                       target="_blank" rel="noopener noreferrer"
+                                       title="{{ __('Share on LinkedIn') }}"
+                                       aria-label="{{ __('Share on LinkedIn') }}"
+                                       style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 999px; border: 1px solid #e5e7eb; background: #fff; color: inherit;">
+                                        <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="https://api.whatsapp.com/send?text={{ $whatsappTextEnc }}"
+                                       target="_blank" rel="noopener noreferrer"
+                                       title="{{ __('Share on WhatsApp') }}"
+                                       aria-label="{{ __('Share on WhatsApp') }}"
+                                       style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 999px; border: 1px solid #e5e7eb; background: #fff; color: inherit;">
+                                        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="mailto:?subject={{ $mailtoSubjectEnc }}&body={{ $mailtoBodyEnc }}"
+                                       title="{{ __('Share by email') }}"
+                                       aria-label="{{ __('Share by email') }}"
+                                       style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 999px; border: 1px solid #e5e7eb; background: #fff; color: inherit;">
+                                        <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                                    </a>
+                                    <button type="button"
+                                            wire:click="copyShareLink"
+                                            title="{{ __('Copy link') }}"
+                                            aria-label="{{ __('Copy link') }}"
+                                            style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 999px; border: 1px solid #e5e7eb; background: #fff; color: #061153; cursor: pointer;">
+                                        <i class="fa-solid fa-link" aria-hidden="true"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            @if ($this->youMayAlsoLike->isNotEmpty())
+                <div class="mt-5 pt-5" style="border-top: 1px solid #e5e7eb;">
+                    <h2 style="font-size: 22px; font-weight: 700; color: #061153; margin: 0 0 24px;">
+                        {{ __('You may also like') }}
+                    </h2>
+                    <div class="row g-4">
+                        @foreach ($this->youMayAlsoLike as $related)
+                            @php($relUrl = $related->main_image_url)
+                            @php($relOos = $related->isOutOfStock())
+                            <div class="col-6 col-md-3" wire:key="related-{{ $related->id }}">
+                                <a href="{{ route('shop.products.show', $related->slug) }}" wire:navigate
+                                   class="d-block text-decoration-none h-100 rounded-3 border bg-white shadow-sm overflow-hidden transition"
+                                   style="border-color: #e5e7eb; color: inherit;"
+                                   onmouseover="this.style.borderColor='#1053f3'; this.style.boxShadow='0 8px 24px rgba(6,17,83,0.12)'"
+                                   onmouseout="this.style.borderColor='#e5e7eb'; this.style.boxShadow=''">
+                                    <div class="position-relative bg-light overflow-hidden" style="aspect-ratio: 1 / 1; {{ $relOos ? 'opacity: 0.9;' : '' }}">
+                                        @if ($relUrl)
+                                            <img src="{{ $relUrl }}" alt="{{ $related->name }}"
+                                                 style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                                        @endif
+                                        @if ($relOos)
+                                            <span class="position-absolute top-0 start-0 m-2 badge rounded-pill px-2 py-1"
+                                                  style="font-size: 10px; background: #dc2626; color: #fff;">
+                                                {{ __('Out of stock') }}
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="p-3 text-center">
+                                        <p class="mb-1 fw-bold tabular-nums" style="font-size: 1.15rem; color: #061153;">
+                                            {{ $related->storefrontVariantPriceLabel() }}
+                                        </p>
+                                        <p class="mb-0 small fw-semibold" style="color: #0f172a; line-height: 1.35;">
+                                            {{ \Illuminate\Support\Str::limit($related->name, 56) }}
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
         </div>
     </section>
 </div>

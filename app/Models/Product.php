@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -32,6 +33,11 @@ class Product extends Model
         return $this->hasMany(ProductImage::class)
             ->orderByDesc('is_primary')
             ->orderBy('sort_order');
+    }
+
+    public function optionGroups(): HasMany
+    {
+        return $this->hasMany(ProductOptionGroup::class)->orderBy('sort_order');
     }
 
     public function primaryImage(): HasOne
@@ -80,6 +86,51 @@ class Product extends Model
         $plain = preg_replace('/\s+/u', ' ', $plain) ?? $plain;
 
         return Str::limit(trim((string) $plain), $limit);
+    }
+
+    /**
+     * Whether the product has no sellable quantity on any variant (used on catalog cards).
+     *
+     * @param  Collection<int, ProductVariant>|null  $variants
+     */
+    public function isOutOfStock(?Collection $variants = null): bool
+    {
+        $variants ??= $this->variants;
+
+        if ($variants->isEmpty()) {
+            return true;
+        }
+
+        foreach ($variants as $variant) {
+            $qty = (int) optional($variant->inventoryItem)->quantity;
+            if ($qty > 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Price line for listing cards: GH₵99.00 or GH₵40.00 – 200.00 when variant prices differ.
+     */
+    public function storefrontVariantPriceLabel(): string
+    {
+        $variants = $this->variants;
+
+        if ($variants->isEmpty()) {
+            return 'GH₵'.number_format(0.0, 2);
+        }
+
+        $min = (float) $variants->min('price');
+        $max = (float) $variants->max('price');
+        $minFormatted = number_format($min, 2);
+
+        if ($variants->count() === 1 || abs($max - $min) < 0.005) {
+            return 'GH₵'.$minFormatted;
+        }
+
+        return 'GH₵'.$minFormatted.' – '.number_format($max, 2);
     }
 
     private function descriptionAppearsToStartWithHtml(string $text): bool
