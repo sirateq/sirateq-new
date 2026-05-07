@@ -23,7 +23,6 @@
             line-height: 1.45;
         }
         .accent { color: {{ $accent }}; }
-        .accent-bg { background-color: {{ $accent }}; color: #ffffff; }
         .header-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
         .header-table td { vertical-align: top; border: none; padding: 0; }
         .company-name {

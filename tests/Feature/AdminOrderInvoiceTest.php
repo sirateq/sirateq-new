@@ -9,10 +9,37 @@ use App\Models\ProductVariant;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Testing\TestResponse;
 use Livewire\Livewire;
 
 uses(RefreshDatabase::class);
+
+test('order invoice blade includes configured company details', function () {
+    $order = Order::factory()->create(['user_id' => null]);
+    $product = Product::factory()->create();
+    $variant = ProductVariant::factory()->create(['product_id' => $product->id]);
+    OrderItem::query()->create([
+        'order_id' => $order->id,
+        'product_variant_id' => $variant->id,
+        'product_name' => 'X',
+        'variant_name' => 'Y',
+        'quantity' => 1,
+        'unit_price' => 10,
+        'line_total' => 10,
+    ]);
+
+    $order->load(['items', 'payments', 'coupon']);
+
+    $html = view('pdf.order-invoice', [
+        'order' => $order,
+        'invoiceConfig' => config('invoice'),
+        'logoBase64' => base64_encode('x'),
+    ])->render();
+
+    expect($html)->toContain(config('invoice.company.name'))
+        ->and($html)->toContain('info@sirateqghana.com')
+        ->and($html)->toContain('Alhaji Junction')
+        ->and($html)->toContain('+233 36 229 6798');
+});
 
 test('admin can download order invoice PDF', function () {
     $admin = User::factory()->create(['is_admin' => true]);
@@ -32,11 +59,7 @@ test('admin can download order invoice PDF', function () {
     $this->actingAs($admin)
         ->get(route('admin.orders.invoice', $order))
         ->assertOk()
-        ->assertHeader('content-type', 'application/pdf')
-        ->tap(function (TestResponse $response): void {
-            expect($response->getContent())->toContain(config('invoice.company.name'))
-                ->and($response->getContent())->toContain('info@sirateqghana.com');
-        });
+        ->assertHeader('content-type', 'application/pdf');
 });
 
 test('guest cannot download admin order invoice', function () {
