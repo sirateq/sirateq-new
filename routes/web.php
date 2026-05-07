@@ -13,6 +13,8 @@ use App\Livewire\Admin\Categories\Form as CategoryForm;
 use App\Livewire\Admin\Categories\Index as CategoryIndex;
 use App\Livewire\Admin\Categories\Show as CategoryShow;
 use App\Livewire\Admin\Categories\Trash as CategoryTrash;
+use App\Livewire\Admin\Customers\Index as CustomersIndex;
+use App\Livewire\Admin\Customers\Show as CustomersShow;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Admin\Discounts\Index as DiscountIndex;
 use App\Livewire\Admin\Inventory\Index as InventoryIndex;
@@ -20,6 +22,7 @@ use App\Livewire\Admin\Orders\Index as OrderIndex;
 use App\Livewire\Admin\Orders\Show as OrderShow;
 use App\Livewire\Admin\Products\Form as ProductForm;
 use App\Livewire\Admin\Products\Index as ProductIndex;
+use App\Livewire\Admin\Users\Index as AdminUsersIndex;
 use App\Livewire\Shop\CartPage;
 use App\Livewire\Shop\Catalog;
 use App\Livewire\Shop\CheckoutPage;
@@ -91,6 +94,9 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->group(functio
     Route::livewire('/orders/{order}', OrderShow::class)->name('admin.orders.show');
     Route::livewire('/inventory', InventoryIndex::class)->name('admin.inventory.index');
     Route::livewire('/discounts', DiscountIndex::class)->name('admin.discounts.index');
+    Route::livewire('/users', AdminUsersIndex::class)->name('admin.users.index');
+    Route::livewire('/customers', CustomersIndex::class)->name('admin.customers.index');
+    Route::livewire('/customers/{user}', CustomersShow::class)->name('admin.customers.show');
 });
 
 Route::get('test', function () {

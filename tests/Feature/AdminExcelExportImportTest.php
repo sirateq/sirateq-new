@@ -8,6 +8,7 @@ use App\Models\ProductVariant;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 uses(RefreshDatabase::class);
 
@@ -123,9 +124,18 @@ test('orders export respects search filter', function () {
     Order::factory()->create(['customer_email' => 'unique-alpha@example.com']);
     Order::factory()->create(['customer_email' => 'unique-beta@example.com']);
 
+    expect(Order::query()->where('customer_email', 'like', '%unique-alpha%')->exists())->toBeTrue();
+
     $response = $this->actingAs($admin)->get(route('admin.exports.orders', ['q' => 'unique-alpha']));
     $response->assertOk();
     $content = $response->streamedContent();
-    expect(str_contains($content, 'unique-alpha@example.com'))->toBeTrue();
-    expect(str_contains($content, 'unique-beta@example.com'))->toBeFalse();
+
+    $tmpPath = tempnam(sys_get_temp_dir(), 'xlsx');
+    file_put_contents($tmpPath, $content);
+    $rows = IOFactory::load($tmpPath)->getActiveSheet()->toArray();
+    @unlink($tmpPath);
+
+    $flat = collect($rows)->flatten()->map(fn ($cell) => (string) $cell)->implode(' ');
+    expect(str_contains($flat, 'unique-alpha@example.com'))->toBeTrue();
+    expect(str_contains($flat, 'unique-beta@example.com'))->toBeFalse();
 });

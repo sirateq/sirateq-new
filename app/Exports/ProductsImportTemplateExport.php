@@ -12,9 +12,7 @@ class ProductsImportTemplateExport implements FromArray, WithHeadings
      */
     public function array(): array
     {
-        return [
-            [__('LED desk lamp'), __('Home & Office')],
-        ];
+        return [];
     }
 
     /**

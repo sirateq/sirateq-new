@@ -42,6 +42,14 @@
                         :current="request()->routeIs('admin.discounts.*')" wire:navigate>
                         {{ __('Discounts') }}
                     </flux:sidebar.item>
+                    <flux:sidebar.item icon="shield-check" :href="route('admin.users.index')"
+                        :current="request()->routeIs('admin.users.*')" wire:navigate>
+                        {{ __('Admin users') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="users" :href="route('admin.customers.index')"
+                        :current="request()->routeIs('admin.customers.*')" wire:navigate>
+                        {{ __('Customers') }}
+                    </flux:sidebar.item>
                 @endif
             </flux:sidebar.group>
         </flux:sidebar.nav>

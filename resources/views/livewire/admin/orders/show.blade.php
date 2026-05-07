@@ -26,6 +26,9 @@
             <flux:button variant="ghost" icon="arrow-down-tray" :href="route('admin.orders.invoice', $order)">
                 {{ __('Invoice PDF') }}
             </flux:button>
+            <flux:button variant="outline" icon="chat-bubble-left-right" wire:click="$set('showCustomerMessagesModal', true)">
+                {{ __('Customer messages') }}
+            </flux:button>
         </x-slot>
 
         {{-- Order hero --}}
@@ -55,6 +58,38 @@
                     <span class="text-2xl font-bold tabular-nums tracking-tight text-zinc-900 dark:text-white sm:text-3xl">
                         GH₵{{ number_format((float) $order->total, 2) }}
                     </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-6 overflow-hidden rounded-2xl border border-zinc-200/70 bg-white shadow-sm dark:border-zinc-700/60 dark:bg-zinc-900">
+            <div class="flex flex-col gap-1 border-b border-zinc-200/70 px-5 py-4 dark:border-zinc-700/60 sm:flex-row sm:items-center sm:justify-between">
+                <div class="flex items-center gap-2">
+                    <flux:icon name="truck" class="size-5 text-zinc-500 dark:text-zinc-400" />
+                    <div>
+                        <flux:heading size="lg">{{ __('Fulfillment') }}</flux:heading>
+                        <flux:subheading class="mt-0.5">{{ __('Tap a status to update this order.') }}</flux:subheading>
+                    </div>
+                </div>
+            </div>
+            <div class="px-5 py-4">
+                <flux:text size="sm" class="mb-3 font-medium text-zinc-600 dark:text-zinc-400">{{ __('Order status') }}</flux:text>
+                <div
+                    class="flex flex-wrap gap-2"
+                    wire:loading.class="pointer-events-none opacity-50"
+                    wire:target="setOrderStatus"
+                >
+                    @foreach (\App\Livewire\Admin\Orders\Show::statusOptions() as $value => $label)
+                        <flux:button
+                            type="button"
+                            size="sm"
+                            :variant="$order->status === $value ? 'primary' : 'outline'"
+                            wire:click="setOrderStatus('{{ $value }}')"
+                            wire:key="order-status-{{ $order->id }}-{{ $value }}"
+                        >
+                            {{ $label }}
+                        </flux:button>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -187,7 +222,7 @@
 
                 <div class="rounded-2xl border border-zinc-200/70 bg-white p-5 shadow-sm dark:border-zinc-700/60 dark:bg-zinc-900">
                     <flux:heading size="lg" class="mb-3 flex items-center gap-2">
-                        <flux:icon name="truck" class="size-5 text-zinc-500" />
+                        <flux:icon name="map-pin" class="size-5 text-zinc-500" />
                         {{ __('Delivery') }}
                     </flux:heading>
                     @if (filled($order->delivery_zone))
@@ -227,58 +262,55 @@
                         </ul>
                     </div>
                 @endif
-
-                <div class="rounded-2xl border border-zinc-200/70 bg-white p-5 shadow-sm dark:border-zinc-700/60 dark:bg-zinc-900">
-                    <flux:heading size="lg" class="mb-1">{{ __('Customer messages') }}</flux:heading>
-                    <flux:subheading class="mb-4">{{ __('Send a custom email or SMS, or resend the standard order confirmation.') }}</flux:subheading>
-
-                    <div class="space-y-6">
-                        <div class="space-y-3 rounded-xl border border-zinc-100 bg-zinc-50/80 p-4 dark:border-zinc-800 dark:bg-zinc-800/40">
-                            <flux:heading size="sm">{{ __('Custom email') }}</flux:heading>
-                            <flux:input wire:model="customEmailSubject" :label="__('Subject')" :placeholder="__('e.g. Update on your order #123456')" />
-                            <flux:textarea wire:model="customEmailBody" :label="__('Message')" rows="5" :placeholder="__('Markdown supported: **bold**, lists, links…')" />
-                            <flux:button variant="primary" icon="paper-airplane" wire:click="sendCustomCustomerEmail" wire:loading.attr="disabled" wire:target="sendCustomCustomerEmail" class="w-full">
-                                <span wire:loading.remove wire:target="sendCustomCustomerEmail">{{ __('Send email') }}</span>
-                                <span wire:loading wire:target="sendCustomCustomerEmail">{{ __('Sending…') }}</span>
-                            </flux:button>
-                        </div>
-
-                        <div class="space-y-3 rounded-xl border border-zinc-100 bg-zinc-50/80 p-4 dark:border-zinc-800 dark:bg-zinc-800/40">
-                            <flux:heading size="sm">{{ __('Custom SMS') }}</flux:heading>
-                            <flux:textarea wire:model="customSmsBody" :label="__('Text message')" rows="3" :placeholder="__('Short message to send via your SMS provider')" />
-                            @if (! filled($order->customer_phone))
-                                <flux:callout variant="warning">{{ __('No phone number on this order.') }}</flux:callout>
-                            @endif
-                            <flux:button variant="outline" icon="chat-bubble-left-right" wire:click="sendCustomCustomerSms" wire:loading.attr="disabled" wire:target="sendCustomCustomerSms" class="w-full" :disabled="! filled($order->customer_phone)">
-                                <span wire:loading.remove wire:target="sendCustomCustomerSms">{{ __('Send SMS') }}</span>
-                                <span wire:loading wire:target="sendCustomCustomerSms">{{ __('Sending…') }}</span>
-                            </flux:button>
-                        </div>
-
-                        <flux:separator />
-
-                        <flux:button variant="ghost" icon="arrow-path" wire:click="resendCustomerOrderNotice" wire:loading.attr="disabled" wire:target="resendCustomerOrderNotice" class="w-full">
-                            <span wire:loading.remove wire:target="resendCustomerOrderNotice">{{ __('Resend standard order notice') }}</span>
-                            <span wire:loading wire:target="resendCustomerOrderNotice">{{ __('Sending…') }}</span>
-                        </flux:button>
-                    </div>
-                </div>
-
-                <div class="rounded-2xl border border-zinc-200/70 bg-white p-5 shadow-sm dark:border-zinc-700/60 dark:bg-zinc-900">
-                    <flux:heading size="lg" class="mb-4">{{ __('Fulfillment') }}</flux:heading>
-                    <form wire:submit="updateStatus" class="space-y-4">
-                        <flux:select wire:model="status" :label="__('Order status')">
-                            @foreach (\App\Livewire\Admin\Orders\Show::statusOptions() as $value => $label)
-                                <flux:select.option value="{{ $value }}">{{ $label }}</flux:select.option>
-                            @endforeach
-                        </flux:select>
-                        <flux:button type="submit" variant="primary" icon="check" class="w-full" wire:loading.attr="disabled" wire:target="updateStatus">
-                            <span wire:loading.remove wire:target="updateStatus">{{ __('Save status') }}</span>
-                            <span wire:loading wire:target="updateStatus">{{ __('Saving…') }}</span>
-                        </flux:button>
-                    </form>
-                </div>
             </div>
         </div>
+
+        <flux:modal
+            name="admin-order-customer-messages"
+            class="max-w-lg md:max-w-xl"
+            wire:model="showCustomerMessagesModal"
+        >
+            <div class="space-y-6">
+                <div>
+                    <flux:heading size="lg">{{ __('Customer messages') }}</flux:heading>
+                    <flux:subheading class="mt-1">{{ __('Send a custom email or SMS, or resend the standard order confirmation.') }}</flux:subheading>
+                </div>
+
+                <div class="space-y-3 rounded-xl border border-zinc-100 bg-zinc-50/80 p-4 dark:border-zinc-800 dark:bg-zinc-800/40">
+                    <flux:heading size="sm">{{ __('Custom email') }}</flux:heading>
+                    <flux:input wire:model="customEmailSubject" :label="__('Subject')" :placeholder="__('e.g. Update on your order #123456')" />
+                    <flux:textarea wire:model="customEmailBody" :label="__('Message')" rows="5" :placeholder="__('Markdown supported: **bold**, lists, links…')" />
+                    <flux:button variant="primary" icon="paper-airplane" wire:click="sendCustomCustomerEmail" wire:loading.attr="disabled" wire:target="sendCustomCustomerEmail" class="w-full">
+                        <span wire:loading.remove wire:target="sendCustomCustomerEmail">{{ __('Send email') }}</span>
+                        <span wire:loading wire:target="sendCustomCustomerEmail">{{ __('Sending…') }}</span>
+                    </flux:button>
+                </div>
+
+                <div class="space-y-3 rounded-xl border border-zinc-100 bg-zinc-50/80 p-4 dark:border-zinc-800 dark:bg-zinc-800/40">
+                    <flux:heading size="sm">{{ __('Custom SMS') }}</flux:heading>
+                    <flux:textarea wire:model="customSmsBody" :label="__('Text message')" rows="3" :placeholder="__('Short message to send via your SMS provider')" />
+                    @if (! filled($order->customer_phone))
+                        <flux:callout variant="warning">{{ __('No phone number on this order.') }}</flux:callout>
+                    @endif
+                    <flux:button variant="outline" icon="chat-bubble-left-right" wire:click="sendCustomCustomerSms" wire:loading.attr="disabled" wire:target="sendCustomCustomerSms" class="w-full" :disabled="! filled($order->customer_phone)">
+                        <span wire:loading.remove wire:target="sendCustomCustomerSms">{{ __('Send SMS') }}</span>
+                        <span wire:loading wire:target="sendCustomCustomerSms">{{ __('Sending…') }}</span>
+                    </flux:button>
+                </div>
+
+                <flux:separator />
+
+                <flux:button variant="ghost" icon="arrow-path" wire:click="resendCustomerOrderNotice" wire:loading.attr="disabled" wire:target="resendCustomerOrderNotice" class="w-full">
+                    <span wire:loading.remove wire:target="resendCustomerOrderNotice">{{ __('Resend standard order notice') }}</span>
+                    <span wire:loading wire:target="resendCustomerOrderNotice">{{ __('Sending…') }}</span>
+                </flux:button>
+
+                <div class="flex justify-end border-t border-zinc-200 pt-4 dark:border-zinc-700">
+                    <flux:modal.close>
+                        <flux:button variant="ghost">{{ __('Close') }}</flux:button>
+                    </flux:modal.close>
+                </div>
+            </div>
+        </flux:modal>
     </x-admin.layout>
 </section>

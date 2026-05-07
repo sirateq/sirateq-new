@@ -26,6 +26,8 @@ class Show extends Component
 
     public string $customSmsBody = '';
 
+    public bool $showCustomerMessagesModal = false;
+
     public function mount(Order $order): void
     {
         $this->order = $order->load(['items', 'payments', 'coupon']);
@@ -73,6 +75,7 @@ class Show extends Component
         $this->order->update(['status' => $validated['status']]);
         $this->order->refresh();
         $this->order->load(['items', 'payments', 'coupon']);
+        $this->status = $this->order->status;
 
         Log::info('Admin order status updated', [
             'admin_user_id' => auth()->id(),
@@ -81,6 +84,16 @@ class Show extends Component
         ]);
 
         Flux::toast(variant: 'success', text: __('Order status updated.'));
+    }
+
+    public function setOrderStatus(string $newStatus): void
+    {
+        if ($newStatus === $this->order->status) {
+            return;
+        }
+
+        $this->status = $newStatus;
+        $this->updateStatus();
     }
 
     public function sendCustomCustomerEmail(): void
@@ -102,6 +115,7 @@ class Show extends Component
         ]);
 
         $this->reset('customEmailSubject', 'customEmailBody');
+        $this->showCustomerMessagesModal = false;
         Flux::toast(variant: 'success', text: __('Email sent to the customer.'));
     }
 
@@ -125,6 +139,7 @@ class Show extends Component
         ]);
 
         $this->reset('customSmsBody');
+        $this->showCustomerMessagesModal = false;
         Flux::toast(variant: 'success', text: __('SMS sent to the customer.'));
     }
 
@@ -139,6 +154,7 @@ class Show extends Component
             'order_id' => $this->order->id,
         ]);
 
+        $this->showCustomerMessagesModal = false;
         Flux::toast(variant: 'success', text: __('Standard order email and SMS were resent to the customer (if phone is on file).'));
     }
 
