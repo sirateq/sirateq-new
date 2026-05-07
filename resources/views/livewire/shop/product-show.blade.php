@@ -9,6 +9,29 @@
         ]"
     />
 
+    <div class="bg-light border-b" style="border-color: #e5e7eb;">
+        <div class="container py-4">
+            <form method="get" action="{{ route('shop.index') }}" class="mx-auto flex max-w-2xl gap-2">
+                <label class="sr-only" for="product-show-shop-search">{{ __('Search the shop') }}</label>
+                <div class="relative flex flex-1">
+                    <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400">
+                        <i class="fa-solid fa-magnifying-glass text-sm" aria-hidden="true"></i>
+                    </span>
+                    <input id="product-show-shop-search" type="search" name="q" value=""
+                           placeholder="{{ __('Search the shop…') }}"
+                           autocomplete="off"
+                           class="h-11 w-full rounded-xl border bg-white pl-10 pr-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-[#1053f3] focus:outline-none focus:ring-2 focus:ring-[#1053f3]/25"
+                           style="border-color: #e5e7eb;">
+                </div>
+                <button type="submit"
+                        class="shrink-0 rounded-xl px-5 text-sm font-semibold text-white transition hover:brightness-110"
+                        style="background: linear-gradient(135deg, #061153, #1053f3);">
+                    {{ __('Search') }}
+                </button>
+            </form>
+        </div>
+    </div>
+
     @php($selected = $product->variants->firstWhere('id', (int) $selectedVariant) ?? $product->variants->first())
     @php($stock = (int) optional($selected?->inventoryItem)->quantity)
     @php($mainPrice = (float) ($selected?->price ?? 0))
