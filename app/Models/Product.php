@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\HtmlString;
+use Illuminate\Support\Str;
 
 #[Fillable(['category_id', 'name', 'slug', 'description', 'is_active'])]
 class Product extends Model
@@ -44,6 +46,47 @@ class Product extends Model
             : ($this->primaryImage()->first() ?? $this->images()->first());
 
         return $primary?->url;
+    }
+
+    /**
+     * Storefront-safe HTML for the product description: GitHub-Flavored Markdown by default.
+     * If the trimmed body starts with an HTML tag (trusted admin content), it is output as-is.
+     */
+    public function renderedDescriptionHtml(): HtmlString
+    {
+        $raw = trim((string) ($this->description ?? ''));
+        if ($raw === '') {
+            return new HtmlString('');
+        }
+
+        if ($this->descriptionAppearsToStartWithHtml($raw)) {
+            return new HtmlString($raw);
+        }
+
+        return new HtmlString(Str::markdown($raw));
+    }
+
+    /**
+     * Plain text for tables and list excerpts (tags stripped from rendered output).
+     */
+    public function descriptionPlainExcerpt(int $limit = 160): string
+    {
+        $raw = trim((string) ($this->description ?? ''));
+        if ($raw === '') {
+            return '';
+        }
+
+        $plain = strip_tags((string) $this->renderedDescriptionHtml());
+        $plain = preg_replace('/\s+/u', ' ', $plain) ?? $plain;
+
+        return Str::limit(trim((string) $plain), $limit);
+    }
+
+    private function descriptionAppearsToStartWithHtml(string $text): bool
+    {
+        $trim = ltrim($text);
+
+        return $trim !== '' && (bool) preg_match('/^<[a-zA-Z]/', $trim);
     }
 
     /**

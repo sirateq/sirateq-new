@@ -5,11 +5,26 @@
         <div class="container">
     {{-- Top toolbar --}}
     <div class="flex flex-wrap items-center justify-between gap-4">
-        <p class="text-sm text-zinc-700 dark:text-zinc-300">
-            {{ __('We found') }}
-            <span class="font-semibold" style="color: #061153;">{{ $this->products->count() }}</span>
-            {{ __('products available for you') }}
-        </p>
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <p class="text-sm text-zinc-700 dark:text-zinc-300 m-0">
+                {{ __('We found') }}
+                <span class="font-semibold" style="color: #061153;">{{ $this->products->count() }}</span>
+                {{ __('products available for you') }}
+            </p>
+            <div class="flex flex-wrap items-center gap-3 text-sm font-semibold" style="color: #061153;">
+                <a href="{{ route('shop.cart') }}" wire:navigate
+                   class="inline-flex items-center gap-2 transition hover:opacity-80">
+                    <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+                    {{ __('Cart') }}
+                </a>
+                <span class="hidden text-zinc-300 sm:inline" aria-hidden="true">|</span>
+                <a href="{{ route('shop.orders.track') }}" wire:navigate
+                   class="inline-flex items-center gap-2 transition hover:opacity-80">
+                    <i class="fa-solid fa-truck" aria-hidden="true"></i>
+                    {{ __('Track order') }}
+                </a>
+            </div>
+        </div>
 
         <div class="flex flex-wrap items-center gap-3">
             {{-- View toggle --}}
@@ -202,7 +217,7 @@
                             <p class="text-base font-semibold" style="color: #061153;">{{ $product->name }}</p>
                             <p class="mt-1 text-sm" style="color: #6b7280;">{{ $product->category->name }}</p>
                             <p class="mt-2 line-clamp-2 text-sm" style="color: #4b5563;">
-                                {{ $product->description ?: __('No description yet.') }}
+                                {{ $product->descriptionPlainExcerpt(220) ?: __('No description yet.') }}
                             </p>
                         </div>
                         <div class="text-right">

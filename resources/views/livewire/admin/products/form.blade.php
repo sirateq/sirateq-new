@@ -26,7 +26,7 @@
                             <flux:select.option value="{{ $category->id }}">{{ $category->name }}</flux:select.option>
                         @endforeach
                     </flux:select>
-                    <flux:textarea wire:model="description" :label="__('Description')" :placeholder="__('Short summary of the product')" class="md:col-span-2" rows="3" />
+                    <flux:textarea wire:model="description" :label="__('Description')" :placeholder="__('Markdown or HTML. Leave blank if not needed.')" class="md:col-span-2" rows="6" />
                     <div class="rounded-lg border border-zinc-200/70 bg-zinc-50 p-4 dark:border-zinc-700/60 dark:bg-zinc-800/40 md:col-span-2">
                         <flux:switch wire:model="is_active" :label="__('Visible on storefront')" :description="__('Disabled products stay hidden from shoppers')" />
                     </div>

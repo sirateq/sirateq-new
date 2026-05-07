@@ -88,3 +88,74 @@ select:focus[data-flux-control] {
 .dark [data-flux-table] tbody tr:hover [data-flux-cell] {
     background-color: rgb(63 63 70 / 0.25);
 }
+
+@layer components {
+    .product-rich-text :where(p, ul, ol, blockquote, pre) {
+        margin: 0.65em 0;
+    }
+
+    .product-rich-text :where(p:first-child, ul:first-child, ol:first-child) {
+        margin-top: 0;
+    }
+
+    .product-rich-text :where(p:last-child, ul:last-child, ol:last-child) {
+        margin-bottom: 0;
+    }
+
+    .product-rich-text :where(ul, ol) {
+        padding-left: 1.25rem;
+    }
+
+    .product-rich-text ul {
+        list-style-type: disc;
+    }
+
+    .product-rich-text ol {
+        list-style-type: decimal;
+    }
+
+    .product-rich-text :where(a) {
+        color: #1053f3;
+        text-decoration: underline;
+    }
+
+    .product-rich-text :where(a:hover) {
+        color: #061153;
+    }
+
+    .product-rich-text :where(h1, h2, h3, h4) {
+        color: #061153;
+        font-weight: 700;
+        margin: 0.85em 0 0.4em;
+        line-height: 1.25;
+    }
+
+    .product-rich-text :where(h1, h2, h3, h4):first-child {
+        margin-top: 0;
+    }
+
+    .product-rich-text :where(code) {
+        font-size: 0.9em;
+        background: #f4f4f5;
+        padding: 0.1em 0.35em;
+        border-radius: 0.25rem;
+    }
+
+    .product-rich-text :where(pre code) {
+        background: transparent;
+        padding: 0;
+    }
+
+    .product-rich-text :where(pre) {
+        background: #f4f4f5;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        overflow-x: auto;
+    }
+
+    .product-rich-text :where(blockquote) {
+        border-left: 3px solid #061153;
+        padding-left: 0.85rem;
+        color: #6b7280;
+    }
+}

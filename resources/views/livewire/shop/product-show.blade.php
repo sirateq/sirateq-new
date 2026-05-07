@@ -97,9 +97,15 @@
                         </div>
 
                         {{-- Description --}}
-                        <p style="font-size: 14px; line-height: 1.6; color: #4b5563; margin: 0;">
-                            {{ $product->description ?: __('No description yet.') }}
-                        </p>
+                        @if (filled(trim((string) $product->description)))
+                            <div class="product-rich-text text-sm leading-relaxed text-[#4b5563]">
+                                {!! $product->renderedDescriptionHtml() !!}
+                            </div>
+                        @else
+                            <p style="font-size: 14px; line-height: 1.6; color: #4b5563; margin: 0;">
+                                {{ __('No description yet.') }}
+                            </p>
+                        @endif
 
                         {{-- Variant selector --}}
                         @if ($product->variants->count() > 1)

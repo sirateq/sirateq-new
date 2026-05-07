@@ -82,7 +82,7 @@
                                     @endif
                                     <div class="min-w-0">
                                         <flux:heading class="!text-sm">{{ $product->name }}</flux:heading>
-                                        <flux:text size="sm" class="truncate text-zinc-500">{{ \Illuminate\Support\Str::limit($product->description, 50) ?: __('No description') }}</flux:text>
+                                        <flux:text size="sm" class="truncate text-zinc-500">{{ $product->descriptionPlainExcerpt(50) ?: __('No description') }}</flux:text>
                                     </div>
                                 </div>
                             </flux:table.cell>
