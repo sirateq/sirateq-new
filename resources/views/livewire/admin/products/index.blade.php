@@ -1,12 +1,53 @@
 <section class="w-full">
     <x-admin.layout :heading="__('Products')" :subheading="__('Manage catalog products and visibility')" icon="cube">
         <x-slot name="actions">
-            <flux:button variant="primary" icon="plus" :href="route('admin.products.create')" wire:navigate>
-                {{ __('Add Product') }}
-            </flux:button>
+            <div class="flex flex-wrap items-center gap-2">
+                <flux:button variant="outline" icon="arrow-down-tray" :href="route('admin.exports.products', [
+                    'q' => $this->search,
+                    'status' => $this->status,
+                    'sort_by' => $this->sortBy,
+                    'sort_direction' => $this->sortDirection,
+                ])">
+                    {{ __('Export Excel') }}
+                </flux:button>
+                <flux:button variant="outline" icon="document-arrow-down" :href="route('admin.products.import.template')">
+                    {{ __('Import template') }}
+                </flux:button>
+                <form
+                    action="{{ route('admin.products.import') }}"
+                    method="post"
+                    enctype="multipart/form-data"
+                    class="inline-flex"
+                    x-data
+                    @change="if ($refs.productImport.files?.length) $el.submit()"
+                >
+                    @csrf
+                    <input type="file" name="file" accept=".csv,.xlsx,.xls" class="sr-only" x-ref="productImport" />
+                    <flux:button type="button" variant="outline" icon="arrow-up-tray" @click="$refs.productImport.click()">
+                        {{ __('Import') }}
+                    </flux:button>
+                </form>
+                <flux:button variant="primary" icon="plus" :href="route('admin.products.create')" wire:navigate>
+                    {{ __('Add Product') }}
+                </flux:button>
+            </div>
         </x-slot>
 
         <div class="overflow-hidden rounded-xl border border-zinc-200/70 bg-white shadow-sm dark:border-zinc-700/60 dark:bg-zinc-900">
+            @if (session('import_status'))
+                <flux:callout variant="success" icon="check-circle" class="mx-4 mt-4">
+                    {{ session('import_status') }}
+                </flux:callout>
+            @endif
+            @if (filled(session('import_errors')))
+                <flux:callout variant="warning" class="mx-4 mt-4">
+                    <ul class="list-disc ps-4 text-sm">
+                        @foreach (session('import_errors') as $importError)
+                            <li>{{ $importError }}</li>
+                        @endforeach
+                    </ul>
+                </flux:callout>
+            @endif
             <div class="flex flex-col gap-3 border-b border-zinc-200/70 p-4 dark:border-zinc-700/60 sm:flex-row sm:items-center sm:justify-between">
                 <flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass" :placeholder="__('Search by name or SKU')" class="sm:max-w-xs" />
                 <flux:select wire:model.live="status" class="sm:max-w-xs">

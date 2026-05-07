@@ -42,4 +42,24 @@ return [
         'base_url' => env('PAYSTACK_BASE_URL', 'https://api.paystack.co'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | SMS (order notifications)
+    |--------------------------------------------------------------------------
+    |
+    | Drivers:
+    | - "sendazi" — Sendazi quick campaign API (default when SMS_API_KEY is set).
+    | - "log" — writes payloads to the application log.
+    | - "http" — POST JSON { to, message } to SMS_HTTP_URL.
+    |
+    */
+    'sms' => [
+        'driver' => env('SMS_DRIVER', 'sendazi'),
+        'api_key' => env('SMS_API_KEY'),
+        'sender_id' => env('SMS_SENDER_ID'),
+        'campaign_name' => env('SMS_CAMPAIGN_NAME', 'Shop order notifications'),
+        'http_url' => env('SMS_HTTP_URL'),
+        'http_token' => env('SMS_HTTP_TOKEN'),
+    ],
+
 ];

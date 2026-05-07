@@ -35,6 +35,9 @@
                                         <a href="{{ route('shop.index') }}" wire:navigate>Shop</a>
                                     </li>
                                     <li>
+                                        <a href="{{ route('shop.orders.track') }}" wire:navigate>Track order</a>
+                                    </li>
+                                    <li>
                                         <a href="{{ route('contact-us') }}">Contact</a>
                                     </li>
                                 </ul>

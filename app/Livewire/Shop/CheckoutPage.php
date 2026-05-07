@@ -8,7 +8,9 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
 use App\Models\ProductVariant;
+use App\Services\OrderFulfillmentService;
 use App\Services\Paystack;
+use App\Services\PaystackPaymentCompletionService;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -187,6 +189,7 @@ class CheckoutPage extends Component
             if ($validated['payment_method'] === 'pay_on_delivery') {
                 $this->finalizeOrder($order);
                 $this->dispatch('cart-updated');
+                Order::grantCustomerSessionAccess($order);
                 $this->redirectRoute('shop.orders.show', ['order' => $order], navigate: true);
 
                 return;
@@ -208,65 +211,34 @@ class CheckoutPage extends Component
      * The reference is then verified server-side before we finalize the order.
      */
     #[On('paystack:callback')]
-    public function verifyPayment(string $reference, Paystack $paystack): void
+    public function verifyPayment(string $reference, PaystackPaymentCompletionService $completion): void
     {
-        $payment = Payment::query()
-            ->with('order')
-            ->where('provider', 'paystack')
-            ->where('transaction_reference', $reference)
-            ->latest()
-            ->first();
-
-        if (! $payment) {
-            Flux::toast(variant: 'danger', text: __('Payment record not found.'));
-
-            return;
-        }
-
-        $payment->loadMissing('order');
-
-        $this->pendingOrderNumber = $payment->order?->order_number;
-        $this->pendingPaystackReference = $reference;
         $this->payNowFlowPhase = 'verifying';
         $this->verificationFailureMessage = null;
 
-        if (! $payment->order) {
-            Flux::toast(variant: 'danger', text: __('Order not found for this payment.'));
+        $result = $completion->verifyReferenceAndFulfillOrder($reference);
+
+        if (! $result['payment']) {
+            $this->payNowFlowPhase = $this->pendingOrderNumber ? 'summary' : 'form';
+            Flux::toast(variant: 'danger', text: $result['message'] ?? __('Payment record not found.'));
 
             return;
         }
 
-        if ($payment->status === 'paid') {
+        $this->pendingOrderNumber = $result['order']?->order_number;
+        $this->pendingPaystackReference = $reference;
+
+        if ($result['success'] && $result['order']) {
             $this->clearPayNowFlowState();
-            $this->redirectRoute('shop.orders.show', ['order' => $payment->order], navigate: true);
+            $this->dispatch('cart-updated');
+            Flux::toast(variant: 'success', text: __('Payment confirmed — thank you!'));
+            Order::grantCustomerSessionAccess($result['order']);
+            $this->redirectRoute('shop.orders.show', ['order' => $result['order']], navigate: true);
 
             return;
         }
 
-        $result = $paystack->verify($reference);
-        $expectedAmount = (int) round((float) $payment->amount * 100);
-        $chargedAmount = (int) ($result['data']['amount'] ?? 0);
-
-        // Never finalize until Paystack confirms success and the charged amount matches our order total.
-        if (! $result['success'] || $chargedAmount !== $expectedAmount) {
-            $this->failPayment($payment, $result['message'] ?: __('Payment verification failed. Please try again.'));
-
-            return;
-        }
-
-        DB::transaction(function () use ($payment) {
-            $payment->update(['status' => 'paid']);
-            // Stock, cart, and coupon redemption run only after verification above succeeds.
-            $this->finalizeOrder($payment->order);
-        });
-
-        $this->clearPayNowFlowState();
-
-        $this->dispatch('cart-updated');
-
-        Flux::toast(variant: 'success', text: __('Payment confirmed — thank you!'));
-
-        $this->redirectRoute('shop.orders.show', ['order' => $payment->order], navigate: true);
+        $this->failPayment($result['payment'], $result['message'] ?: __('Payment verification failed. Please try again.'));
     }
 
     /**
@@ -502,11 +474,13 @@ class CheckoutPage extends Component
         $subtotal = (float) $cart->subtotal();
         $deliveryFee = (float) (self::DELIVERY_ZONES[$validated['delivery_zone']]['fee'] ?? 0);
         $discountTotal = 0.0;
+        $couponId = null;
 
         if (! empty($validated['coupon_code'])) {
             $coupon = Coupon::query()->where('code', strtoupper($validated['coupon_code']))->first();
             if ($coupon && $coupon->isCurrentlyActive()) {
                 $discountTotal = round(($subtotal * $coupon->discount_percentage) / 100, 2);
+                $couponId = $coupon->id;
             }
         }
 
@@ -514,6 +488,7 @@ class CheckoutPage extends Component
 
         $order = Order::query()->create([
             'user_id' => Auth::id(),
+            'coupon_id' => $couponId,
             'order_number' => $this->generateUniqueSixDigitOrderNumber(),
             'status' => $validated['payment_method'] === 'pay_on_delivery' ? 'placed' : 'pending_payment',
             'subtotal' => $subtotal,
@@ -563,35 +538,14 @@ class CheckoutPage extends Component
      */
     protected function finalizeOrder(Order $order): void
     {
-        DB::transaction(function () use ($order) {
-            foreach ($order->items as $item) {
-                $variant = ProductVariant::query()->with('inventoryItem')->find($item->product_variant_id);
-                $variant?->inventoryItem?->decrement('quantity', $item->quantity);
-            }
+        $fulfillment = app(OrderFulfillmentService::class);
+        if ($order->payment_method === 'pay_on_delivery') {
+            $fulfillment->finalizePayOnDeliveryOrder($order);
 
-            if ((float) $order->discount_total > 0 && $this->appliedCoupon) {
-                $coupon = Coupon::query()->where('code', $this->appliedCoupon)->first();
-                if ($coupon) {
-                    $coupon->increment('used_count');
-                    $coupon->redemptions()->create([
-                        'order_id' => $order->id,
-                        'user_id' => $order->user_id,
-                    ]);
-                }
-            }
+            return;
+        }
 
-            $cart = $this->cart;
-            if ($cart) {
-                $cart->items()->delete();
-                $cart->update(['status' => 'converted']);
-            }
-
-            session()->forget(CartPage::COUPON_SESSION_KEY);
-
-            if ($order->status === 'pending_payment') {
-                $order->update(['status' => 'placed']);
-            }
-        });
+        $fulfillment->finalizePaidOrder($order);
     }
 
     protected function failPayment(Payment $payment, string $message): void

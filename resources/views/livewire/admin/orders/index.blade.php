@@ -2,15 +2,26 @@
     <x-admin.layout :heading="__('Orders')" :subheading="__('Track and manage customer orders')" icon="receipt-percent">
         <div class="overflow-hidden rounded-xl border border-zinc-200/70 bg-white shadow-sm dark:border-zinc-700/60 dark:bg-zinc-900">
             <div class="flex flex-col gap-3 border-b border-zinc-200/70 p-4 dark:border-zinc-700/60 sm:flex-row sm:items-center sm:justify-between">
-                <flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass" :placeholder="__('Search by order # or customer')" class="sm:max-w-xs" />
-                <flux:select wire:model.live="status" class="sm:max-w-xs">
-                    <flux:select.option value="">{{ __('All statuses') }}</flux:select.option>
-                    <flux:select.option value="pending">{{ __('Pending') }}</flux:select.option>
-                    <flux:select.option value="placed">{{ __('Placed') }}</flux:select.option>
-                    <flux:select.option value="paid">{{ __('Paid') }}</flux:select.option>
-                    <flux:select.option value="shipped">{{ __('Shipped') }}</flux:select.option>
-                    <flux:select.option value="cancelled">{{ __('Cancelled') }}</flux:select.option>
-                </flux:select>
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+                    <flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass" :placeholder="__('Search by order # or customer')" class="sm:max-w-xs" />
+                    <flux:select wire:model.live="status" class="sm:max-w-xs">
+                        <flux:select.option value="">{{ __('All statuses') }}</flux:select.option>
+                        <flux:select.option value="pending_payment">{{ __('Awaiting payment') }}</flux:select.option>
+                        <flux:select.option value="pending">{{ __('Pending') }}</flux:select.option>
+                        <flux:select.option value="placed">{{ __('Placed') }}</flux:select.option>
+                        <flux:select.option value="paid">{{ __('Paid') }}</flux:select.option>
+                        <flux:select.option value="shipped">{{ __('Shipped') }}</flux:select.option>
+                        <flux:select.option value="cancelled">{{ __('Cancelled') }}</flux:select.option>
+                    </flux:select>
+                </div>
+                <flux:button variant="outline" icon="arrow-down-tray" :href="route('admin.exports.orders', [
+                    'q' => $this->search,
+                    'status' => $this->status,
+                    'sort_by' => $this->sortBy,
+                    'sort_direction' => $this->sortDirection,
+                ])">
+                    {{ __('Export Excel') }}
+                </flux:button>
             </div>
 
             <flux:table :paginate="$this->orders">

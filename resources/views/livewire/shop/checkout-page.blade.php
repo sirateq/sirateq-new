@@ -15,6 +15,25 @@
         .checkout-page label[data-radio]:hover {
             border-color: #1053f3 !important;
         }
+        /* Swap primary CTA label ↔ loading (avoids Bootstrap / inline display fighting Livewire wire:loading) */
+        .checkout-submit-primary .checkout-submit-label {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .checkout-submit-primary .checkout-submit-busy {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .checkout-submit-primary.is-checkout-loading .checkout-submit-label {
+            display: none !important;
+        }
+        .checkout-submit-primary.is-checkout-loading .checkout-submit-busy {
+            display: inline-flex !important;
+        }
     </style>
 
     <section class="bg-light checkout-page" style="padding-top: 60px; padding-bottom: 80px;">
@@ -124,8 +143,12 @@
                                                     wire:loading.attr="disabled"
                                                     wire:target="openPaystackCheckout"
                                                     style="flex: 1; min-width: 200px; height: 52px; border-radius: 10px; background: #061153; color: #fff; font-size: 15px; font-weight: 700; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px;">
-                                                <span wire:loading.remove wire:target="openPaystackCheckout"><i class="fa-solid fa-lock"></i> {{ __('Open Paystack') }}</span>
-                                                <span wire:loading wire:target="openPaystackCheckout"><i class="fa-solid fa-circle-notch fa-spin"></i> {{ __('Please wait…') }}</span>
+                                                <span wire:loading.remove.inline-flex wire:target="openPaystackCheckout" style="align-items: center; justify-content: center; gap: 10px;">
+                                                    <i class="fa-solid fa-lock"></i> {{ __('Open Paystack') }}
+                                                </span>
+                                                <span wire:loading.inline-flex wire:target="openPaystackCheckout" style="align-items: center; justify-content: center; gap: 10px;">
+                                                    <i class="fa-solid fa-circle-notch fa-spin"></i> {{ __('Please wait…') }}
+                                                </span>
                                             </button>
                                         @endif
                                         @if ($payNowFlowPhase === 'failed')
@@ -134,8 +157,12 @@
                                                     wire:loading.attr="disabled"
                                                     wire:target="retryPaystackPayment"
                                                     style="flex: 1; min-width: 200px; height: 52px; border-radius: 10px; background: #1053f3; color: #fff; font-size: 15px; font-weight: 700; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px;">
-                                                <span wire:loading.remove wire:target="retryPaystackPayment"><i class="fa-solid fa-rotate-right"></i> {{ __('Retry payment') }}</span>
-                                                <span wire:loading wire:target="retryPaystackPayment"><i class="fa-solid fa-circle-notch fa-spin"></i> {{ __('Please wait…') }}</span>
+                                                <span wire:loading.remove.inline-flex wire:target="retryPaystackPayment" style="align-items: center; justify-content: center; gap: 10px;">
+                                                    <i class="fa-solid fa-rotate-right"></i> {{ __('Retry payment') }}
+                                                </span>
+                                                <span wire:loading.inline-flex wire:target="retryPaystackPayment" style="align-items: center; justify-content: center; gap: 10px;">
+                                                    <i class="fa-solid fa-circle-notch fa-spin"></i> {{ __('Please wait…') }}
+                                                </span>
                                             </button>
                                         @endif
                                         <button type="button"
@@ -144,8 +171,10 @@
                                                 wire:loading.attr="disabled"
                                                 wire:target="abandonPendingPaystackOrder"
                                                 style="height: 52px; padding: 0 22px; border-radius: 10px; background: #fff; color: #061153; font-size: 14px; font-weight: 600; border: 1px solid #e5e7eb; cursor: pointer;">
-                                            <span wire:loading.remove wire:target="abandonPendingPaystackOrder">{{ __('Start over') }}</span>
-                                            <span wire:loading wire:target="abandonPendingPaystackOrder"><i class="fa-solid fa-circle-notch fa-spin"></i></span>
+                                            <span wire:loading.remove.inline-flex wire:target="abandonPendingPaystackOrder" style="align-items: center; justify-content: center;">{{ __('Start over') }}</span>
+                                            <span wire:loading.inline-flex wire:target="abandonPendingPaystackOrder" style="align-items: center; justify-content: center;">
+                                                <i class="fa-solid fa-circle-notch fa-spin"></i>
+                                            </span>
                                         </button>
                                     </div>
                                 @endif
@@ -381,12 +410,14 @@
                                 @error('payment_method')<p style="margin: 8px 0 0; font-size: 12px; color: #dc2626;">{{ $message }}</p>@enderror
 
                                 <button type="submit"
-                                        wire:loading.attr="disabled"
+                                        wire:loading.class="is-checkout-loading"
                                         wire:target="placeOrder"
+                                        wire:loading.attr="disabled"
+                                        class="checkout-submit-primary"
                                         style="margin-top: 22px; width: 100%; height: 56px; border-radius: 10px; background: #061153; color: #fff; font-size: 16px; font-weight: 700; border: none; cursor: pointer; box-shadow: 0 6px 18px rgba(6, 17, 83, 0.25); display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.15s;"
                                         onmouseover="if (!this.disabled) { this.style.background='#1053f3'; this.style.boxShadow='0 8px 22px rgba(16,83,243,0.32)'; }"
                                         onmouseout="this.style.background='#061153'; this.style.boxShadow='0 6px 18px rgba(6,17,83,0.25)';">
-                                    <span wire:loading.remove wire:target="placeOrder" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px;">
+                                    <span class="checkout-submit-label">
                                         @if ($payment_method === 'pay_on_delivery')
                                             <i class="fa-solid fa-bag-shopping"></i>
                                             {{ __('Place Order') }}
@@ -395,7 +426,7 @@
                                             {{ __('Proceed to Payment') }}
                                         @endif
                                     </span>
-                                    <span wire:loading wire:target="placeOrder" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px;">
+                                    <span class="checkout-submit-busy">
                                         <i class="fa-solid fa-circle-notch fa-spin"></i>
                                         {{ __('Please wait…') }}
                                     </span>
@@ -413,64 +444,5 @@
         </div>
     </section>
 
-    @script
-    <script>
-        (() => {
-            if (window.__paystackBridgeInstalled) {
-                return;
-            }
-            window.__paystackBridgeInstalled = true;
-
-            const ensurePaystack = () => new Promise((resolve, reject) => {
-                if (typeof PaystackPop !== 'undefined') {
-                    return resolve();
-                }
-                const existing = document.querySelector('script[data-paystack-inline]');
-                const script = existing ?? document.createElement('script');
-                if (!existing) {
-                    script.src = 'https://js.paystack.co/v1/inline.js';
-                    script.async = true;
-                    script.dataset.paystackInline = 'true';
-                    document.head.appendChild(script);
-                }
-                script.addEventListener('load', () => resolve(), { once: true });
-                script.addEventListener('error', () => reject(new Error('Failed to load Paystack')), { once: true });
-            });
-
-            Livewire.on('paystack:open', async (payload) => {
-                const detail = Array.isArray(payload) ? payload[0] : payload;
-
-                if (!detail || !detail.publicKey) {
-                    console.warn('Paystack public key missing — aborting checkout.');
-                    return;
-                }
-
-                try {
-                    await ensurePaystack();
-                } catch (error) {
-                    console.error(error);
-                    Livewire.dispatch('paystack:cancelled', { reference: detail.reference });
-                    return;
-                }
-
-                const handler = PaystackPop.setup({
-                    key: detail.publicKey,
-                    email: detail.email,
-                    amount: detail.amount,
-                    ref: detail.reference,
-                    currency: detail.currency || 'GHS',
-                    metadata: detail.metadata || {},
-                    callback: (response) => {
-                        Livewire.dispatch('paystack:callback', { reference: response.reference });
-                    },
-                    onClose: () => {
-                        Livewire.dispatch('paystack:cancelled', { reference: detail.reference });
-                    },
-                });
-
-                handler.openIframe();
-            });
-        })();
-    </script>
-    @endscript
+    <x-shop.paystack-livewire-bridge />
 </div>

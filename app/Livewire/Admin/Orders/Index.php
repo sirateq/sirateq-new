@@ -52,7 +52,7 @@ class Index extends Component
         return match ($status) {
             'paid', 'shipped' => 'green',
             'placed' => 'blue',
-            'pending' => 'amber',
+            'pending_payment', 'pending' => 'amber',
             'cancelled' => 'red',
             default => 'zinc',
         };

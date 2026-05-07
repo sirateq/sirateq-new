@@ -1,7 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\OrderInvoiceController as AdminOrderInvoiceController;
+use App\Http\Controllers\Admin\OrdersExportController;
+use App\Http\Controllers\Admin\ProductsExportController;
+use App\Http\Controllers\Admin\ProductsImportController;
+use App\Http\Controllers\Admin\ProductsImportTemplateController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\Shop\OrderInvoiceController;
+use App\Http\Controllers\Shop\SignedShopOrderController;
 use App\Livewire\Admin\Categories\Form as CategoryForm;
 use App\Livewire\Admin\Categories\Index as CategoryIndex;
 use App\Livewire\Admin\Categories\Show as CategoryShow;
@@ -17,6 +24,7 @@ use App\Livewire\Shop\CartPage;
 use App\Livewire\Shop\Catalog;
 use App\Livewire\Shop\CheckoutPage;
 use App\Livewire\Shop\OrderConfirmation;
+use App\Livewire\Shop\OrderTracking;
 use App\Livewire\Shop\ProductShow;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -51,13 +59,25 @@ Route::post('/contact', [ContactController::class, 'submit'])->name('contact');
 Route::prefix('shop')->group(function () {
     Route::livewire('/', Catalog::class)->name('shop.index');
     Route::livewire('/products/{product:slug}', ProductShow::class)->name('shop.products.show');
+    Route::livewire('/track', OrderTracking::class)->name('shop.orders.track');
     Route::livewire('/cart', CartPage::class)->name('shop.cart');
     Route::livewire('/checkout', CheckoutPage::class)->name('shop.checkout');
+    Route::get('/orders/{order}/signed', [SignedShopOrderController::class, 'grantAndRedirectToOrder'])
+        ->middleware('signed')
+        ->name('shop.orders.signed-show');
+    Route::get('/orders/{order}/invoice/signed', [SignedShopOrderController::class, 'grantAndRedirectToInvoice'])
+        ->middleware('signed')
+        ->name('shop.orders.signed-invoice');
+    Route::get('/orders/{order}/invoice', OrderInvoiceController::class)->name('shop.orders.invoice');
     Route::livewire('/orders/{order}', OrderConfirmation::class)->name('shop.orders.show');
 });
 
 Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->group(function () {
     Route::redirect('/', '/dashboard');
+    Route::get('/exports/orders', OrdersExportController::class)->name('admin.exports.orders');
+    Route::get('/exports/products', ProductsExportController::class)->name('admin.exports.products');
+    Route::get('/imports/products/template', ProductsImportTemplateController::class)->name('admin.products.import.template');
+    Route::post('/imports/products', ProductsImportController::class)->name('admin.products.import');
     Route::livewire('/products', ProductIndex::class)->name('admin.products.index');
     Route::livewire('/products/create', ProductForm::class)->name('admin.products.create');
     Route::livewire('/products/{product}/edit', ProductForm::class)->name('admin.products.edit');
@@ -67,6 +87,7 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->group(functio
     Route::livewire('/categories/{categoryId}/view', CategoryShow::class)->name('admin.categories.show');
     Route::livewire('/categories/{category}/edit', CategoryForm::class)->name('admin.categories.edit');
     Route::livewire('/orders', OrderIndex::class)->name('admin.orders.index');
+    Route::get('/orders/{order}/invoice', AdminOrderInvoiceController::class)->name('admin.orders.invoice');
     Route::livewire('/orders/{order}', OrderShow::class)->name('admin.orders.show');
     Route::livewire('/inventory', InventoryIndex::class)->name('admin.inventory.index');
     Route::livewire('/discounts', DiscountIndex::class)->name('admin.discounts.index');
