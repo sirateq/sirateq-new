@@ -3,6 +3,14 @@
 
 <head>
     @include('partials.head')
+        {{-- Mobile Specific Metas --}}
+        <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+
+        {{-- Favicons --}}
+        <link href="{{ asset('logo.png') }}" rel="icon" sizes="32x32" type="image/png">
+        <meta content="#ffffff" name="msapplication-TileColor">
+        <meta content="#ffffff" name="theme-color">
+    
 </head>
 
 <body class="min-h-screen bg-white dark:bg-zinc-800">
