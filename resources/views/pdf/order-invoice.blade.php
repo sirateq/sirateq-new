@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>{{ __('Invoice #:num', ['num' => $order->order_number]) }}</title>
     @php
-        $accent = $invoiceConfig['accent'] ?? '#C15B3A';
+        $accent = $invoiceConfig['accent'] ?? '#1565C0';
         $company = $invoiceConfig['company'] ?? [];
         $dueDays = (int) ($invoiceConfig['payment_due_days'] ?? 14);
         $tz = config('app.timezone');
@@ -109,9 +109,9 @@
         }
         .terms p { margin: 0 0 6px; color: #444; font-size: 10px; }
         .provisional {
-            background: #fff8f0;
+            background: #f0f7ff;
             border: 1px solid {{ $accent }};
-            color: #5c3318;
+            color: #0d47a1;
             padding: 12px 14px;
             border-radius: 6px;
             font-weight: 700;

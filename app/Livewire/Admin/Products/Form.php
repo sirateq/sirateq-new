@@ -7,6 +7,7 @@ use App\Models\InventoryItem;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductVariant;
+use App\Services\ProductImageWatermarkService;
 use Flux\Flux;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -214,6 +215,7 @@ class Form extends Component
             $newIds = [];
             foreach ($this->newImages as $idx => $upload) {
                 $path = $upload->store('products', 'public');
+                ProductImageWatermarkService::applyIfEnabled(Storage::disk('public')->path($path));
                 $created = ProductImage::query()->create([
                     'product_id' => $product->id,
                     'path' => $path,

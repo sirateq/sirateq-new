@@ -21,7 +21,7 @@ return [
     /** Payment due date shown on the invoice (days after invoice / order date) */
     'payment_due_days' => (int) env('INVOICE_PAYMENT_DUE_DAYS', 14),
 
-    /** Primary accent (terracotta) for headers and totals */
-    'accent' => '#C15B3A',
+    /** Primary accent for headers, table band, and totals */
+    'accent' => env('INVOICE_ACCENT', '#1565C0'),
 
 ];
