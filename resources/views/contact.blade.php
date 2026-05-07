@@ -110,7 +110,7 @@
                                 {{ $errors->first() }}
                             </div>
                         @endif
-                        <form class="contact-form-native" action="{{ route('contact') }}" method="post">
+                        <form class="contact-form-native" action="{{ route('contact-us') }}" method="post">
                             @csrf
                             <div class="form-grid">
                                 <div class="form-group">

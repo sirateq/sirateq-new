@@ -2,11 +2,11 @@
     $whyChooseItems = [
         [
             'target' => 'img1',
-            'icon' => 'assets/images/choose/126190.jpg',
+            'icon' => 'assets/images/choose/hm5-icon02.webp',
             'tag' => 'Product Innovation',
             'title' => 'Purpose-Built Digital Solutions',
             'description' => 'We design and build practical software products like Pollvite, Sendazi, ERP platforms, and industry-specific systems that solve real business problems.',
-            'image' => 'assets/images/choose/hm5-img01.webp',
+            'image' => 'assets/images/choose/126190.jpg',
             'iconClass' => '',
         ],
         [
@@ -15,7 +15,7 @@
             'tag' => 'Engineering Team',
             'title' => 'Experienced Technology Experts',
             'description' => 'Our team combines product strategy, UI/UX, software engineering, cloud architecture, and integration expertise to deliver reliable, scalable solutions.',
-            'image' => 'assets/images/choose/hm5-img02.webp',
+            'image' => 'assets/images/choose/126833.jpg',
             'iconClass' => '',
         ],
         [
@@ -24,7 +24,7 @@
             'tag' => 'Long-Term Partnership',
             'title' => 'Reliable Support & Continuous Improvement',
             'description' => 'Beyond launch, we provide ongoing support, optimization, and advisory services to keep your systems secure, efficient, and aligned with business growth.',
-            'image' => 'assets/images/choose/hm5-img03.webp',
+            'image' => 'assets/images/choose/125196.jpg',
             'iconClass' => 'border-none',
         ],
     ];

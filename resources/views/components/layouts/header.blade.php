@@ -70,6 +70,12 @@
                                     </i>
                                 </span>
                             </a>
+
+                            @auth
+                                <flux:button href="{{ route('dashboard') }}" icon:trailing="arrow-up-right">
+                                    Dashboard
+                                </flux:button>
+                            @endauth
                         </div>
                     </div>
                 </div>
@@ -138,8 +144,7 @@
         <button class="close-search"><i class="fas fa-arrow-up"></i></button>
         <form method="post" action="#">
             <div class="form-group">
-                <input id="search1" type="search" name="search-field" value="" placeholder="Search..."
-                    required="">
+                <input id="search1" type="search" name="search-field" value="" placeholder="Search..." required="">
                 <button type="submit"><i class="fa fa-search"></i></button>
             </div>
         </form>
@@ -155,17 +160,16 @@
                     x="0px" y="0px" width="16px" height="12.7px" viewBox="0 0 16 12.7"
                     style="enable-background:new 0 0 16 12.7" xml:space="preserve">
                     <g>
-                        <rect x="0" y="5.4" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -2.1569 7.5208)"
-                            width="16" height="2"></rect>
-                        <rect x="0" y="5.4" transform="matrix(0.7071 0.7071 -0.7071 0.7071 6.8431 -3.7929)"
-                            width="16" height="2"></rect>
+                        <rect x="0" y="5.4" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -2.1569 7.5208)" width="16"
+                            height="2"></rect>
+                        <rect x="0" y="5.4" transform="matrix(0.7071 0.7071 -0.7071 0.7071 6.8431 -3.7929)" width="16"
+                            height="2"></rect>
                     </g>
                 </svg>
             </button>
             <div class="sidebar-content">
                 <div class="sidebar-logo">
-                    <a class="dark-logo" href="{{ route('home') }}"><img src="{{ asset('logo.png') }}"
-                            alt="logo"></a>
+                    <a class="dark-logo" href="{{ route('home') }}"><img src="{{ asset('logo.png') }}" alt="logo"></a>
                 </div>
                 <div class="sidebar-menu-wrap"></div>
                 <div class="sidebar-about">
@@ -217,8 +221,8 @@
                 <p class="text-center mt-40">Get latest update for our trusted applications</p>
                 <form class="newsletter-form" action="https://formspree.io/f/mzbnjrnb" method="post">
                     <div class="form-group">
-                        <input type="email" name="email" class="email" value=""
-                            placeholder="Enter Your Email" autocomplete="on" required="">
+                        <input type="email" name="email" class="email" value="" placeholder="Enter Your Email"
+                            autocomplete="on" required="">
                         <button type="submit">
                             <i class="far fa-paper-plane"></i>
                             <span class="btn-title"></span>
@@ -227,10 +231,14 @@
                 </form>
 
                 <ul class="sidebar-social">
-                    <li class="facebook"><a href="https://www.facebook.com/sirateq" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a></li>
-                    <li class="instagram"><a href="https://www.instagram.com/sirateq_ghana/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a></li>
-                    <li class="twitter"><a href="https://x.com/sirateq_ghana" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a></li>
-                    <li class="linkedin"><a href="https://www.linkedin.com/company/sirateq_ghana" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a></li>
+                    <li class="facebook"><a href="https://www.facebook.com/sirateq" target="_blank"
+                            rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a></li>
+                    <li class="instagram"><a href="https://www.instagram.com/sirateq_ghana/" target="_blank"
+                            rel="noopener noreferrer"><i class="fab fa-instagram"></i></a></li>
+                    <li class="twitter"><a href="https://x.com/sirateq_ghana" target="_blank"
+                            rel="noopener noreferrer"><i class="fab fa-twitter"></i></a></li>
+                    <li class="linkedin"><a href="https://www.linkedin.com/company/sirateq_ghana" target="_blank"
+                            rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a></li>
                 </ul>
             </div>
         </div>

@@ -24,7 +24,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-
+        @fluxAppearance
     {{-- CSS Files --}}
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('assets/fontawesome/css/fontawesome.min.css') }}" rel="stylesheet">
@@ -48,6 +48,10 @@
     </main>
 
     <x-layouts.footer />
+
+    @livewireScripts
+    @fluxScripts
+    
     <!-- Jquery -->
     <script src="{{ asset('assets/js/vendor/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
