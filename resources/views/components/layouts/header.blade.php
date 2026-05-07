@@ -32,6 +32,9 @@
                                         <a href="{{ route('products') }}">Our Products</a>
                                     </li>
                                     <li>
+                                        <a href="{{ route('shop.index') }}" wire:navigate>Shop</a>
+                                    </li>
+                                    <li>
                                         <a href="{{ route('contact-us') }}">Contact</a>
                                     </li>
                                 </ul>
@@ -76,6 +79,8 @@
                                     Dashboard
                                 </flux:button>
                             @endauth
+
+                            <livewire:shop.cart-icon />
                         </div>
                     </div>
                 </div>
@@ -182,37 +187,37 @@
                 <div class="instafeed-wrapper">
                     <div class="insta-item">
                         <a href="https://www.instagram.com" target="_blank">
-                            <img src="assets/images/sidebar/sidebar1.jpeg" alt="">
+                            <img src="{{ asset('assets/images/sidebar/sidebar1.jpeg') }}" alt="">
                             <span class="overlay"><i class="fa-brands fa-instagram"></i></span>
                         </a>
                     </div>
                     <div class="insta-item">
                         <a href="https://www.instagram.com" target="_blank">
-                            <img src="assets/images/sidebar/sidebar-2.jpg" alt="">
+                            <img src="{{ asset('assets/images/sidebar/sidebar-2.jpg') }}" alt="">
                             <span class="overlay"><i class="fa-brands fa-instagram"></i></span>
                         </a>
                     </div>
                     <div class="insta-item">
                         <a href="https://www.instagram.com" target="_blank">
-                            <img src="assets/images/sidebar/sidebar-3.jpg" alt="">
+                            <img src="{{ asset('assets/images/sidebar/sidebar-3.jpg') }}" alt="">
                             <span class="overlay"><i class="fa-brands fa-instagram"></i></span>
                         </a>
                     </div>
                     <div class="insta-item">
                         <a href="https://www.instagram.com" target="_blank">
-                            <img src="assets/images/sidebar/sidebar-4.jpg" alt="">
+                            <img src="{{ asset('assets/images/sidebar/sidebar-4.jpg') }}" alt="">
                             <span class="overlay"><i class="fa-brands fa-instagram"></i></span>
                         </a>
                     </div>
                     <div class="insta-item">
                         <a href="https://www.instagram.com" target="_blank">
-                            <img src="assets/images/sidebar/sidebar-5.jpg" alt="">
+                            <img src="{{ asset('assets/images/sidebar/sidebar-5.jpg') }}" alt="">
                             <span class="overlay"><i class="fa-brands fa-instagram"></i></span>
                         </a>
                     </div>
                     <div class="insta-item">
                         <a href="https://www.instagram.com" target="_blank">
-                            <img src="assets/images/sidebar/sidebar-6.jpg" alt="">
+                            <img src="{{ asset('assets/images/sidebar/sidebar-6.jpg') }}" alt="">
                             <span class="overlay"><i class="fa-brands fa-instagram"></i></span>
                         </a>
                     </div>

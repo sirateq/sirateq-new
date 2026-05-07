@@ -34,6 +34,12 @@ jobs:
           git clean -fd
 
           composer install --no-dev --optimize-autoloader
+         
+          echo "Installing frontend dependencies"
+          npm install
+
+          echo "Building frontend assets"
+          npm run build
 
           php artisan migrate --force
 

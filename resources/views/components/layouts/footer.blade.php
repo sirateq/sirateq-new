@@ -1,6 +1,6 @@
 <footer class="footer-section position-relative z-1 mx-30 mb-30 overflow-hidden bg-dark xxl-m-0">
     <div class="bg image" style="opacity:.18;">
-        <img src="assets/images/footer/hm1-bg01.webp" alt="Footer background">
+        <img src="{{ asset('assets/images/footer/hm1-bg01.webp') }}" alt="Footer background">
     </div>
     <div class="container py-60 py-md-45 py-sm-35">
         <div class="row align-items-start g-4">

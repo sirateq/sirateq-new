@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Categories;
 use App\Models\Category;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -13,9 +14,17 @@ class Index extends Component
 {
     use WithPagination;
 
+    #[Url(as: 'q')]
+    public string $search = '';
+
     public string $sortBy = 'created_at';
 
     public string $sortDirection = 'desc';
+
+    public function updatingSearch(): void
+    {
+        $this->resetPage();
+    }
 
     public function sort(string $column): void
     {
@@ -36,6 +45,8 @@ class Index extends Component
     public function categories()
     {
         return Category::query()
+            ->withCount('products')
+            ->when($this->search !== '', fn ($q) => $q->where('name', 'like', "%{$this->search}%"))
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(10);
     }

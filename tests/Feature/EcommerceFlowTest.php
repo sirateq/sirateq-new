@@ -45,9 +45,12 @@ test('checkout places order and decrements stock', function () {
     Livewire::test(CheckoutPage::class)
         ->set('name', 'Checkout User')
         ->set('email', 'checkout@example.com')
+        ->set('phone', '0241234567')
         ->set('shipping_address', '123 Commerce Street, Accra')
+        ->set('delivery_zone', 'greater_accra')
+        ->set('payment_method', 'pay_on_delivery')
         ->call('placeOrder')
-        ->assertRedirect();
+        ->assertRedirect(route('shop.orders.show', Order::query()->latest()->first()));
 
     expect($variant->inventoryItem->fresh()->quantity)->toBe(3);
 });
@@ -82,10 +85,13 @@ test('checkout applies coupon discount', function () {
     Livewire::test(CheckoutPage::class)
         ->set('name', 'Coupon User')
         ->set('email', 'coupon@example.com')
+        ->set('phone', '0241234567')
         ->set('shipping_address', '123 Commerce Street, Accra')
+        ->set('delivery_zone', 'greater_accra')
+        ->set('payment_method', 'pay_on_delivery')
         ->set('coupon_code', 'SAVE20')
         ->call('placeOrder')
-        ->assertRedirect();
+        ->assertRedirect(route('shop.orders.show', Order::query()->latest()->first()));
 
     expect(Order::query()->latest()->first()->discount_total)->toBe('20.00');
 });

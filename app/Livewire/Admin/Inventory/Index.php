@@ -6,6 +6,7 @@ use App\Models\InventoryItem;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,9 +15,25 @@ class Index extends Component
 {
     use WithPagination;
 
+    #[Url(as: 'q')]
+    public string $search = '';
+
+    #[Url]
+    public string $stockFilter = '';
+
     public string $sortBy = 'quantity';
 
     public string $sortDirection = 'asc';
+
+    public function updatingSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingStockFilter(): void
+    {
+        $this->resetPage();
+    }
 
     public function sort(string $column): void
     {
@@ -46,6 +63,15 @@ class Index extends Component
     {
         return InventoryItem::query()
             ->with('variant.product')
+            ->when($this->search !== '', function ($query) {
+                $query->whereHas('variant', function ($v) {
+                    $v->where('sku', 'like', "%{$this->search}%")
+                        ->orWhere('name', 'like', "%{$this->search}%")
+                        ->orWhereHas('product', fn ($p) => $p->where('name', 'like', "%{$this->search}%"));
+                });
+            })
+            ->when($this->stockFilter === 'low', fn ($q) => $q->whereColumn('quantity', '<=', 'low_stock_threshold'))
+            ->when($this->stockFilter === 'out', fn ($q) => $q->where('quantity', 0))
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(10);
     }

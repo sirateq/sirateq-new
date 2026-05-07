@@ -7,12 +7,12 @@ use App\Models\Order;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-#[Title('Admin dashboard')]
+#[Title('Dashboard')]
 class Dashboard extends Component
 {
     public function render()
     {
-        return view('livewire.admin.dashboard', [
+        return view('dashboard', [
             'ordersToday' => Order::query()->whereDate('created_at', today())->count(),
             'revenueToday' => (float) Order::query()->whereDate('created_at', today())->sum('total'),
             'lowStockCount' => InventoryItem::query()->whereColumn('quantity', '<=', 'low_stock_threshold')->count(),

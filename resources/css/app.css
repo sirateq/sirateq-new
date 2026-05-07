@@ -64,3 +64,27 @@ select:focus[data-flux-control] {
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
+
+[data-flux-column],
+[data-flux-cell] {
+    padding-inline: 1.25rem !important;
+    padding-block: 1rem !important;
+}
+
+[data-flux-column]:first-child,
+[data-flux-cell]:first-child {
+    padding-inline-start: 1.5rem !important;
+}
+
+[data-flux-column]:last-child,
+[data-flux-cell]:last-child {
+    padding-inline-end: 1.5rem !important;
+}
+
+[data-flux-table] tbody tr:hover [data-flux-cell] {
+    background-color: rgb(244 244 245 / 0.4);
+}
+
+.dark [data-flux-table] tbody tr:hover [data-flux-cell] {
+    background-color: rgb(63 63 70 / 0.25);
+}

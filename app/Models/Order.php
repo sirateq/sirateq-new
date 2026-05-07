@@ -14,10 +14,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'status',
     'subtotal',
     'discount_total',
+    'delivery_fee',
     'total',
     'customer_name',
     'customer_email',
+    'customer_phone',
     'shipping_address',
+    'delivery_zone',
+    'payment_method',
 ])]
 class Order extends Model
 {
@@ -28,8 +32,14 @@ class Order extends Model
         return [
             'subtotal' => 'decimal:2',
             'discount_total' => 'decimal:2',
+            'delivery_fee' => 'decimal:2',
             'total' => 'decimal:2',
         ];
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'order_number';
     }
 
     public function user(): BelongsTo

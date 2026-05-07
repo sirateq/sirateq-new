@@ -20,7 +20,7 @@ class OrderFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'order_number' => 'ORD-'.fake()->unique()->numberBetween(100000, 999999),
+            'order_number' => str_pad((string) fake()->unique()->numberBetween(0, 999_999), 6, '0', STR_PAD_LEFT),
             'status' => fake()->randomElement(['pending', 'placed', 'paid']),
             'subtotal' => 100,
             'discount_total' => 0,

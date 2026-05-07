@@ -3,9 +3,11 @@
 namespace App\Livewire\Shop;
 
 use App\Models\Order;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Layout('components.layouts.app')]
 #[Title('Order confirmation')]
 class OrderConfirmation extends Component
 {

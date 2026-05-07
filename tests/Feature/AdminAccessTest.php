@@ -11,18 +11,18 @@ use Livewire\Livewire;
 
 uses(RefreshDatabase::class);
 
-test('non admin users cannot access admin dashboard', function () {
+test('non admin users cannot access admin area', function () {
     $user = User::factory()->create(['is_admin' => false]);
 
-    $response = $this->actingAs($user)->get(route('admin.dashboard'));
+    $response = $this->actingAs($user)->get(route('admin.products.index'));
 
     $response->assertForbidden();
 });
 
-test('admins can access admin dashboard', function () {
+test('admins can access dashboard', function () {
     $admin = User::factory()->create(['is_admin' => true]);
 
-    $response = $this->actingAs($admin)->get(route('admin.dashboard'));
+    $response = $this->actingAs($admin)->get(route('dashboard'));
 
     $response->assertSuccessful();
 });

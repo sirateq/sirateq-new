@@ -14,7 +14,7 @@
             @foreach ($order->items as $item)
                 <div class="flex items-center justify-between" wire:key="order-item-{{ $item->id }}">
                     <flux:text>{{ $item->product_name }} ({{ $item->variant_name }}) x{{ $item->quantity }}</flux:text>
-                    <flux:text>${{ number_format((float) $item->line_total, 2) }}</flux:text>
+                    <flux:text>GH₵{{ number_format((float) $item->line_total, 2) }}</flux:text>
                 </div>
             @endforeach
         </div>

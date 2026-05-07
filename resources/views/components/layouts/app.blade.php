@@ -26,7 +26,7 @@
         rel="stylesheet">
         @fluxAppearance
     {{-- CSS Files --}}
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/fontawesome/css/fontawesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/flaticon.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/fancybox.min.css') }}" rel="stylesheet">
@@ -37,7 +37,7 @@
     <link href="{{ asset('assets/css/odometer.css') }}" rel="stylesheet">
     {{-- Theme Custom CSS --}}
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
  
        <!-- Google Tag Manager -->

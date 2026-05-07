@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Products;
 use App\Models\Product;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -13,9 +14,25 @@ class Index extends Component
 {
     use WithPagination;
 
+    #[Url(as: 'q')]
+    public string $search = '';
+
+    #[Url]
+    public string $status = '';
+
     public string $sortBy = 'created_at';
 
     public string $sortDirection = 'desc';
+
+    public function updatingSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingStatus(): void
+    {
+        $this->resetPage();
+    }
 
     public function sort(string $column): void
     {
@@ -37,7 +54,15 @@ class Index extends Component
     public function products()
     {
         return Product::query()
-            ->with(['category', 'variants'])
+            ->with(['category', 'variants', 'images'])
+            ->when($this->search !== '', function ($query) {
+                $query->where(function ($q) {
+                    $q->where('name', 'like', "%{$this->search}%")
+                        ->orWhereHas('variants', fn ($v) => $v->where('sku', 'like', "%{$this->search}%"));
+                });
+            })
+            ->when($this->status === 'active', fn ($q) => $q->where('is_active', true))
+            ->when($this->status === 'inactive', fn ($q) => $q->where('is_active', false))
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(10);
     }

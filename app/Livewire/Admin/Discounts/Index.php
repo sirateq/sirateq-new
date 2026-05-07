@@ -6,6 +6,7 @@ use App\Models\Coupon;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -20,9 +21,23 @@ class Index extends Component
 
     public int $discount_percentage = 10;
 
+    #[Url(as: 'q')]
+    public string $search = '';
+
     public string $sortBy = 'created_at';
 
     public string $sortDirection = 'desc';
+
+    public function updatingSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    public function toggleStatus(int $couponId): void
+    {
+        $coupon = Coupon::query()->findOrFail($couponId);
+        $coupon->update(['is_active' => ! $coupon->is_active]);
+    }
 
     public function sort(string $column): void
     {
@@ -64,6 +79,10 @@ class Index extends Component
     public function coupons()
     {
         return Coupon::query()
+            ->when($this->search !== '', function ($query) {
+                $query->where('code', 'like', "%{$this->search}%")
+                    ->orWhere('name', 'like', "%{$this->search}%");
+            })
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(10);
     }

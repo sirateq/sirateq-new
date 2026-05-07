@@ -22,7 +22,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::livewire('dashboard', AdminDashboard::class)->name('dashboard');
 });
 
 require __DIR__.'/settings.php';
@@ -57,7 +57,7 @@ Route::prefix('shop')->group(function () {
 });
 
 Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->group(function () {
-    Route::livewire('/', AdminDashboard::class)->name('admin.dashboard');
+    Route::redirect('/', '/dashboard');
     Route::livewire('/products', ProductIndex::class)->name('admin.products.index');
     Route::livewire('/products/create', ProductForm::class)->name('admin.products.create');
     Route::livewire('/products/{product}/edit', ProductForm::class)->name('admin.products.edit');

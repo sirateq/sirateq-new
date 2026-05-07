@@ -22,10 +22,6 @@
 
                 @if (auth()->user()?->is_admin)
                     <flux:separator class="my-2" />
-                    <flux:sidebar.item icon="shield-check" :href="route('admin.dashboard')"
-                        :current="request()->routeIs('admin.dashboard')" wire:navigate>
-                        {{ __('Admin Dashboard') }}
-                    </flux:sidebar.item>
                     <flux:sidebar.item icon="cube" :href="route('admin.products.index')"
                         :current="request()->routeIs('admin.products.*')" wire:navigate>
                         {{ __('Products') }}
