@@ -9,6 +9,7 @@ use App\Models\ProductVariant;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Testing\TestResponse;
 use Livewire\Livewire;
 
 uses(RefreshDatabase::class);
@@ -31,7 +32,11 @@ test('admin can download order invoice PDF', function () {
     $this->actingAs($admin)
         ->get(route('admin.orders.invoice', $order))
         ->assertOk()
-        ->assertHeader('content-type', 'application/pdf');
+        ->assertHeader('content-type', 'application/pdf')
+        ->tap(function (TestResponse $response): void {
+            expect($response->getContent())->toContain(config('invoice.company.name'))
+                ->and($response->getContent())->toContain('info@sirateqghana.com');
+        });
 });
 
 test('guest cannot download admin order invoice', function () {

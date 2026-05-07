@@ -12,8 +12,16 @@ class OrderInvoicePdfExporter
     public static function load(Order $order): DomPdfDocument
     {
         $order->loadMissing(['items', 'payments', 'coupon']);
+
+        $logoPath = public_path(config('invoice.logo', 'logo.png'));
+        $logoBase64 = is_readable($logoPath)
+            ? base64_encode((string) file_get_contents($logoPath))
+            : null;
+
         $pdf = Pdf::loadView('pdf.order-invoice', [
             'order' => $order,
+            'invoiceConfig' => config('invoice'),
+            'logoBase64' => $logoBase64,
         ]);
         $pdf->setPaper('a4');
 
