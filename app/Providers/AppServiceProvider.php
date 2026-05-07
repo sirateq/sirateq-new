@@ -13,6 +13,7 @@ use App\Policies\InventoryItemPolicy;
 use App\Policies\OrderPolicy;
 use App\Policies\ProductPolicy;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -30,6 +31,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $replyToAddress = config('mail.reply_to.address');
+        if (is_string($replyToAddress) && $replyToAddress !== '') {
+            Mail::alwaysReplyTo(
+                $replyToAddress,
+                config('mail.reply_to.name') ?: null,
+            );
+        }
+
         Gate::policy(Product::class, ProductPolicy::class);
         Gate::policy(Category::class, CategoryPolicy::class);
         Gate::policy(Order::class, OrderPolicy::class);

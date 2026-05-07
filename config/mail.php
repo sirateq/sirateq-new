@@ -115,4 +115,19 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Global "Reply-To" Address
+    |--------------------------------------------------------------------------
+    |
+    | Replies from mail clients will default to this address when set.
+    | Leave the address null or empty to skip a global Reply-To header.
+    |
+    */
+
+    'reply_to' => [
+        'address' => env('MAIL_REPLY_TO_ADDRESS', 'info@sirateqghana.com'),
+        'name' => env('MAIL_REPLY_TO_NAME'),
+    ],
+
 ];
