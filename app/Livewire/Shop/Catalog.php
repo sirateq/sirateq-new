@@ -5,6 +5,7 @@ namespace App\Livewire\Shop;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -30,6 +31,9 @@ class Catalog extends Component
     #[Url(as: 'max')]
     public ?float $maxPrice = null;
 
+    #[Url(as: 'q')]
+    public string $search = '';
+
     public bool $filterOpen = false;
 
     public function setView(string $view): void
@@ -53,6 +57,7 @@ class Catalog extends Component
         $this->minPrice = null;
         $this->maxPrice = null;
         $this->sort = 'default';
+        $this->search = '';
     }
 
     #[Computed]
@@ -72,6 +77,28 @@ class Catalog extends Component
                 }
                 if ($this->maxPrice !== null && $price > $this->maxPrice) {
                     return false;
+                }
+
+                $term = mb_strtolower(trim($this->search));
+                if ($term !== '') {
+                    $haystacks = [
+                        mb_strtolower($product->name),
+                        mb_strtolower(strip_tags((string) $product->description)),
+                    ];
+                    foreach ($product->variants as $variant) {
+                        $haystacks[] = mb_strtolower($variant->sku);
+                        $haystacks[] = mb_strtolower($variant->name);
+                    }
+                    $matched = false;
+                    foreach ($haystacks as $h) {
+                        if ($h !== '' && str_contains($h, $term)) {
+                            $matched = true;
+                            break;
+                        }
+                    }
+                    if (! $matched) {
+                        return false;
+                    }
                 }
 
                 return true;

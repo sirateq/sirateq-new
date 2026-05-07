@@ -15,23 +15,16 @@
                     {{ __('Look up your order') }}
                 </h1>
                 <p style="margin: 0 0 24px; font-size: 14px; color: #6b7280;">
-                    {{ __('Enter the order number from your confirmation email and the email address you used at checkout.') }}
+                    {{ __('Enter the order number from your confirmation email or receipt (letters and numbers only).') }}
                 </p>
 
                 <form wire:submit="lookup" class="space-y-4" style="display: flex; flex-direction: column; gap: 16px;">
                     <div>
                         <label style="display: block; font-size: 13px; font-weight: 600; color: #061153; margin-bottom: 6px;">{{ __('Order number') }}</label>
-                        <input type="text" wire:model="order_number" placeholder="123456"
+                        <input type="text" wire:model="order_number" placeholder="SQ-10001"
                                autocomplete="one-time-code"
                                style="width: 100%; height: 44px; padding: 0 14px; border: 1px solid {{ $errors->has('order_number') ? '#fca5a5' : '#e5e7eb' }}; border-radius: 8px; font-size: 15px; font-family: ui-monospace, monospace; color: #061153;">
                         @error('order_number')<p style="margin: 6px 0 0; font-size: 12px; color: #dc2626;">{{ $message }}</p>@enderror
-                    </div>
-                    <div>
-                        <label style="display: block; font-size: 13px; font-weight: 600; color: #061153; margin-bottom: 6px;">{{ __('Email address') }}</label>
-                        <input type="email" wire:model="email" placeholder="you@example.com"
-                               autocomplete="email"
-                               style="width: 100%; height: 44px; padding: 0 14px; border: 1px solid {{ $errors->has('email') ? '#fca5a5' : '#e5e7eb' }}; border-radius: 8px; font-size: 15px; color: #061153;">
-                        @error('email')<p style="margin: 6px 0 0; font-size: 12px; color: #dc2626;">{{ $message }}</p>@enderror
                     </div>
                     <button type="submit"
                             wire:loading.attr="disabled"
