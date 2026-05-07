@@ -17,7 +17,7 @@
             <flux:table :paginate="$this->categories">
                 <flux:table.columns>
                     <flux:table.column sortable :sorted="$sortBy === 'name'" :direction="$sortDirection" wire:click="sort('name')">{{ __('Name') }}</flux:table.column>
-                    <flux:table.column sortable :sorted="$sortBy === 'slug'" :direction="$sortDirection" wire:click="sort('slug')">{{ __('Slug') }}</flux:table.column>
+                    {{-- <flux:table.column sortable :sorted="$sortBy === 'slug'" :direction="$sortDirection" wire:click="sort('slug')">{{ __('Slug') }}</flux:table.column> --}}
                     <flux:table.column>{{ __('Products') }}</flux:table.column>
                     <flux:table.column sortable :sorted="$sortBy === 'is_active'" :direction="$sortDirection" wire:click="sort('is_active')">{{ __('Status') }}</flux:table.column>
                     <flux:table.column align="end">{{ __('Actions') }}</flux:table.column>
@@ -33,7 +33,7 @@
                                     <flux:heading class="!text-sm">{{ $category->name }}</flux:heading>
                                 </div>
                             </flux:table.cell>
-                            <flux:table.cell class="font-mono text-xs">{{ $category->slug }}</flux:table.cell>
+                            {{-- <flux:table.cell class="font-mono text-xs">{{ $category->slug }}</flux:table.cell> --}}
                             <flux:table.cell>
                                 <flux:badge size="sm" color="zinc" inset="top bottom">{{ $category->products_count }}</flux:badge>
                             </flux:table.cell>

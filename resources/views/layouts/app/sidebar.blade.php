@@ -9,7 +9,10 @@
     <flux:sidebar sticky collapsible="mobile"
         class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
         <flux:sidebar.header>
-            <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
+            {{-- image logo --}}
+            <img src="{{ asset('logo.png') }}" alt="logo" class="size-12">
+            {{-- <x-app-logo-icon class="size-9 fill-current text-black dark:text-white" /> --}}
+            {{-- <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate /> --}}
             <flux:sidebar.collapse class="lg:hidden" />
         </flux:sidebar.header>
 
