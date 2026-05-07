@@ -1,10 +1,10 @@
 <?php
 
 use App\Models\Category;
-use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\ProductVariant;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -24,9 +24,11 @@ test('admin can export orders as excel', function () {
         'order_number' => '100200',
         'customer_email' => 'buyer@example.com',
     ]);
+    $product = Product::factory()->create();
+    $variant = ProductVariant::factory()->create(['product_id' => $product->id]);
     OrderItem::query()->create([
         'order_id' => $order->id,
-        'product_variant_id' => null,
+        'product_variant_id' => $variant->id,
         'product_name' => 'Widget',
         'variant_name' => 'Default',
         'quantity' => 2,
@@ -38,7 +40,8 @@ test('admin can export orders as excel', function () {
 
     $response->assertOk();
     expect($response->headers->get('content-disposition'))->toContain('attachment');
-    expect(substr((string) $response->getContent(), 0, 2))->toBe('PK');
+    $body = $response->streamedContent();
+    expect(substr($body, 0, 2))->toBe('PK');
 });
 
 test('admin can export products as excel', function () {
@@ -49,7 +52,8 @@ test('admin can export products as excel', function () {
 
     $response->assertOk();
     expect($response->headers->get('content-disposition'))->toContain('attachment');
-    expect(substr((string) $response->getContent(), 0, 2))->toBe('PK');
+    $body = $response->streamedContent();
+    expect(substr($body, 0, 2))->toBe('PK');
 });
 
 test('admin can download product import template', function () {
@@ -58,7 +62,8 @@ test('admin can download product import template', function () {
     $response = $this->actingAs($admin)->get(route('admin.products.import.template'));
 
     $response->assertOk();
-    expect(substr((string) $response->getContent(), 0, 2))->toBe('PK');
+    $body = $response->streamedContent();
+    expect(substr($body, 0, 2))->toBe('PK');
 });
 
 test('admin can import products from csv with name and category', function () {
@@ -72,7 +77,7 @@ test('admin can import products from csv with name and category', function () {
         'file' => $file,
     ])->assertRedirect(route('admin.products.index'));
 
-    $product = Product::query()->where('name', 'Imported Widget')->first();
+    $product = Product::query()->where('name', 'Imported Widget')->with('variants')->first();
     expect($product)->not->toBeNull();
     expect($product->category->name)->toBe('Electronics');
     expect($product->variants)->toHaveCount(1);
@@ -115,17 +120,12 @@ test('product import validates uploaded file', function () {
 
 test('orders export respects search filter', function () {
     $admin = User::factory()->create(['is_admin' => true]);
-    $match = Order::factory()->create(['order_number' => '555111', 'customer_email' => 'a@a.com']);
-    Order::factory()->create(['order_number' => '999888', 'customer_email' => 'b@b.com']);
+    Order::factory()->create(['customer_email' => 'unique-alpha@example.com']);
+    Order::factory()->create(['customer_email' => 'unique-beta@example.com']);
 
-    $path = storage_path('app/orders-filter-test.xlsx');
-    if (file_exists($path)) {
-        unlink($path);
-    }
-
-    $response = $this->actingAs($admin)->get(route('admin.exports.orders', ['q' => '555111']));
+    $response = $this->actingAs($admin)->get(route('admin.exports.orders', ['q' => 'unique-alpha']));
     $response->assertOk();
-    $content = (string) $response->getContent();
-    expect($content)->toContain('555111');
-    expect($content)->not->toContain('999888');
+    $content = $response->streamedContent();
+    expect(str_contains($content, 'unique-alpha@example.com'))->toBeTrue();
+    expect(str_contains($content, 'unique-beta@example.com'))->toBeFalse();
 });
