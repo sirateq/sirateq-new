@@ -72,19 +72,24 @@
                         @php($minPrice = $product->variants->min('price'))
                         <flux:table.row :key="$product->id">
                             <flux:table.cell>
-                                <div class="flex items-center gap-3">
+                                <a
+                                    href="{{ route('admin.products.edit', $product) }}"
+                                    wire:navigate
+                                    aria-label="{{ __('Edit :product', ['product' => $product->name]) }}"
+                                    class="group flex min-w-0 items-center gap-3 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-zinc-900"
+                                >
                                     @if ($mainUrl)
-                                        <img src="{{ $mainUrl }}" alt="" class="size-11 shrink-0 rounded-lg object-cover ring-1 ring-zinc-200 dark:ring-zinc-700">
+                                        <img src="{{ $mainUrl }}" alt="" class="size-11 shrink-0 rounded-lg object-cover ring-1 ring-zinc-200 transition group-hover:ring-zinc-400 dark:ring-zinc-700 dark:group-hover:ring-zinc-500">
                                     @else
-                                        <div class="flex size-11 shrink-0 items-center justify-center rounded-lg bg-zinc-100 dark:bg-zinc-800">
+                                        <div class="flex size-11 shrink-0 items-center justify-center rounded-lg bg-zinc-100 ring-1 ring-zinc-200 transition group-hover:ring-zinc-400 dark:bg-zinc-800 dark:ring-zinc-700 dark:group-hover:ring-zinc-500">
                                             <flux:icon name="photo" class="size-4 text-zinc-400" />
                                         </div>
                                     @endif
                                     <div class="min-w-0">
-                                        <flux:heading class="!text-sm">{{ $product->name }}</flux:heading>
+                                        <flux:heading class="!text-sm transition group-hover:text-zinc-900 group-hover:underline dark:group-hover:text-white">{{ $product->name }}</flux:heading>
                                         <flux:text size="sm" class="truncate text-zinc-500">{{ $product->descriptionPlainExcerpt(50) ?: __('No description') }}</flux:text>
                                     </div>
-                                </div>
+                                </a>
                             </flux:table.cell>
                             <flux:table.cell>
                                 <flux:badge size="sm" color="zinc" inset="top bottom">{{ $product->category->name }}</flux:badge>
