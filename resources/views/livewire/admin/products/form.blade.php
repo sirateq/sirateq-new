@@ -213,7 +213,10 @@
                             <div class="grid grid-cols-1 gap-3 md:grid-cols-12">
                                 @foreach ($optionGroups as $gi => $g)
                                     <div class="md:col-span-3">
-                                        <flux:select wire:model.live="variants.{{ $idx }}.selected_value_indexes.{{ $gi }}" :label="$g['name']" :placeholder="$g['name']">
+                                        <flux:select
+                                            wire:key="variant-{{ $variant['key'] }}-group-{{ $gi }}-{{ count($g['values']) }}"
+                                            wire:model.live="variants.{{ $idx }}.selected_value_indexes.{{ $gi }}"
+                                            :label="$g['name']">
                                             @foreach ($g['values'] as $vi => $optVal)
                                                 <flux:select.option value="{{ $vi }}">{{ $optVal['label'] }}</flux:select.option>
                                             @endforeach
