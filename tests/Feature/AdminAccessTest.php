@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Admin\Categories\Index as CategoryIndex;
+use App\Livewire\Admin\Categories\Trash as CategoryTrash;
 use App\Livewire\Admin\Discounts\Index as DiscountIndex;
 use App\Models\Category;
 use App\Models\Coupon;
@@ -50,8 +51,20 @@ test('admin can trash and restore categories', function () {
     expect($category->fresh()->trashed())->toBeTrue();
 
     Livewire::actingAs($admin)
-        ->test(CategoryIndex::class)
+        ->test(CategoryTrash::class)
         ->call('restore', $category->id);
 
     expect($category->fresh()->trashed())->toBeFalse();
+});
+
+test('admin can permanently delete trashed category', function () {
+    $admin = User::factory()->create(['is_admin' => true]);
+    $category = Category::factory()->create();
+    $category->delete();
+
+    Livewire::actingAs($admin)
+        ->test(CategoryTrash::class)
+        ->call('destroy', $category->id);
+
+    expect(Category::withTrashed()->find($category->id))->toBeNull();
 });

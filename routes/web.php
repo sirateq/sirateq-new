@@ -5,6 +5,7 @@ use App\Http\Controllers\MainController;
 use App\Livewire\Admin\Categories\Form as CategoryForm;
 use App\Livewire\Admin\Categories\Index as CategoryIndex;
 use App\Livewire\Admin\Categories\Show as CategoryShow;
+use App\Livewire\Admin\Categories\Trash as CategoryTrash;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Admin\Discounts\Index as DiscountIndex;
 use App\Livewire\Admin\Inventory\Index as InventoryIndex;
@@ -61,6 +62,7 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->group(functio
     Route::livewire('/products/create', ProductForm::class)->name('admin.products.create');
     Route::livewire('/products/{product}/edit', ProductForm::class)->name('admin.products.edit');
     Route::livewire('/categories', CategoryIndex::class)->name('admin.categories.index');
+    Route::livewire('/categories/trash', CategoryTrash::class)->name('admin.categories.trash');
     Route::livewire('/categories/create', CategoryForm::class)->name('admin.categories.create');
     Route::livewire('/categories/{categoryId}/view', CategoryShow::class)->name('admin.categories.show');
     Route::livewire('/categories/{category}/edit', CategoryForm::class)->name('admin.categories.edit');

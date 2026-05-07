@@ -8,12 +8,12 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-#[Title('Manage categories')]
-class Index extends Component
+#[Title('Categories trash')]
+class Trash extends Component
 {
     use WithPagination;
 
-    public string $sortBy = 'created_at';
+    public string $sortBy = 'deleted_at';
 
     public string $sortDirection = 'desc';
 
@@ -27,21 +27,26 @@ class Index extends Component
         }
     }
 
-    public function trash(int $categoryId): void
+    public function restore(int $categoryId): void
     {
-        Category::query()->findOrFail($categoryId)->delete();
+        Category::onlyTrashed()->findOrFail($categoryId)->restore();
+    }
+
+    public function destroy(int $categoryId): void
+    {
+        Category::onlyTrashed()->findOrFail($categoryId)->forceDelete();
     }
 
     #[Computed]
-    public function categories()
+    public function trashedCategories()
     {
-        return Category::query()
+        return Category::onlyTrashed()
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(10);
     }
 
     public function render()
     {
-        return view('livewire.admin.categories.index');
+        return view('livewire.admin.categories.trash');
     }
 }
