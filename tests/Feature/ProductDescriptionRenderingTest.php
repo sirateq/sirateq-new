@@ -1,9 +1,12 @@
 <?php
 
 use App\Models\Product;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-test('renderedDescriptionHtml converts GitHub-flavored Markdown to HTML', function () {
-    $product = new Product([
+uses(RefreshDatabase::class);
+
+test('product description renders markdown as HTML on the storefront', function () {
+    $product = Product::factory()->create([
         'description' => "Line one.\n\n**Bold** and *italic*.",
     ]);
 
@@ -13,8 +16,8 @@ test('renderedDescriptionHtml converts GitHub-flavored Markdown to HTML', functi
         ->and($html)->toContain('<em>italic</em>');
 });
 
-test('renderedDescriptionHtml passes through when body starts with an HTML tag', function () {
-    $product = new Product([
+test('product description passes through when it starts with an HTML tag', function () {
+    $product = Product::factory()->create([
         'description' => '<p class="intro">Trusted HTML from admin.</p>',
     ]);
 
@@ -22,8 +25,8 @@ test('renderedDescriptionHtml passes through when body starts with an HTML tag',
         ->toBe('<p class="intro">Trusted HTML from admin.</p>');
 });
 
-test('descriptionPlainExcerpt strips markup for list previews', function () {
-    $product = new Product([
+test('product descriptionPlainExcerpt strips markup', function () {
+    $product = Product::factory()->create([
         'description' => 'Intro with **emphasis** and more text after that.',
     ]);
 
