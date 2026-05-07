@@ -9,9 +9,11 @@
         ]"
     />
 
-    @php($selected = $product->variants->firstWhere('id', (int) $selectedVariant) ?? $product->variants->first())
-    @php($stock = (int) optional($selected?->inventoryItem)->quantity)
-    @php($mainPrice = (float) ($selected?->price ?? 0))
+    @php
+        $selected = $product->variants->firstWhere('id', (int) $selectedVariant) ?? $product->variants->first();
+        $stock = (int) optional($selected?->inventoryItem)->quantity;
+        $mainPrice = (float) ($selected?->price ?? 0);
+    @endphp
 
     <section class="bg-light" style="padding-top: 60px; padding-bottom: 80px;">
         <div class="container">
@@ -123,13 +125,13 @@
                                             <button type="button"
                                                     wire:click="selectOptionValue({{ $group->id }}, {{ $value->id }})"
                                                     title="{{ $value->label }}"
-                                                    @disabled(! $avail)
+                                                    @disabled(!$avail)
                                                     style="display: inline-flex; align-items: center; gap: 8px; padding: {{ $group->display_type === 'swatch_image' ? '4px' : '8px 14px' }}; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s;
                                                         border: 2px solid {{ $isSel ? '#061153' : '#e5e7eb' }};
                                                         background: {{ $isSel ? 'rgba(6,17,83,0.06)' : '#fff' }};
                                                         color: #061153;
                                                         opacity: {{ $avail ? '1' : '0.45' }};
-                                                        {{ ! $avail ? 'cursor: not-allowed;' : '' }}">
+                                                        {{ $avail ? '' : 'cursor: not-allowed;' }}">
                                                 @if ($group->display_type === 'swatch_color' && filled($value->hex_color))
                                                     <span style="width: 22px; height: 22px; border-radius: 999px; border: 1px solid rgba(0,0,0,0.12); background: {{ $value->hex_color }}; flex-shrink: 0;"></span>
                                                 @endif

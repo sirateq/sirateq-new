@@ -156,7 +156,15 @@
                                          wire:key="opt-val-{{ $gi }}-{{ $vi }}">
                                         <flux:input wire:model.blur="optionGroups.{{ $gi }}.values.{{ $vi }}.label" :label="__('Value label')" class="min-w-[140px] flex-1" :placeholder="__('e.g. Red, Large')" />
                                         @if (($group['display_type'] ?? 'text') === 'swatch_color')
-                                            <flux:input wire:model.blur="optionGroups.{{ $gi }}.values.{{ $vi }}.hex_color" :label="__('Hex')" placeholder="#e11d48" class="w-32" />
+                                            <flux:field>
+                                                <flux:label>{{ __('Swatch color') }}</flux:label>
+                                                <input
+                                                    type="color"
+                                                    wire:model.live="optionGroups.{{ $gi }}.values.{{ $vi }}.hex_color"
+                                                    class="h-10 w-14 cursor-pointer rounded-md border border-zinc-300 bg-white p-1 shadow-sm dark:border-zinc-600 dark:bg-zinc-900"
+                                                />
+                                                <flux:error name="optionGroups.{{ $gi }}.values.{{ $vi }}.hex_color" />
+                                            </flux:field>
                                         @endif
                                         @if (($group['display_type'] ?? 'text') === 'swatch_image')
                                             <flux:select wire:model="optionGroups.{{ $gi }}.values.{{ $vi }}.product_image_id" :label="__('Swatch image')" class="min-w-[200px] flex-1">

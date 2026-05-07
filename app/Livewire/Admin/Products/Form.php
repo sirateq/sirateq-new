@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductOptionGroup;
 use App\Models\ProductOptionStructure;
+use App\Models\ProductOptionValue;
 use App\Models\ProductVariant;
 use App\Models\ProductVariantOptionSelection;
 use App\Services\ProductImageWatermarkService;
@@ -36,7 +37,7 @@ class Form extends Component
     public bool $is_active = true;
 
     /**
-     * Each group: name, display_type, values[{label, hex_color, product_image_id?}]. IDs added during edit after load.
+     * Each group: name, display_type, values[{label, hex_color (#RRGGBB from color picker), product_image_id?}]. IDs added during edit after load.
      *
      * @var array<int, array{id: ?int, name: string, display_type: string, values: array<int, array{id: ?int, label: string, hex_color: string, product_image_id: ?int}>}>
      */
@@ -90,7 +91,9 @@ class Form extends Component
                     $valueRows[] = [
                         'id' => $value->id,
                         'label' => $value->label,
-                        'hex_color' => $value->hex_color ?? '',
+                        'hex_color' => $group->display_type === ProductOptionGroup::DISPLAY_SWATCH_COLOR
+                            ? $this->canonicalHexForSwatch($value->hex_color)
+                            : (string) ($value->hex_color ?? ''),
                         'product_image_id' => $value->product_image_id,
                     ];
                 }
@@ -216,12 +219,47 @@ class Form extends Component
         if (! isset($this->optionGroups[$groupIndex])) {
             return;
         }
+        $dt = $this->optionGroups[$groupIndex]['display_type'] ?? ProductOptionGroup::DISPLAY_TEXT;
         $this->optionGroups[$groupIndex]['values'][] = [
             'id' => null,
             'label' => __('New value'),
-            'hex_color' => '',
+            'hex_color' => $dt === ProductOptionGroup::DISPLAY_SWATCH_COLOR ? '#000000' : '',
             'product_image_id' => null,
         ];
+    }
+
+    public function updated(string $fullPath, mixed $newValue): void
+    {
+        if (! preg_match('/^optionGroups\.(\d+)\.display_type$/', $fullPath, $m)) {
+            return;
+        }
+
+        if ($newValue !== ProductOptionGroup::DISPLAY_SWATCH_COLOR) {
+            return;
+        }
+
+        $gi = (int) $m[1];
+        if (! isset($this->optionGroups[$gi]['values'])) {
+            return;
+        }
+
+        foreach (array_keys($this->optionGroups[$gi]['values']) as $vi) {
+            $h = trim((string) ($this->optionGroups[$gi]['values'][$vi]['hex_color'] ?? ''));
+            if ($h === '' || ! preg_match('/^#[0-9A-Fa-f]{6}$/', $h)) {
+                $this->optionGroups[$gi]['values'][$vi]['hex_color'] = '#000000';
+            }
+        }
+    }
+
+    protected function canonicalHexForSwatch(?string $hex): string
+    {
+        $h = trim((string) $hex);
+
+        if (preg_match('/^#[0-9A-Fa-f]{6}$/', $h)) {
+            return $h;
+        }
+
+        return '#000000';
     }
 
     public function removeOptionValue(int $groupIndex, int $valueIndex): void
@@ -366,7 +404,7 @@ class Form extends Component
             foreach ($group['values'] as $vi => $val) {
                 $hex = trim((string) ($val['hex_color'] ?? ''));
                 if ($hex !== '' && ! preg_match('/^#[0-9A-Fa-f]{6}$/', $hex)) {
-                    $this->addError("optionGroups.{$gi}.values.{$vi}.hex_color", __('Use a #RRGGBB color (e.g. #ef4444).'));
+                    $this->addError("optionGroups.{$gi}.values.{$vi}.hex_color", __('Use a valid color (hex #RRGGBB).'));
 
                     return;
                 }
