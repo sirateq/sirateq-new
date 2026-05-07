@@ -108,6 +108,15 @@
                                     <flux:tooltip :content="$product->is_active ? __('Disable') : __('Enable')">
                                         <flux:button variant="ghost" size="sm" :icon="$product->is_active ? 'eye-slash' : 'eye'" wire:click="toggleStatus({{ $product->id }})" />
                                     </flux:tooltip>
+                                    <flux:tooltip :content="__('Delete')">
+                                        <flux:button
+                                            variant="ghost"
+                                            size="sm"
+                                            icon="trash"
+                                            class="text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                                            wire:click="destroy({{ $product->id }})"
+                                            wire:confirm="{{ __('Delete this product and all its variants and images? This cannot be undone.') }}" />
+                                    </flux:tooltip>
                                 </div>
                             </flux:table.cell>
                         </flux:table.row>

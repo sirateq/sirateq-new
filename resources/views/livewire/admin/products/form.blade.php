@@ -78,12 +78,14 @@
                                         <flux:badge size="sm" color="zinc" icon="star" inset="top bottom">{{ __('Main') }}</flux:badge>
                                     </div>
                                 @else
-                                    <div class="absolute left-2 top-2 opacity-0 transition group-hover:opacity-100">
+                                    <div class="absolute left-2 top-2 z-10 opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100">
                                         <flux:badge size="sm" color="zinc" inset="top bottom">{{ __('Set main') }}</flux:badge>
                                     </div>
                                 @endif
-                                <button type="button" wire:click="removeExistingImage({{ $image['id'] }})"
-                                        class="absolute right-2 top-2 flex size-7 items-center justify-center rounded-full bg-white/90 text-red-600 shadow opacity-0 transition group-hover:opacity-100 dark:bg-zinc-900/90">
+                                <button type="button"
+                                        wire:click.stop="removeExistingImage({{ $image['id'] }})"
+                                        aria-label="{{ __('Remove image') }}"
+                                        class="absolute right-2 top-2 z-20 flex size-8 items-center justify-center rounded-full bg-white/95 text-red-600 shadow-md ring-1 ring-black/5 transition dark:bg-zinc-900/95 dark:ring-white/10 opacity-100 sm:size-7 sm:opacity-0 sm:group-hover:opacity-100">
                                     <flux:icon name="x-mark" class="size-4" />
                                 </button>
                             </div>
@@ -102,8 +104,10 @@
                                         <flux:badge size="sm" color="zinc" icon="star" inset="top bottom">{{ __('Main') }}</flux:badge>
                                     @endif
                                 </div>
-                                <button type="button" wire:click="removeNewImage({{ $idx }})"
-                                        class="absolute right-2 top-2 flex size-7 items-center justify-center rounded-full bg-white/90 text-red-600 shadow opacity-0 transition group-hover:opacity-100 dark:bg-zinc-900/90">
+                                <button type="button"
+                                        wire:click.stop="removeNewImage({{ $idx }})"
+                                        aria-label="{{ __('Remove image') }}"
+                                        class="absolute right-2 top-2 z-20 flex size-8 items-center justify-center rounded-full bg-white/95 text-red-600 shadow-md ring-1 ring-black/5 transition dark:bg-zinc-900/95 dark:ring-white/10 opacity-100 sm:size-7 sm:opacity-0 sm:group-hover:opacity-100">
                                     <flux:icon name="x-mark" class="size-4" />
                                 </button>
                             </div>

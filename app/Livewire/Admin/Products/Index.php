@@ -3,6 +3,8 @@
 namespace App\Livewire\Admin\Products;
 
 use App\Models\Product;
+use Flux\Flux;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
@@ -48,6 +50,24 @@ class Index extends Component
     {
         $product = Product::query()->findOrFail($productId);
         $product->update(['is_active' => ! $product->is_active]);
+    }
+
+    public function destroy(int $productId): void
+    {
+        $product = Product::query()->with('variants')->findOrFail($productId);
+        $variantIds = $product->variants->modelKeys();
+
+        if ($variantIds !== [] && DB::table('order_items')->whereIn('product_variant_id', $variantIds)->exists()) {
+            Flux::toast(variant: 'danger', text: __('This product cannot be deleted because it appears on one or more orders. Disable it or archive stock instead.'));
+
+            return;
+        }
+
+        $product->delete();
+
+        Flux::toast(variant: 'success', text: __('Product deleted.'));
+
+        $this->resetPage();
     }
 
     #[Computed]
