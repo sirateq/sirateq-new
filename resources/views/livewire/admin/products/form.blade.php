@@ -125,7 +125,7 @@
                         {{ __('Add variant') }}
                     </flux:button>
                 </header>
-                <flux:subheading class="mb-4">{{ __('Sizes, colors, or options. Each one tracks its own SKU and stock.') }}</flux:subheading>
+                <flux:subheading class="mb-4">{{ __('Sizes, colors, or options. SKU is optional and filled in automatically when left blank. Default stock for new rows is 1,000.') }}</flux:subheading>
                 <flux:separator class="mb-5" />
 
                 @error('variants')
@@ -141,7 +141,11 @@
                                     <flux:input wire:model="variants.{{ $idx }}.name" :label="__('Variant')" :placeholder="__('e.g. Medium')" />
                                 </div>
                                 <div class="md:col-span-3">
-                                    <flux:input wire:model="variants.{{ $idx }}.sku" :label="__('SKU')" :placeholder="__('LS-M-001')" />
+                                    <flux:input
+                                        wire:model="variants.{{ $idx }}.sku"
+                                        :label="__('SKU')"
+                                        :placeholder="__('Optional — auto-generated if empty')" />
+                                    <flux:text size="sm" class="mt-1 text-zinc-500">{{ __('Leave blank for an automatic SKU (e.g. SQ-…).') }}</flux:text>
                                 </div>
                                 <div class="md:col-span-3">
                                     <flux:input wire:model="variants.{{ $idx }}.price" type="number" step="0.01" min="0" :label="__('Price')" icon="currency-dollar" />

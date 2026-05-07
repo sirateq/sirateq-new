@@ -12,6 +12,7 @@ use Flux\Flux;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -32,7 +33,7 @@ class Form extends Component
     public bool $is_active = true;
 
     /**
-     * @var array<int, array{key: string, id: ?int, name: string, sku: string, price: float, quantity: int}>
+     * @var array<int, array{key: string, id: ?int, name: string, sku: string, price: float|int, quantity: int}>
      */
     public array $variants = [];
 
@@ -97,7 +98,7 @@ class Form extends Component
             'name' => 'Default',
             'sku' => '',
             'price' => 0,
-            'quantity' => 0,
+            'quantity' => 1000,
         ];
     }
 
@@ -158,18 +159,28 @@ class Form extends Component
 
     public function save(): void
     {
-        $this->validate([
+        $rules = [
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'category_id' => ['required', 'exists:categories,id'],
             'is_active' => ['required', 'boolean'],
             'variants' => ['required', 'array', 'min:1'],
             'variants.*.name' => ['required', 'string', 'max:255'],
-            'variants.*.sku' => ['required', 'string', 'max:255'],
             'variants.*.price' => ['required', 'numeric', 'min:0'],
             'variants.*.quantity' => ['required', 'integer', 'min:0'],
             'newImages.*' => ['nullable', 'image', 'max:5120'],
-        ]);
+        ];
+
+        foreach ($this->variants as $index => $variantRow) {
+            $rules["variants.{$index}.sku"] = [
+                'nullable',
+                'string',
+                'max:255',
+                Rule::unique('product_variants', 'sku')->ignore($variantRow['id']),
+            ];
+        }
+
+        $this->validate($rules);
 
         DB::transaction(function (): void {
             $product = Product::query()->updateOrCreate(
@@ -187,12 +198,24 @@ class Form extends Component
             }
 
             foreach ($this->variants as $variantData) {
+                $sku = trim((string) ($variantData['sku'] ?? ''));
+                if ($sku === '') {
+                    if (! empty($variantData['id'])) {
+                        $existingSku = ProductVariant::query()->whereKey($variantData['id'])->value('sku');
+                        $sku = (is_string($existingSku) && $existingSku !== '')
+                            ? $existingSku
+                            : ProductVariant::generateUniqueSku();
+                    } else {
+                        $sku = ProductVariant::generateUniqueSku();
+                    }
+                }
+
                 $variant = ProductVariant::query()->updateOrCreate(
                     ['id' => $variantData['id']],
                     [
                         'product_id' => $product->id,
                         'name' => $variantData['name'],
-                        'sku' => $variantData['sku'],
+                        'sku' => $sku,
                         'price' => $variantData['price'],
                         'is_active' => true,
                     ],
