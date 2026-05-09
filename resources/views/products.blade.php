@@ -8,42 +8,42 @@
                 'name' => 'Pollvite',
                 'category' => 'Events & Voting',
                 'description' => 'Smart event and polling platform built to boost engagement and streamline coordination.',
-                'link' => 'pollvite',
+                'link' => 'https://pollvite.com',
             ],
             [
                 'image' => 'assets/images/products/sendazi.jpg',
                 'name' => 'Sendazi',
                 'category' => 'Communication',
                 'description' => 'Communication platform with API-ready services for scalable business messaging.',
-                'link' => 'sendazi',
+                'link' => 'https://sendazi.com',
             ],
             [
                 'image' => 'assets/images/products/erp.png',
                 'name' => 'All-in-One ERP',
                 'category' => 'Enterprise',
                 'description' => 'Unified ERP solution to manage finance, operations, teams, and reporting in one place.',
-                'link' => 'erp',
+                'link' => 'https://erp.sirateq.com',
             ],
             [
                 'image' => 'assets/images/products/hotel.png',
                 'name' => 'Hotel Management',
                 'category' => 'Hospitality',
                 'description' => 'End-to-end hospitality system for bookings, operations, guest experience, and billing.',
-                'link' => 'hotel',
+                'link' => 'https://mihotel.sirateq.com',
             ],
             [
                 'image' => 'assets/images/products/hr.png',
                 'name' => 'HR & PAYROLL SOFTWARE',
                 'category' => 'HR',
                 'description' => 'Reliable HR and payroll automation for employee records, attendance, and salary workflows.',
-                'link' => 'hr',
+                'link' => 'https://hr.sirateq.com',
             ],
             [
                 'image' => 'assets/images/products/restaurant.png',
                 'name' => 'Restaurant Management System',
                 'category' => 'Restaurant',
                 'description' => 'Restaurant software for menu, orders, POS, inventory, kitchen flow, and reporting.',
-                'link' => 'restaurant',
+                'link' => 'https://restaurant.sirateq.com',
             ],
         ];
     @endphp
@@ -59,27 +59,24 @@
             <div class="row gy-40 mt-20">
                 @foreach ($products as $product)
                     <div class="col-lg-4 col-md-6">
-                        <div class="project-single-box h-100">
-                            <div class="thumb" style="aspect-ratio: 16 / 10; overflow: hidden;">
-                                <img
-                                    class="img"
-                                    src="{{ $product['image'] }}"
-                                    alt="{{ $product['name'] }}"
-                                    width="640"
-                                    height="400"
-                                    loading="lazy"
-                                    decoding="async"
-                                    style="width: 100%; height: 100%; object-fit: cover;"
-                                >
-                            </div>
-                            <div class="project-info">
-                                <h4 class="title"><a href="#">{{ $product['name'] }}</a></h4>
-                                <div class="project-badge">
-                                    <span>{{ strtoupper($product['category']) }}</span>
+                        <a href="{{ $product['link'] }}" target="_blank">
+
+
+                            <div class="project-single-box h-100">
+                                <div class="thumb" style="aspect-ratio: 16 / 10; overflow: hidden;">
+                                    <img class="img" src="{{ $product['image'] }}" alt="{{ $product['name'] }}" width="640"
+                                        height="400" loading="lazy" decoding="async"
+                                        style="width: 100%; height: 100%; object-fit: cover;">
                                 </div>
-                                <p class="mt-15 mb-0">{{ $product['description'] }}</p>
+                                <div class="project-info">
+                                    <h4 class="title"><a href="{{ $product['link'] }}" target="_blank">{{ $product['name'] }}</a></h4>
+                                    <div class="project-badge">
+                                        <span>{{ strtoupper($product['category']) }}</span>
+                                    </div>
+                                    <p class="mt-15 mb-0">{{ $product['description'] }}</p>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 @endforeach
             </div>

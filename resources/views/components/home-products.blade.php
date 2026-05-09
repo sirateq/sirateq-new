@@ -5,7 +5,7 @@
             'title' => 'Pollvite',
             'yearType' => 'Events & Voting',
             'badges' => ['SaaS', 'Events'],
-            'link' => 'pollvite',
+            'link' => 'https://pollvite.com',
             'description' => 'Smart event and polling platform built to boost engagement and streamline coordination.',
         ],
         [
@@ -13,7 +13,7 @@
             'title' => 'Sendazi',
             'yearType' => 'Communication',
             'badges' => ['SaaS', 'API'],
-            'link' => 'sendazi',
+            'link' => 'https://sendazi.com',
             'description' => 'Communication platform with API-ready services for scalable business messaging.',
         ],
         [
@@ -21,7 +21,7 @@
             'title' => 'All-in-One ERP',
             'yearType' => 'Enterprise',
             'badges' => ['Software', 'Management'],
-            'link' => 'erp',
+            'link' => 'https://erp.sirateq.com',
             'description' => 'Unified ERP solution to manage finance, operations, teams, and reporting in one place.',
         ],
         // [
@@ -98,11 +98,11 @@
                         </div>
                         <div class="project-info">
                             <span class="tag">{{ strtoupper($project['yearType']) }}</span>
-                            <h3 class="title"><a href="/products/{{ $project['link'] }}">{!! $project['title'] !!}</a></h3>
+                            <h3 class="title"><a href="{{ $project['link'] }}" target="_blank">{!! $project['title'] !!}</a></h3>
                             <div class="border mb-20"></div>
                             <p>{{ $project['description'] }}</p>
                             <div class="icon-box">
-                                <a href="/products/{{ $project['link'] }}" class="hover-icon"><i class="fa-regular fa-arrow-up-right"></i></a>
+                                <a href="{{ $project['link'] }}" target="_blank" class="hover-icon"><i class="fa-regular fa-arrow-up-right"></i></a>
                             </div>
                         </div>
                     </div>

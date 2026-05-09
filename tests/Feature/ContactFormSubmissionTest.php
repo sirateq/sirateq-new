@@ -2,10 +2,17 @@
 
 use App\Mail\ContactAdminAlert;
 use App\Mail\ContactUserConfirmation;
+use Buzz\LaravelGoogleCaptcha\Captcha;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Mail;
 
 uses(RefreshDatabase::class);
+
+beforeEach(function (): void {
+    $captcha = Mockery::mock(Captcha::class);
+    $captcha->shouldReceive('verify')->andReturn(true);
+    $this->app->instance('captcha', $captcha);
+});
 
 test('contact form accepts post on contact-us', function () {
     Mail::fake();
@@ -18,6 +25,7 @@ test('contact form accepts post on contact-us', function () {
         'company' => 'Test Co',
         'service' => 'Web Development & Design',
         'message' => 'Hello from the test suite.',
+        'g-recaptcha-response' => 'test-recaptcha-token',
     ];
 
     $response = $this->post(route('contact-us.submit'), $payload);
@@ -39,6 +47,7 @@ test('legacy post contact still works', function () {
         'phone' => '0200000000',
         'service' => 'Cloud Services',
         'message' => 'Legacy path.',
+        'g-recaptcha-response' => 'test-recaptcha-token',
     ])->assertRedirect()->assertSessionHas('success');
 
     Mail::assertSent(ContactAdminAlert::class);
