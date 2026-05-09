@@ -32,19 +32,24 @@ class ContactController extends Controller
         ]);
 
         // Send email to Sirateq admins synchronously
-        Mail::to([
-            'issakuhafiz.ih@gmail.com',
-            'bundanaabdulhafiz@gmail.com',
-            'sirateqghana@gmail.com',
-            'info@sirateqghana.com'
-        ])->sendNow(new ContactAdminAlert($formFields));
+        try {
+            Mail::to([
+                'issakuhafiz.ih@gmail.com',
+                'bundanaabdulhafiz@gmail.com',
+                'sirateqghana@gmail.com',
+                'info@sirateqghana.com'
+            ])->sendNow(new ContactAdminAlert($formFields));
 
 
-        // Send confirmation email to the user synchronously
-        // defer(function () use ($formFields) {
-        Mail::to($formFields['email'])
-            ->send(new ContactUserConfirmation($formFields));
-        // });
+            // Send confirmation email to the user synchronously
+            // defer(function () use ($formFields) {
+            Mail::to($formFields['email'])
+                ->send(new ContactUserConfirmation($formFields));
+            // });
+
+        } catch (\Exception $e) {
+            return back()->with('error', 'An error occurred while sending your message. Please try again later.');
+        }
 
         if ($request->expectsJson()) {
             return response()->json([
