@@ -432,6 +432,12 @@
                                     </span>
                                 </button>
 
+                                <p style="margin: 14px 0 0; font-size: 12px; color: #6b7280; text-align: center;">
+                                    <a href="{{ route('shop.policies.returns') }}" wire:navigate style="color: #061153; font-weight: 600; text-decoration: underline;">{{ __('Return policy') }}</a>
+                                    <span style="color: #d1d5db;">·</span>
+                                    <span>{{ __('By placing an order you agree to our return and refund terms.') }}</span>
+                                </p>
+
                                 <p style="margin: 14px 0 0; font-size: 11px; color: #9ca3af; text-align: center;">
                                     <i class="fa-solid fa-shield-halved"></i>
                                     {{ __('Secure checkout · Your details are encrypted.') }}

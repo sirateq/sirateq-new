@@ -29,6 +29,8 @@
                 <li class="list-inline-item"><a href="{{ route('about-us') }}" class="text-white">About Us</a></li>
                 <li class="list-inline-item"><a href="{{ route('services') }}" class="text-white">Services</a></li>
                 <li class="list-inline-item"><a href="{{ route('products') }}" class="text-white">Products</a></li>
+                <li class="list-inline-item"><a href="{{ route('shop.index') }}" wire:navigate class="text-white">{{ __('Shop') }}</a></li>
+                <li class="list-inline-item"><a href="{{ route('shop.policies.returns') }}" wire:navigate class="text-white">{{ __('Return policy') }}</a></li>
                 <li class="list-inline-item"><a href="{{ route('contact-us') }}" class="text-white">Contact Us</a></li>
             </ul>
         </div>

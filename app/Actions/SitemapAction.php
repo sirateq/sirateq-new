@@ -28,6 +28,18 @@ class SitemapAction
             );
         }
 
+        $sitemap->add(
+            Url::create(route('shop.index'))
+                ->setPriority(0.85)
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
+        );
+
+        $sitemap->add(
+            Url::create(route('shop.policies.returns'))
+                ->setPriority(0.7)
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
+        );
+
         $sitemap->writeToFile(public_path('sitemap.xml'));
     }
 }

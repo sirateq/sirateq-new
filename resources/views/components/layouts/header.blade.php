@@ -34,6 +34,9 @@
                                     <li>
                                         <a href="{{ route('shop.index') }}" wire:navigate>Shop</a>
                                     </li>
+                                    {{-- <li>
+                                        <a href="{{ route('shop.policies.returns') }}" wire:navigate>{{ __('Return policy') }}</a>
+                                    </li> --}}
                                     <li>
                                         <a href="{{ route('contact-us') }}">Contact</a>
                                     </li>

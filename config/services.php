@@ -62,4 +62,8 @@ return [
         'http_token' => env('SMS_HTTP_TOKEN'),
     ],
 
+    'google' => [
+        'recaptcha_site_key' => env('RECAPTCHAV3_SITEKEY'),
+        'recaptcha_secret_key' => env('RECAPTCHAV3_SECRET'),
+    ],
 ];

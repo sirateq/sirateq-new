@@ -62,6 +62,7 @@ Route::post('/contact', [ContactController::class, 'submit'])->name('contact.sub
 
 Route::prefix('shop')->group(function () {
     Route::livewire('/', Catalog::class)->name('shop.index');
+    Route::view('/policies/returns', 'shop.policies.returns')->name('shop.policies.returns');
     Route::livewire('/products/{product:slug}', ProductShow::class)->name('shop.products.show');
     Route::livewire('/track', OrderTracking::class)->name('shop.orders.track');
     Route::livewire('/cart', CartPage::class)->name('shop.cart');
@@ -99,13 +100,4 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->group(functio
     Route::livewire('/customers', CustomersIndex::class)->name('admin.customers.index');
     Route::livewire('/customers/{user}', CustomersShow::class)->name('admin.customers.show');
 });
-
-Route::get('test', function () {
-
-    // get user and change role to admin
-    $user = User::first();
-    $user->is_admin = true;
-    $user->save();
-
-    return $user;
-});
+ 

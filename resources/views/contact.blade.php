@@ -112,6 +112,7 @@
                         @endif
                         <form class="contact-form-native" action="{{ route('contact-us.submit') }}" method="post">
                             @csrf
+                         
                             <div class="form-grid">
                                 <div class="form-group">
                                     <input type="text" id="firstName" name="first_name" placeholder="First Name"
@@ -166,6 +167,11 @@
                             <div class="form-group">
                                 <textarea id="message" name="message" placeholder="Write Message" required>{{ old('message') }}</textarea>
                             </div> 
+                            {{-- {!! RecaptchaV3::field('contact') !!}  --}}
+
+                            {!! app('captcha')->display() !!}
+
+
                             <button type="submit" class="theme-btn  mt-30" data-loading-text="Please wait...">
                                 <span class="link-effect">
                                     <span class="effect-1">Submit Now</span>

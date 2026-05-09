@@ -58,6 +58,11 @@
 
   gtag('config', 'AW-18146464872');
 </script>
+{!! RecaptchaV3::initJs() !!}
+<style>
+.grecaptcha-badge { visibility: hidden !important; }
+
+</style>
 </head>
 
 <body id="body">
