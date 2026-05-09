@@ -167,9 +167,9 @@
                             <div class="form-group">
                                 <textarea id="message" name="message" placeholder="Write Message" required>{{ old('message') }}</textarea>
                             </div> 
-                            {{-- {!! RecaptchaV3::field('contact') !!}  --}}
+                            {!! RecaptchaV3::field('contact') !!} 
 
-                            {!! app('captcha')->display() !!}
+                            {{-- {!! app('captcha')->display() !!} --}}
 
 
                             <button type="submit" class="theme-btn  mt-30" data-loading-text="Please wait...">

@@ -25,10 +25,10 @@ class ContactController extends Controller
             'service' => 'required|string|max:255',
             'message' => 'required|string',
             // 'g-recaptcha-response' => 'required|recaptchav3:contact,0.5'
-            'g-recaptcha-response' => 'required|captcha'
+            'g-recaptcha-response' => 'required|recaptchav3:contact,0.5'
         ], [
             'g-recaptcha-response.required' => 'Human verification failed.',
-            'g-recaptcha-response.captcha' => 'Human verification failed.',
+            'g-recaptcha-response.recaptchav3' => 'Human verification failed.',
         ]);
 
         // Send email to Sirateq admins synchronously
