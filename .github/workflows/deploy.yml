@@ -35,7 +35,7 @@ jobs:
 
           composer install --no-dev --optimize-autoloader
          
-          echo "Installing frontend dependencies"
+          echo "Installing frontend dependencies "
           npm install
 
           echo "Building frontend assets"
