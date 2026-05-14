@@ -31,7 +31,7 @@ jobs:
 
           git fetch origin master
           git reset --hard origin/master
-          git clean -fd
+          git clean -fd 
 
           composer install --no-dev --optimize-autoloader
          
